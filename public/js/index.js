@@ -6,7 +6,7 @@ import { displayMap } from './mapbox';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 
-console.log('Hello from parcel!');
+// console.log('Hello from parcel!');
 
 // DOM Elements
 
@@ -20,7 +20,7 @@ const bookBtn = document.getElementById('book-tour');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
-  console.log(locations);
+  //console.log(locations);
   displayMap(locations);
 }
 
@@ -72,7 +72,7 @@ if (bookBtn) {
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
-    console.log(tourId);
+    //console.log(tourId);
     bookTour(tourId);
   });
 }

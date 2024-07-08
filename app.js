@@ -13,6 +13,8 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const cookieParser = require('cookie-parser');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -111,7 +113,7 @@ app.use(
 );
 
 // Development Logging
-console.log(process.env.NODE_ENV);
+//console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -158,6 +160,8 @@ app.use(
 //   console.log('Hello from the middleware! 😍');
 //   next();
 // });
+
+app.use(compression());
 
 // Test Middleware
 app.use((req, res, next) => {

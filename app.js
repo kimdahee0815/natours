@@ -24,6 +24,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const { webhookCheckout } = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
@@ -148,6 +149,14 @@ const limiter = rateLimit({
   validate: { trustProxy: false },
 });
 app.use('/api', limiter);
+
+// body shouldn't be json! if request hit body parser express.json, then body will be changed to json
+// it needs to be raw form, not json
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout,
+);
 
 // app.engine('pug', require('pug').__express);
 // app.set('view engine', 'pug');

@@ -60,7 +60,7 @@ const cspOptions = {
       'https://fonts.googleapis.com',
       'https://unpkg.com',
       'https://api.mapbox.com',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'font-src': ['self', 'https://fonts.gstatic.com'],
     'script-src': [
@@ -75,7 +75,7 @@ const cspOptions = {
       'https://unpkg.com',
       'http://localhost:8000',
       'https://cdn.jsdelivr.net',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'worker-src': [
       'self',
@@ -86,7 +86,7 @@ const cspOptions = {
       'https://*.mapbox.com',
       'https://*.cloudflare.com/',
       'https://bundle.js:*',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'frame-src': [
       'self',
@@ -97,7 +97,7 @@ const cspOptions = {
       'https://*.mapbox.com',
       'https://*.cloudflare.com/',
       'https://bundle.js:*',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'img-src': [
       'self',
@@ -109,7 +109,7 @@ const cspOptions = {
       'https://*.cloudflare.com/',
       'https://bundle.js:*',
       'http://localhost:8000',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'connect-src': [
       'self',
@@ -123,7 +123,7 @@ const cspOptions = {
       'http://localhost:8000',
       'ws://localhost:58446/',
       'ws://localhost:1234/',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
+      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
   },
 };

@@ -48,7 +48,8 @@ if (signupForm) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
-    signup(name, email, password, passwordConfirm);
+    const role = document.getElementById('role').value;
+    signup(name, email, password, passwordConfirm, role);
     document.querySelector('.btn--signup').textContent = 'Sign Up';
 
   });

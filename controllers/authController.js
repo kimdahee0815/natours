@@ -38,10 +38,10 @@ const createSendToken = (user, statusCode, req, res) => {
 };
 
 exports.signup = catchAsync(async (req, res, next) => {
-  const { email, password, passwordConfirm, name } = req.body;
+  const { email, password, passwordConfirm, name, role } = req.body;
 
   // 1) Check if email, name, password, passwordConfirm exist
-  if (!email || !password || !passwordConfirm || !name) {
+  if (!email || !password || !passwordConfirm || !name || !role) {
     return next(new AppError('Please provide all the fields!', 400));
   }
   // 2) Check if password and passwordConfirm are the same
@@ -60,6 +60,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     passwordChangedAt: req.body.passwordChangedAt,
+    role: req.body.role,
   });
   const url = `${req.protocol}://${req.get('host')}/me`;
   //console.log(url);

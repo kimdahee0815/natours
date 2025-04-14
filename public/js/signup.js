@@ -3,10 +3,6 @@ import { showAlert } from './alerts';
 
 export const signup = async (name, email, password, passwordConfirm) => {
   try {
-    if(password !== passwordConfirm){
-      showAlert('error', 'Passwords do not match!');
-      return;
-    }
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/signup',
@@ -14,6 +10,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
         name,
         email,
         password,
+        passwordConfirm
       },
     });
 

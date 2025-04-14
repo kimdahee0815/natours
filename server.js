@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 process.on('uncaughtException', (err) => {
@@ -9,7 +8,6 @@ process.on('uncaughtException', (err) => {
 });
 const app = require('./app');
 
-dotenv.config({ path: './.env' });
 const DB = process.env.DB.replace('<PASSWORD>', process.env.DB_PW);
 mongoose
   // .connect(process.env.DB_LOCAL, {

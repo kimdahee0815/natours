@@ -39,7 +39,7 @@ const createSendToken = (user, statusCode, req, res) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
   const { email, password, passwordConfirm, name } = req.body;
-  
+
   // 1) Check if email, name, password, passwordConfirm exist
   if (!email || !password || !passwordConfirm || !name) {
     return next(new AppError('Please provide all the fields!', 400));
@@ -50,7 +50,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
   // 3) Check if user already exists
   const user = await User.findOne({ email }).select('email');
-  if(user){
+  if (user) {
     return next(new AppError('Email already exists!', 400));
   }
   // 4) Create a new user
@@ -286,12 +286,20 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
       new AppError('Current password is not correct. Try it again!', 400),
     );
   }
-  // 3) If so, update password
+  // 3) Check if new password is the same as old password
+  if (req.body.currentPassword === req.body.password) {
+    return next(new AppError('New password must be different from old.', 400));
+  }
+  // 4) Check if new password and passwordConfirm are the same
+  if (req.body.password !== req.body.passwordConfirm) {
+    return next(new AppError('New Password Confirmation failed!', 400));
+  }
+  // 5) If so, update password
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
 
-  // 4) Log user in, send JWT token back to user
+  // 6) Log user in, send JWT token back to user
   createSendToken(user, 200, req, res);
   // const token = signToken(user._id);
 

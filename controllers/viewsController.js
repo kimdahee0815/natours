@@ -71,6 +71,13 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   // 1) Find all bookings
   //console.log(req.user.id);
   const bookings = await Booking.find({ user: req.user.id });
+  if (bookings.length === 0) {
+    res.status(200).render('overview', {
+      title: 'My Tours',
+      tours: [],
+    });
+    return next(new AppError('You have no bookings yet.', 400));
+  }
   // 2) Find tours with the returned IDs
   const tourIDs = bookings.map((el) => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });

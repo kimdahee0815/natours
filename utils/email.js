@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const pug = require('pug');
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -8,7 +7,6 @@ const { htmlToText } = require('html-to-text');
 const path = require('path');
 const sgMail = require('@sendgrid/mail');
 
-dotenv.config({ path: '../.env' });
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;

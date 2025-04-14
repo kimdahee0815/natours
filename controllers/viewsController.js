@@ -76,7 +76,6 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
       title: 'My Tours',
       tours: [],
     });
-    return next(new AppError('You have no bookings yet.', 400));
   }
   // 2) Find tours with the returned IDs
   const tourIDs = bookings.map((el) => el.tour);

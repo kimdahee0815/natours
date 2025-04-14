@@ -30,10 +30,12 @@ if (mapBox) {
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    document.querySelector('.btn--login').textContent = 'Logging in...';
     // Values
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     login(email, password);
+    document.querySelector('.btn--login').textContent = 'Login';
   });
 }
 
@@ -41,11 +43,14 @@ if (loginForm) {
 if (signupForm) {
   signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    document.querySelector('.btn--signup').textContent = 'Processing...';
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     signup(name, email, password, passwordConfirm);
+    document.querySelector('.btn--signup').textContent = 'Sign Up';
+
   });
 }
 
@@ -56,12 +61,14 @@ if (logOutBtn) {
 if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    document.querySelector('.btn--save-userdata').textContent = 'Updating...';
     const form = new FormData();
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
 
     updateSettings(form, 'data');
+    document.querySelector('.btn--save-userdata').textContent = 'Save settings';
   });
 }
 

@@ -44,10 +44,16 @@ exports.signup = catchAsync(async (req, res, next) => {
   if (!email || !password || !passwordConfirm || !name) {
     return next(new AppError('Please provide all the fields!', 400));
   }
-  
+  // 2) Check if password and passwordConfirm are the same
   if (password !== passwordConfirm) {
     return next(new AppError('Passwords do not match!', 400));
   }
+  // 3) Check if user already exists
+  const user = await User.findOne({ email }).select('email');
+  if(user){
+    return next(new AppError('Email already exists!', 400));
+  }
+  // 4) Create a new user
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,

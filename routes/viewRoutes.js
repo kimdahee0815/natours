@@ -3,6 +3,7 @@ const {
   getOverview,
   getTour,
   getLoginForm,
+  getSignupForm,
   getAccount,
   updateUserData,
   getMyTours,

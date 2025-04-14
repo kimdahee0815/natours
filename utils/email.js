@@ -8,8 +8,7 @@ const { htmlToText } = require('html-to-text');
 const path = require('path');
 const sgMail = require('@sendgrid/mail');
 
-
-dotenv.config({ path: './.env' });
+dotenv.config({ path: '../.env' });
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;

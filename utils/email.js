@@ -8,7 +8,7 @@ const path = require('path');
 const sgMail = require('@sendgrid/mail');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: './.env' });
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;

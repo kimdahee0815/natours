@@ -55,6 +55,8 @@ module.exports = class Email {
     if (process.env.NODE_ENV === 'development') {
       await this.newTransport().sendMail(mailOptions);
     } else if (process.env.NODE_ENV === 'production') {
+      console.log(process.env.SENDGRID_API_KEY);
+      console.log(process.env.NODE_ENV);
       // Send email with SendGrid
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       sgMail

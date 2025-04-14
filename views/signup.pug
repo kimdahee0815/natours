@@ -11,6 +11,12 @@ block content
                 .form__group
                     label.form__label(for='name') Full Name
                     input#name.form__input(type='text', placeholder='Your Name', required, minlength='2')
+                .form__group
+                    label.form__label(for='role') Role
+                    select#role.form__input(name='role')
+                        option(value='user') User
+                        option(value='guide') Tour Guide
+                        option(value='lead-guide') Lead Guide
                 .form__group.ma-bt-md
                     label.form__label(for='password') Password
                     input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')

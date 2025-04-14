@@ -57,6 +57,7 @@ module.exports = class Email {
     } else if (process.env.NODE_ENV === 'production') {
       console.log(process.env.SENDGRID_API_KEY);
       console.log(process.env.NODE_ENV);
+      console.log(process.env);
       // Send email with SendGrid
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       sgMail

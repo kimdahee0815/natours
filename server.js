@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 😯');

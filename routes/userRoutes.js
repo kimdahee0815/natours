@@ -21,6 +21,7 @@ const {
   protect,
   restrictTo,
 } = require('../controllers/authController');
+const { getResetNewPasswordForm } = require('../controllers/viewsController');
 
 const router = express.Router();
 
@@ -28,7 +29,10 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.get('/logout', logout);
 router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:token', resetPassword);
+router
+  .route('/resetPassword/:token')
+  .patch(resetPassword)
+  .get(getResetNewPasswordForm);
 
 // Protect all routes after this middleware
 router.use(protect);

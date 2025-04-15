@@ -7,6 +7,7 @@ import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
 import { signup } from './signup';
+import { resetPassword } from '../../controllers/authController';
 
 // console.log('Hello from parcel!');
 
@@ -46,7 +47,7 @@ if(passwordResetForm) {
     document.querySelector('.btn--password-reset').textContent = 'Processing...';
     const email = document.getElementById('email').value;
 
-    signup(email);
+    resetPassword(email);
     document.querySelector('.btn--password-reset').textContent = 'Reset Password';
   });
 }

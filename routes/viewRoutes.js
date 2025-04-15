@@ -6,7 +6,7 @@ const {
   getSignupForm,
   getForgotPasswordForm,
   getAccount,
-  updateUserData,
+  //updateUserData,
   getMyTours,
   getMyReviews,
 } = require('../controllers/viewsController');
@@ -27,6 +27,6 @@ router.get('/me', protect, getAccount);
 router.get('/my-tours', protect, getMyTours);
 router.get('/my-reviews', protect, getMyReviews);
 
-router.post('/submit-user-data', protect, updateUserData);
+// router.post('/submit-user-data', protect, updateUserData);
 
 module.exports = router;

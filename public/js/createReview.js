@@ -10,8 +10,6 @@ export const createReview = async (review, rating) => {
       data: {
         review, 
         rating, 
-        tour: req.body.tour, 
-        user: req.body.user
       },
     });
 

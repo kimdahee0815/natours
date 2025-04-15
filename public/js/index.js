@@ -146,7 +146,7 @@ if(createReviewForm){
     document.querySelector('.btn--create-review').textContent = 'Creating...';
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
-
+    console.log(tourId)
     await createReview(review, rating, tourId);
     document.querySelector('.btn--create-review').textContent = 'Create Review';
   }

@@ -12,9 +12,14 @@ export const login = async (email, password) => {
         password,
       },
     });
-    //console.log(res);
+
     if (res.data.status === 'success') {
-      showAlert('success', 'Logged In Successfully!');
+      if(res.data.data.activeUser === true) {
+        showAlert('success', 'Your account has been activated again!');
+      }else{
+        showAlert('success', 'Logged In Successfully!');
+      }
+
       location.assign('/');
     }
   } catch (err) {

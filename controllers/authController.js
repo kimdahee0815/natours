@@ -34,6 +34,7 @@ const createSendToken = (user, statusCode, req, res) => {
     token,
     data: {
       user,
+      activeUser: req.activeUser,
     },
   });
 };
@@ -100,6 +101,12 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
+
+  if (user.active === false) {
+    req.activeUser = true;
+    user.active = true;
+  }
+  await user.save();
 
   // 3) if everything is okay, send token to client
   createSendToken(user, 200, req, res);

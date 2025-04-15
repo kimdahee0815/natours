@@ -15,6 +15,7 @@ export const deleteUser = async (currentPassword) => {
     console.log(res.data)
     if (res.data.status === 'success') {
       showAlert('success', 'Your Account is inactive now! It will be deleted in 30 days!');
+      document.cookie = 'jwt=; path=/;';
       location.assign('/');
     }
   } catch (err) {

@@ -23,7 +23,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const userDeleteForm = document.querySelector('.form-user-delete');
-const uploadBtn = documetn.getElementById('upload')
+const uploadBtn = documetn.getElementById('photo')
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);

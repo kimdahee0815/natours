@@ -9,6 +9,7 @@ import { showAlert } from './alerts';
 import { signup } from './signup';
 import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
+import { deleteUser } from './deleteUser';
 
 // DOM Elements
 
@@ -21,7 +22,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
-
+const userDeleteForm = document.querySelector('.form-user-delete');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -114,6 +115,17 @@ if (userPasswordForm) {
     document.getElementById('password-current').value = '';
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
+  });
+}
+
+if(userDeleteForm) {
+  userDeleteForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--delete-account').textContent = 'Deleting...';
+    const password = document.getElementById('password').value;
+    
+    await deleteUser(password);
+    document.querySelector('.btn--delete-account').textContent = 'Delete Account';
   });
 }
 

@@ -88,7 +88,21 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteMe = catchAsync(async (req, res) => {
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  const { password } = req.body;
+  // 1) Get user from collection
+  const user = await User.findById(req.user.id).select('+password');
+
+  if (!user) {
+    return next(new AppError('User not found!', 404));
+  }
+
+  // 2) Check if posted password is correct
+  if (!(await user.correctPassword(password, user.password))) {
+    return next(new AppError('Incorrect password!', 401));
+  }
+
+  // 3) If so, delete account
   await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(204).json({

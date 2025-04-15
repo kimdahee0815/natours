@@ -4,9 +4,8 @@ import { showAlert } from './alerts';
 
 export const deleteBooking = async (id) => {
   try {
-    const res = axios.delete(`/api/v1/bookings/${id}`)
-
-    console.log(res);
+    const res = await axios.delete(`/api/v1/bookings/${id}`)
+    
     if (res.data.status === 'success') {
       showAlert('success', 'Your Booking was deleted successfully!');
       location.assign('/mytours');
@@ -14,9 +13,9 @@ export const deleteBooking = async (id) => {
   } catch (err) {
     console.log(err);
     if(err.response){
-      showAlert('error', 'You cannot delete this booking!');
-    }else {
       showAlert('error', err.response.data.message);
+    }else {
+      showAlert('error', 'You cannot delete this booking!');
     }
     
   }

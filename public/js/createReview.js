@@ -16,7 +16,7 @@ export const createReview = async (review, rating) => {
     if (res.data.status === 'success') {
         showAlert('success', 'Created your review Successfully!');
 
-        location.assign('/');
+        location.assign('/my-reviews');
     }
   } catch (err) {
     console.log(err);

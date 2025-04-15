@@ -1,11 +1,9 @@
-const mongoose = require('mongoose');
 const Review = require('../models/reviewModel');
+const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-
-const { ObjectId } = mongoose.Types;
 
 exports.setTourUserIds = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id);
@@ -14,7 +12,10 @@ exports.setTourUserIds = catchAsync(async (req, res, next) => {
   }
 
   // Allow nested routes
-  if (!req.body.tour) req.body.tour = req.params.tourId;
+  if (!req.body.tour) {
+    const tour = await Tour.findById(req.params.tourId);
+    req.body.tour = tour._id;
+  }
   if (!req.body.user) req.body.user = req.user._id;
   next();
 });

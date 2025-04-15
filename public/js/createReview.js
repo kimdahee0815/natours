@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { showAlert, hideAlert } from './alerts';
 
-export const createReview = async (review, rating) => {
+export const createReview = async (review, rating, tourId) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -10,6 +10,7 @@ export const createReview = async (review, rating) => {
       data: {
         review, 
         rating, 
+        tourId,
       },
     });
 

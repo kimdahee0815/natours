@@ -12,21 +12,18 @@ exports.setTourUserIds = catchAsync(async (req, res, next) => {
   }
 
   // Allow nested routes
-  if (!req.body.tour) {
-    const tour = await Tour.findById(req.params.tourId);
-    req.body.tour = tour._id;
-  }
   if (!req.body.user) req.body.user = req.user._id;
   next();
 });
 
 exports.createReview = catchAsync(async (req, res, next) => {
-  const { review, rating, tour, user } = req.body;
+  const { review, rating, user, tourId } = req.body;
+  const tour = await Tour.findById(tourId);
   console.log(review, rating, tour, user);
   const newReview = await Review.create({
     review,
     rating,
-    tour,
+    tour: tour._id,
     user,
   });
 

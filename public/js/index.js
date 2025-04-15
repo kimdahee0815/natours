@@ -142,11 +142,12 @@ if(userDeleteForm) {
 if(createReviewForm){
   createReviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const { tourId } = e.target.dataset;
     document.querySelector('.btn--create-review').textContent = 'Creating...';
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
 
-    await createReview(review, rating);
+    await createReview(review, rating, tourId);
     document.querySelector('.btn--create-review').textContent = 'Create Review';
   }
   );

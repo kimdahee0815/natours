@@ -47,7 +47,7 @@ if(passwordResetForm) {
     document.querySelector('.btn--password-reset').textContent = 'Processing...';
     const email = document.getElementById('email').value;
 
-    resetPassword(email);
+    forgotPassword(email);
     document.querySelector('.btn--password-reset').textContent = 'Reset Password';
   });
 }

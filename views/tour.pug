@@ -72,7 +72,7 @@ block content
                 +reviewCard(review)
 
     if user
-        if isBooked
+        if bookId
             .reviews__new
                 h2.heading-secondary.ma-bt-lg.middle Write your own review
                 form.form.form-review
@@ -100,8 +100,8 @@ block content
             h2.heading-secondary What are you waiting for?
             p.cta__text=`${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
             if user 
-                if isBooked
-                    button.btn.btn--red.span-all-rows#delete-tour(data-tour-id=`${tour.id}`) Delete Booking
+                if bookId
+                    button.btn.btn--red.span-all-rows#delete-booking(data-book-id=`${bookId}`) Delete Booking
                 else 
                     button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
                 

@@ -39,7 +39,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
     fields: 'review rating user',
   });
 
-  let isBooked = false;
+  let bookId = null;
 
   // 1) Getting token and check if it's there
   let token;
@@ -63,17 +63,11 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
     const bookings = await Booking.find({ user: req.user._id });
 
-    console.log(bookings);
-
-    isBooked = bookings.some((booking) => {
-      console.log(booking.tour._id.toString());
-      console.log(tour._id.toString());
-      return (
+    bookId = bookings.find(
+      (booking) =>
         booking.tour._id.toString() === tour._id.toString() &&
-        booking.paid === true
-      );
-    });
-    console.log(isBooked);
+        booking.paid === true,
+    );
   }
 
   if (!tour) {
@@ -86,7 +80,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   res.status(200).render('tour', {
     title: `${tour.name} Tour`,
     tour,
-    isBooked,
+    bookId,
   });
 });
 

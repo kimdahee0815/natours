@@ -24,7 +24,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
-const deleteBookingBtn = document.getElementById('delete-tour');
+const deleteBookingBtn = document.getElementById('delete-booking');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
@@ -162,10 +162,9 @@ if (bookBtn) {
 if(deleteBookingBtn){
   deleteBookingBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Deleting...';
-    const { tourId } = e.target.dataset;
+    const { bookId } = e.target.dataset;
 
-    console.log(tourId)
-    deleteBooking(tourId);
+    deleteBooking(bookId);
   });
 }
 

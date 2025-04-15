@@ -159,7 +159,8 @@ const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 10);
 
 document.addEventListener('DOMContentLoaded', () => {
-  uploadBtn.addEventListener('change', (e) => {
+  if(uploadBtn) {
+    uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -170,5 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fileReader.onload = () => {
       previewImg.src = fileReader.result;
     };
-  });
+    });
+  }
 });

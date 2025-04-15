@@ -245,6 +245,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
+  const { password, passwordConfirm } = req.body;
   // 1) Get user based on the token
   const hashedToken = crypto
     .createHash('sha256')
@@ -261,8 +262,15 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     return next(new AppError('Token is invalid or has expired', 400));
   }
 
-  user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
+  // 3) Check if new password and passwordConfirm are the same
+  if (!password || !passwordConfirm) {
+    return next(
+      new AppError('New Password and PasswordConfirm mistmatch!', 400),
+    );
+  }
+
+  user.password = password;
+  user.passwordConfirm = passwordConfirm;
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
 

@@ -10,6 +10,7 @@ import { signup } from './signup';
 import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
 import { deleteUser } from './deleteUser';
+import { deleteBooking } from './deleteBooking';
 
 // DOM Elements
 
@@ -22,6 +23,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const deleteBookingBtn = document.getElementById('delete-tour');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = documetn.getElementById('photo')
 //Delegation
@@ -138,6 +140,15 @@ if (bookBtn) {
     const { tourId } = e.target.dataset;
     //console.log(tourId);
     bookTour(tourId);
+  });
+}
+
+if(deleteBookingBtn){
+  deleteBookingBtn.addEventListener('click', (e) => {
+    e.target.textContent = 'Deleting...';
+    const { tourId } = e.target.dataset;
+
+    deleteBooking(tourId);
   });
 }
 

@@ -29,6 +29,7 @@ const createSendToken = (user, statusCode, req, res) => {
   //Remove the password from the output
   user.password = undefined;
 
+  console.log(req.activeUser);
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -55,7 +56,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   if (user && user.active === false) {
     return next(
       new AppError(
-        'This email is not active! If you want to activate it again, please contact admin.',
+        'This email is not active! If you want to activate it again, please login again.',
         400,
       ),
     );
@@ -105,7 +106,7 @@ exports.login = catchAsync(async (req, res, next) => {
   if (user.active === false) {
     req.activeUser = true;
     user = await User.findByIdAndUpdate(
-      { params: { id: user._id } },
+      user._id,
       {
         active: true,
       },
@@ -236,7 +237,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   if (user && user.active === false) {
     return next(
       new AppError(
-        'This email is not active! If you want to activate it again, please contact admin.',
+        'This email is not active! If you want to activate it again, please login again.',
         400,
       ),
     );

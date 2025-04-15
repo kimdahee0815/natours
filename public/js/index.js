@@ -148,11 +148,11 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 uploadBtn.addEventListener('change', (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
-    fileReader.onload = (url) => {
-      fileReader.result = url.target.result;
+    fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.onload = (event) => {
       const img = document.getElementById('previewImg');
       img.src = fileReader.result;
     }
-    fileReader.readAsDataURL(e.target.files[0]);
+    
   }
 )

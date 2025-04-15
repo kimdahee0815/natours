@@ -26,7 +26,7 @@ exports.createReview = catchAsync(async (req, res, next) => {
   const newReview = await Review.create({
     review,
     rating,
-    tour: ObjectId(tour),
+    tour,
     user,
   });
 

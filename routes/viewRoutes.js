@@ -22,6 +22,7 @@ router.get(`/tour/:slug`, isLoggedIn, getTour);
 router.get('/login', isLoggedIn, getLoginForm);
 router.get('/signup', isLoggedIn, getSignupForm);
 router.get('/forgotPassword', isLoggedIn, getForgotPasswordForm);
+router.get('/resetPassword/:token', isLoggedIn, getOverview);
 router.get('/me', protect, getAccount);
 router.get('/my-tours', protect, getMyTours);
 

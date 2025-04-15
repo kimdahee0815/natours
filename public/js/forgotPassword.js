@@ -14,7 +14,7 @@ export const forgotPassword = async (email) => {
     //console.log(res);
     if (res.data.status === 'success') {
       showAlert('success', 'Password Reset Email was sent!');
-      location.assign('/');
+      location.assign('/login');
     }
   } catch (err) {
     console.log(err);

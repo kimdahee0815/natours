@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
@@ -36,13 +37,35 @@ exports.getTour = catchAsync(async (req, res, next) => {
     fields: 'review rating user',
   });
 
-  console.log(req.user);
-  const bookings = await Booking.find({ user: req.user.id });
-  console.log(bookings);
-  const isBooked = bookings.some(
-    (booking) =>
-      booking.tour._id.toString() === tour._id && booking.paid === true,
-  );
+  let isBooked = false;
+
+  // 1) Getting token and check if it's there
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+
+  if (token) {
+    // 2) Verification token
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    // 3) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+
+    req.user = currentUser;
+
+    const bookings = await Booking.find({ user: req.user.id });
+
+    isBooked = bookings.some(
+      (booking) =>
+        booking.tour._id.toString() === tour._id && booking.paid === true,
+    );
+  }
 
   if (!tour) {
     next(new AppError('There is no tour that you are looking for. ', 400));

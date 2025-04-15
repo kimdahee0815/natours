@@ -163,8 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    console.log(e.target.files[0]);
+    
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 

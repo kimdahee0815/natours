@@ -16,6 +16,9 @@ export const updateSettings = async (data, type) => {
     });
 
     if (res.data.status === 'success') {
+      if (type === 'data') {
+        location.reload(true); // Reload the page to reflect changes
+      }
       showAlert('success', `${type.toUpperCase()} updated successfully!`);
     }
   } catch (err) {

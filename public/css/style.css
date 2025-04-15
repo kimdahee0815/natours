@@ -1261,7 +1261,7 @@ body {
   margin: 0 auto;
 }
 
-.login-form {
+.login-form, .signup-form, .password-reset-form, .reset-new-password-form{
   margin: 0 auto;
   max-width: 55rem;
   background-color: #fff;
@@ -1271,9 +1271,9 @@ body {
   border-radius: 5px;
 }
 
-.login-form, .signup-form, .password-reset-form, .reset-new-password-form{
+.reviews__new {
   margin: 0 auto;
-  max-width: 55rem;
+  max-width: 100rem;
   background-color: #fff;
   -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
   box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);

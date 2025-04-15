@@ -25,7 +25,9 @@ const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const deleteBookingBtn = document.getElementById('delete-tour');
 const userDeleteForm = document.querySelector('.form-user-delete');
-const uploadBtn = documetn.getElementById('photo')
+const uploadBtn = document.getElementById('photo');
+const previewImg = document.getElementById('previewImg');
+
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -157,13 +159,11 @@ const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 10);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const uploadBtn = document.getElementById('photo');
-  const previewImg = document.getElementById('previewImg');
-
   uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
+    console.log(e.target.files[0]);
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 

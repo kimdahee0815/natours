@@ -1,8 +1,11 @@
+const mongoose = require('mongoose');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
+
+const { ObjectId } = mongoose.Types;
 
 exports.setTourUserIds = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id);
@@ -22,7 +25,7 @@ exports.createReview = catchAsync(async (req, res, next) => {
   const newReview = await Review.create({
     review,
     rating,
-    tour,
+    tour: ObjectId(tour),
     user,
   });
 

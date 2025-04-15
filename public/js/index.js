@@ -124,9 +124,9 @@ if(userDeleteForm) {
   userDeleteForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--delete-account').textContent = 'Deleting...';
-    const password = document.getElementById('password').value;
+    const currentPassword = document.getElementById('delete-current-password').value;
     
-    await deleteUser(password);
+    await deleteUser(currentPassword);
     document.querySelector('.btn--delete-account').textContent = 'Delete Account';
   });
 }

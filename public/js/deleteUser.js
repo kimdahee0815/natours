@@ -2,13 +2,13 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const deleteUser = async (password) => {
+export const deleteUser = async (currentPassword) => {
   try {
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/deleteMe',
       data: {
-        password,
+        currentPassword,
       },
     });
 

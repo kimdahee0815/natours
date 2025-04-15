@@ -720,7 +720,7 @@ body {
   padding: 3rem;
   padding-bottom: 11rem;
   padding-top: calc(15rem + var(--section-rotate));
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
 }
 
 .cta {
@@ -1273,7 +1273,7 @@ body {
 
 .reviews__new {
   margin: 0 auto;
-  max-width: 100rem;
+  width: 70%;
   background-color: #fff;
   -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
   box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);

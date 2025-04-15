@@ -59,7 +59,7 @@ if (resetNewPasswordForm) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const token = window.location.href.split('/')[5];
-    //console.log(token);
+
     resetPassword(token, password, passwordConfirm);
     document.querySelector('.btn--reset-new-password').textContent = 'Reset Password';
   });

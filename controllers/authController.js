@@ -262,8 +262,13 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     return next(new AppError('Token is invalid or has expired', 400));
   }
 
-  // 3) Check if new password and passwordConfirm are the same
+  // 3) Check if password and passwordConfirm exist
   if (!password || !passwordConfirm) {
+    return next(new AppError('Please provide all the fields!', 400));
+  }
+
+  // 4) Check if new password and passwordConfirm are the same
+  if (password !== passwordConfirm) {
     return next(
       new AppError('New Password and PasswordConfirm mistmatch!', 400),
     );

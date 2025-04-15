@@ -235,6 +235,15 @@ body {
   color: #fff;
 }
 
+.btn--red {
+  background-color: #ff7730;
+  color: #fff;
+}
+
+.btn--red::after {
+  background-color: #ff7730;
+}
+
 .btn--wide {
   width:100%;
 }

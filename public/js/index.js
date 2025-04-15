@@ -44,30 +44,30 @@ if (mapBox) {
 }
 
 if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--login').textContent = 'Logging in...';
     // Values
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    login(email, password);
+    await login(email, password);
     document.querySelector('.btn--login').textContent = 'Login';
   });
 }
 
 if(passwordResetForm) {
-  passwordResetForm.addEventListener('submit', (e) => {
+  passwordResetForm.addEventListener('submit',  async (e) => {
     e.preventDefault();
     document.querySelector('.btn--password-reset').textContent = 'Processing...';
     const email = document.getElementById('email').value;
 
-    forgotPassword(email);
+    await forgotPassword(email);
     document.querySelector('.btn--password-reset').textContent = 'Reset Password';
   });
 }
 
 if (resetNewPasswordForm) {
-  resetNewPasswordForm.addEventListener('submit', (e) => {
+  resetNewPasswordForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     document.querySelector('.btn--reset-new-password').textContent = 'Processing...';
@@ -76,13 +76,13 @@ if (resetNewPasswordForm) {
     const pathSegments = window.location.pathname.split('/');
     const token = pathSegments[pathSegments.length - 1];
 
-    resetPassword(token, password, passwordConfirm);
+    await resetPassword(token, password, passwordConfirm);
     document.querySelector('.btn--reset-new-password').textContent = 'Reset Password';
   });
 }
 
 if (signupForm) {
-  signupForm.addEventListener('submit', (e) => {
+  signupForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--signup').textContent = 'Processing...';
     const name = document.getElementById('name').value;
@@ -90,7 +90,7 @@ if (signupForm) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const role = document.getElementById('role').value;
-    signup(name, email, password, passwordConfirm, role);
+    await signup(name, email, password, passwordConfirm, role);
     document.querySelector('.btn--signup').textContent = 'Sign Up';
 
   });
@@ -101,7 +101,7 @@ if (logOutBtn) {
 }
 
 if (userDataForm) {
-  userDataForm.addEventListener('submit', (e) => {
+  userDataForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--save-userdata').textContent = 'Updating...';
     const form = new FormData();
@@ -109,8 +109,8 @@ if (userDataForm) {
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
 
-    updateSettings(form, 'data');
-    document.querySelector('.btn--save-userdata').textContent = 'Save settings';
+    await updateSettings(form, 'data');
+    document.querySelector('.btn--save-userdata').textContent = 'Save Settings';
   });
 }
 
@@ -126,7 +126,7 @@ if (userPasswordForm) {
       { currentPassword, password, passwordConfirm },
       'password',
     );
-    document.querySelector('.btn--save-password').textContent = 'Save password';
+    document.querySelector('.btn--save-password').textContent = 'Save Password';
     document.getElementById('password-current').value = '';
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
@@ -173,29 +173,32 @@ if(updateReviewForm){
 }
 
 if (bookBtn) {
-  bookBtn.addEventListener('click', (e) => {
+  bookBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
-    //console.log(tourId);
-    bookTour(tourId);
+
+    await bookTour(tourId);
+    e.target.textContent = 'Book tour now!';
   });
 }
 
 if(deleteReviewBtn){
-  deleteReviewBtn.addEventListener('click', (e) => {
+  deleteReviewBtn.addEventListener('click',async (e) => {
     e.target.textContent = 'Deleting...';
     const { reviewId } = e.target.dataset;
 
-    deleteReview(reviewId);
+    await deleteReview(reviewId);
+    e.target.textContent = 'Delete Review';
   });
 }
 
 if(deleteBookingBtn){
-  deleteBookingBtn.addEventListener('click', (e) => {
+  deleteBookingBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Deleting...';
     const { bookId } = e.target.dataset;
 
-    deleteBooking(bookId);
+    await deleteBooking(bookId);
+    e.target.textContent = 'Delete Booking';
   });
 }
 

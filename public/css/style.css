@@ -1117,6 +1117,14 @@ body {
   grid-gap: 7rem;
 }
 
+.card-container-review {
+  max-width: 120rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 7rem;
+}
+
 .card {
   border-radius: 3px;
   overflow: hidden;

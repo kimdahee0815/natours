@@ -164,6 +164,7 @@ exports.getMyReviews = catchAsync(async (req, res, next) => {
     });
   }
 
+  console.log(reviews);
   // 2) Passing the reviews to the template
   res.status(200).render('reviewOverview', {
     title: 'My Reviews',

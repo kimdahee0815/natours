@@ -16,7 +16,7 @@ export const updateReview = async (review, rating, reviewId) => {
     if (res.data.status === 'success') {
         showAlert('success', 'Updated your review Successfully!');
 
-        location.assign('/my-reviews');
+        location.reload(true);
     }
   } catch (err) {
     console.log(err);

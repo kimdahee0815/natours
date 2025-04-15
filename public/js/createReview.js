@@ -17,7 +17,7 @@ export const createReview = async (review, rating, tourId) => {
     if (res.data.status === 'success') {
         showAlert('success', 'Created your review Successfully!');
 
-        location.assign('/my-reviews');
+        location.reload(true);
     }
   } catch (err) {
     console.log(err);

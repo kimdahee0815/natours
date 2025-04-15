@@ -36,7 +36,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
     fields: 'review rating user',
   });
 
-  const bookings = await Booking.find({ user: req.user.id });
+  const bookings = await Booking.find({ user: req.user._id });
   const isBooked = bookings.some(
     (booking) => booking.tour._id.toString() === slug && booking.paid === true,
   );

@@ -89,7 +89,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-  const { password } = req.body;
+  const { currentPassword } = req.body;
   // 1) Get user from collection
   const user = await User.findById(req.user.id).select('+password');
 
@@ -97,9 +97,9 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     return next(new AppError('User not found!', 404));
   }
 
-  console.log(user.password, password);
+  console.log(user.password, currentPassword);
   // 2) Check if posted password is correct
-  if (!(await user.correctPassword(password, user.password))) {
+  if (!(await user.correctPassword(currentPassword, user.password))) {
     return next(new AppError('Incorrect password!', 401));
   }
 

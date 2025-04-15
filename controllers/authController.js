@@ -233,9 +233,19 @@ exports.restrictTo =
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
-  const user = await User.findOne({ email: req.body.email });
+  let user = await User.findOne({ email: req.body.email });
   if (user && user.active === false) {
     req.activeUser = true;
+    user = await User.findByIdAndUpdate(
+      user._id,
+      {
+        active: true,
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
   }
   if (!user) {
     return next(new AppError('There is no user with this email address.', 404));

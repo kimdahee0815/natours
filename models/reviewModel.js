@@ -67,6 +67,13 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
 // same user can't write multipe reviews to one tour!
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
+reviewSchema.pre(/^find/, function (next) {
+  this.populate('user').populate({
+    path: 'tour',
+  });
+  next();
+});
+
 reviewSchema.pre(/^findOneAnd/, async function (next) {
   this.review = await this.findOne();
   // console.log(this.review);

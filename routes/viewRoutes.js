@@ -8,6 +8,7 @@ const {
   getAccount,
   updateUserData,
   getMyTours,
+  getMyReviews,
 } = require('../controllers/viewsController');
 const { protect, isLoggedIn } = require('../controllers/authController');
 // const { createBookingCheckout } = require('../controllers/bookingController');
@@ -24,6 +25,7 @@ router.get('/signup', isLoggedIn, getSignupForm);
 router.get('/forgotPassword', isLoggedIn, getForgotPasswordForm);
 router.get('/me', protect, getAccount);
 router.get('/my-tours', protect, getMyTours);
+router.get('/my-reviews', protect, getMyReviews);
 
 router.post('/submit-user-data', protect, updateUserData);
 

@@ -13,7 +13,7 @@ import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
-import { createReview } from './createReview';
+
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -32,7 +32,7 @@ const previewImg = document.getElementById('previewImg');
 const createReviewForm = document.querySelector('.form-review');
 const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
-
+const updateReviewBtn = document.querySelector('.btn--update-review');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -161,7 +161,7 @@ if(updateReviewForm){
     document.querySelector('.btn--update-review').textContent = 'Updating...';
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
-    const { reviewId } = e.target.dataset;
+    const { reviewId } = updateReviewBtn.dataset;
 
     await updateReview(review, rating, reviewId);
     document.querySelector('.btn--update-review').textContent = 'Update Review';

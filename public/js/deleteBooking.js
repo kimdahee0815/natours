@@ -4,10 +4,7 @@ import { showAlert } from './alerts';
 
 export const deleteBooking = async (id) => {
   try {
-    const res = await axios({
-      method: 'DELETE',
-      url: `/api/v1/bookings/${id}`,
-    });
+    const res = axios.delete(`/api/v1/bookings/${id}`)
 
     if (res.data.status === 'success') {
       showAlert('success', 'Your Booking was deleted successfully!');

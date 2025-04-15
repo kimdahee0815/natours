@@ -53,6 +53,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
   // 3) Check if user already exists
   const user = await User.findOne({ email });
+  console.log(user);
   if (user && user.active === false) {
     return next(
       new AppError(

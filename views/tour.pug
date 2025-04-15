@@ -80,12 +80,10 @@ block content
             h2.heading-secondary What are you waiting for?
             p.cta__text=`${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
             if user 
-                each booking in bookings
-                    if booking.user._id === user._id && booking.tour._id === tour.id && booking.paid === true
-                        button.btn.btn--red.span-all-rows#delete-tour(data-tour-id=`${tour.id}`) Delete Booking
-                        break
-                    else 
-                        button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
+                if isBooked
+                    button.btn.btn--red.span-all-rows#delete-tour(data-tour-id=`${tour.id}`) Delete Booking
+                else 
+                    button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
                 
             else 
                 a.btn.btn--green.span-all-rows(href='/login') Log in to book tour

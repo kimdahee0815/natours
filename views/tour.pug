@@ -70,6 +70,26 @@ block content
         .reviews
             each review in tour.reviews
                 +reviewCard(review)
+
+    if user
+        if isBooked
+            .reviews__new
+                h3.heading-tertiary Write your own review
+                form.form.form-review
+                    .form__group
+                        label.form__label(for='review') Your Review
+                        textarea#review.form__input(name='review', placeholder='Tell us about your experience!', required)
+                    .form__group
+                        label.form__label(for='rating') Rating
+                        select#rating.form__input(name='rating')
+                            option(value='5') 5 - Excellent
+                            option(value='4') 4 - Very Good
+                            option(value='3') 3 - Good
+                            option(value='2') 2 - Fair
+                            option(value='1') 1 - Poor
+                    .form__group
+                        button.btn.btn--green.btn--submit-review Submit Review
+
     section.section-cta
     .cta
         .cta__img.cta__img--logo

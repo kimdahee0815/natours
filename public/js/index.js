@@ -11,6 +11,7 @@ import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
 import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
+import { createReview }  from './createReview';
 
 // DOM Elements
 
@@ -27,7 +28,7 @@ const deleteBookingBtn = document.getElementById('delete-tour');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
-
+const createReviewForm = document.querySelector('.form-review');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -136,6 +137,19 @@ if(userDeleteForm) {
   });
 }
 
+if(createReviewForm){
+  createReviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--create-review').textContent = 'Creating...';
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+
+    await createReview(review, rating);
+    document.querySelector('.btn--create-review').textContent = 'Create Review';
+  }
+  );
+}
+
 if (bookBtn) {
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
@@ -163,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 

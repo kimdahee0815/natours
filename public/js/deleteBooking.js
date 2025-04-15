@@ -2,11 +2,11 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const deleteBooking = async (tourId) => {
+export const deleteBooking = async (id) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `/api/v1/bookings/${tourId}`,
+      url: `/api/v1/bookings/${id}`,
     });
 
     if (res.data.status === 'success') {

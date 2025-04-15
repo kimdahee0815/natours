@@ -12,7 +12,7 @@ block content
         .user-view
             nav.user-view__menu
                 ul.side-nav
-                    +navItem('#', 'Settings','settings',true)
+                    +navItem('/me', 'Settings','settings',true)
                     +navItem('/my-tours', 'My bookings','briefcase',true)
                     +navItem('#', 'My reviews','star',true)
                     +navItem('#', 'Billing','credit-card',true)
@@ -41,8 +41,8 @@ block content
                             label.form__label(for='email') Email address
                             input#email.form__input(type='email', name='email',value=`${user.email}`, required)
                         .form__group.form__photo-upload
-                            img.form__user-photo(src=`/img/users/${user.photo}`, alt=`photo of ${user.name}`)
-                            input.form__upload(type='file', accept='image/*', id='photo', name='photo')
+                            img#previewImg.form__user-photo(src=`/img/users/${user.photo}`, alt=`photo of ${user.name}`)
+                            input#upload.form__upload(type='file', accept='image/*', id='photo', name='photo')
                             label(for='photo') Choose New Photo
                         .form__group.right
                             button.btn.btn--small.btn--green.btn--save-userdata Save settings

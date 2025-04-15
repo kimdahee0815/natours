@@ -23,6 +23,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const userDeleteForm = document.querySelector('.form-user-delete');
+const uploadBtn = documetn.getElementById('upload')
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -143,3 +144,15 @@ if (bookBtn) {
 const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 10);
+
+uploadBtn.addEventListener('change', (e) => {
+    e.preventDefault();
+    const fileReader = new FileReader();
+    fileReader.onload = (url) => {
+      fileReader.result = url.target.result;
+      const img = document.getElementById('previewImg');
+      img.src = fileReader.result;
+    }
+    fileReader.readAsDataURL(e.target.files[0]);
+  }
+)

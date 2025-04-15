@@ -8,6 +8,7 @@ import { bookTour } from './stripe';
 import { showAlert } from './alerts';
 import { signup } from './signup';
 import { forgotPassword } from './forgotPassword';
+import { resetPassword } from './resetPassword';
 
 // DOM Elements
 
@@ -15,6 +16,7 @@ const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
 const passwordResetForm = document.querySelector('.form--password-reset');
+const resetNewPasswordForm = document.querySelector('.form--reset-new-password');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
@@ -47,6 +49,19 @@ if(passwordResetForm) {
 
     forgotPassword(email);
     document.querySelector('.btn--password-reset').textContent = 'Reset Password';
+  });
+}
+
+if (resetNewPasswordForm) {
+  resetNewPasswordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--reset-new-password').textContent = 'Processing...';
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const token = window.location.href.split('/')[5];
+    //console.log(token);
+    resetPassword(token, password, passwordConfirm);
+    document.querySelector('.btn--reset-new-password').textContent = 'Reset Password';
   });
 }
 

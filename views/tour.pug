@@ -95,7 +95,7 @@ block content
                 form.form.form-review-update
                     .form__group
                         label.form__label(for='review') Your Review
-                        textarea#review.form__input(name='review', value=review.review, required)
+                        textarea#review.form__input(name='review', required)= review.review 
                     .form__group
                         label.form__label(for='rating') Rating
                         select#rating.form__input(name='rating', value=review.rating)

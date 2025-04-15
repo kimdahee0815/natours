@@ -12,8 +12,8 @@ export const deleteUser = async (currentPassword) => {
       },
     });
 
-    if (res.data.status === 'success') {
-      showAlert('success', 'Your Account is deleted!');
+    if (res.status === 'success') {
+      showAlert('success', 'Your Account is inactive now! It will be deleted in 30 days!');
       location.assign('/');
     }
   } catch (err) {

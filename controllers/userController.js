@@ -97,7 +97,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     return next(new AppError('User not found!', 404));
   }
 
-  console.log(user.password, currentPassword);
   // 2) Check if posted password is correct
   if (!(await user.correctPassword(currentPassword, user.password))) {
     return next(new AppError('Incorrect password!', 401));

@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 const crypto = require('crypto');
 const { promisify } = require('util');
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -49,8 +50,15 @@ exports.signup = catchAsync(async (req, res, next) => {
     return next(new AppError('Passwords do not match!', 400));
   }
   // 3) Check if user already exists
-  const user = await User.findOne({ email }).select('email');
-  if (user) {
+  const user = await User.findOne({ email });
+  if (user && user.active === false) {
+    return next(
+      new AppError(
+        'This email is not active! If you want to activate it again, please contact admin.',
+        400,
+      ),
+    );
+  } else if (user) {
     return next(new AppError('Email already exists!', 400));
   }
   // 4) Create a new user
@@ -210,8 +218,16 @@ exports.restrictTo =
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
   const user = await User.findOne({ email: req.body.email });
+  if (user && user.active === false) {
+    return next(
+      new AppError(
+        'This email is not active! If you want to activate it again, please contact admin.',
+        400,
+      ),
+    );
+  }
   if (!user) {
-    return next(new AppError('There is no user with email address.', 404));
+    return next(new AppError('There is no user with this email address.', 404));
   }
 
   // 2) Generate the random reset token

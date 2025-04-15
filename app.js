@@ -136,7 +136,6 @@ app.use(
 );
 
 // Development Logging
-//console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -188,17 +187,11 @@ app.use(
   }),
 );
 
-// app.use((req, res, next) => {
-//   console.log('Hello from the middleware! 😍');
-//   next();
-// });
-
 app.use(compression());
 
 // Test Middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  // console.log(req.cookies);
   next();
 });
 

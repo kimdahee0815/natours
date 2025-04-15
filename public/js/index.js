@@ -56,13 +56,13 @@ if(passwordResetForm) {
 if (resetNewPasswordForm) {
   resetNewPasswordForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(e.target)
+
     document.querySelector('.btn--reset-new-password').textContent = 'Processing...';
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const pathSegments = window.location.pathname.split('/');
     const token = pathSegments[pathSegments.length - 1];
-    console.log(password, passwordConfirm, token)
+
     resetPassword(token, password, passwordConfirm);
     document.querySelector('.btn--reset-new-password').textContent = 'Reset Password';
   });

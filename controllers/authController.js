@@ -52,7 +52,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   }
   // 3) Check if user already exists
   const user = await User.findOne({ email });
-  console.log(user);
+
   if (user && user.active === false) {
     return next(
       new AppError(
@@ -73,7 +73,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     role: req.body.role,
   });
   const url = `${req.protocol}://${req.get('host')}/me`;
-  //console.log(url);
+
   await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, req, res);

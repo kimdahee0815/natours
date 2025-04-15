@@ -11,9 +11,14 @@ export const forgotPassword = async (email) => {
         email,
       },
     });
-    //console.log(res);
+
     if (res.data.status === 'success') {
-      showAlert('success', 'Password Reset Email was sent!');
+      if(res.data.data.activeUser){
+        showAlert('success', 'Your inactive account password Reset Email was sent!');
+      }else {
+        showAlert('success', 'Password Reset Email was sent!');
+      }
+    
       location.assign('/login');
     }
   } catch (err) {

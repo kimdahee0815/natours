@@ -235,12 +235,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
   const user = await User.findOne({ email: req.body.email });
   if (user && user.active === false) {
-    return next(
-      new AppError(
-        'This email is not active! If you want to activate it again, please login again.',
-        400,
-      ),
-    );
+    req.activeUser = true;
   }
   if (!user) {
     return next(new AppError('There is no user with this email address.', 404));
@@ -258,6 +253,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
+      data: {
+        activeUser: req.activeUser,
+      },
       message: 'Token sent to email!',
     });
   } catch (err) {

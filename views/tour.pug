@@ -72,7 +72,7 @@ block content
                 +reviewCard(review)
 
     if user
-        if bookId && user.role === 'user'
+        if bookId && user.role === 'user' && !review
             .reviews__new
                 h2.heading-secondary.ma-bt-lg.middle Write your own review
                 form.form.form-review
@@ -89,7 +89,23 @@ block content
                             option(value='1') 1 - Poor
                     .form__group.middle
                         button.btn.btn--green.btn--create-review Submit Review
-
+        if bookId && user.role === 'user' && review
+            .reviews__update
+                h2.heading-secondary.ma-bt-lg.middle Your Review
+                form.form.form-review-update
+                    .form__group
+                        label.form__label(for='review') Your Review
+                        textarea#review.form__input(name='review', value=review.review, required)
+                    .form__group
+                        label.form__label(for='rating') Rating
+                        select#rating.form__input(name='rating', value=review.rating)
+                            option(value='5') 5 - Excellent
+                            option(value='4') 4 - Very Good
+                            option(value='3') 3 - Good
+                            option(value='2') 2 - Fair
+                            option(value='1') 1 - Poor
+                    .form__group.middle
+                        button.btn.btn--green.btn--update-review(data-review-id=`${review._id}`) Update Review
     section.section-cta
     .cta
         .cta__img.cta__img--logo

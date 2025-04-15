@@ -12,7 +12,7 @@ import { resetPassword } from './resetPassword';
 import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
-
+import { updateReview }  from './updateReview';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -29,6 +29,8 @@ const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
 const createReviewForm = document.querySelector('.form-review');
+const updateReviewForm = document.querySelector('.form-review-update');
+
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -146,6 +148,20 @@ if(createReviewForm){
 
     await createReview(review, rating);
     document.querySelector('.btn--create-review').textContent = 'Create Review';
+  }
+  );
+}
+
+if(updateReviewForm){
+  updateReviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--update-review').textContent = 'Updating...';
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+    const { reviewId } = e.target.dataset;
+
+    await updateReview(review, rating, reviewId);
+    document.querySelector('.btn--update-review').textContent = 'Update Review';
   }
   );
 }

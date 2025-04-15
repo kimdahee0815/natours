@@ -2,11 +2,11 @@
 import axios from 'axios';
 import { showAlert, hideAlert } from './alerts';
 
-export const createReview = async (review, rating) => {
+export const updateReview = async (review, rating, reviewId) => {
   try {
     const res = await axios({
-      method: 'POST',
-      url: '/api/v1/reviews',
+      method: 'PATCH',
+      url: `/api/v1/reviews/${reviewId}`,
       data: {
         review, 
         rating, 
@@ -14,7 +14,7 @@ export const createReview = async (review, rating) => {
     });
 
     if (res.data.status === 'success') {
-        showAlert('success', 'Created your review Successfully!');
+        showAlert('success', 'Updated your review Successfully!');
 
         location.assign('/my-reviews');
     }

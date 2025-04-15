@@ -1271,7 +1271,7 @@ body {
   border-radius: 5px;
 }
 
-.reviews__new {
+.reviews__new, .reviews__update {
   margin: 0 auto;
   width: 70%;
   background-color: #fff;

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
@@ -41,7 +42,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 
   let bookId = null;
-
+  let review = null;
   // 1) Getting token and check if it's there
   let token;
   if (
@@ -69,21 +70,33 @@ exports.getTour = catchAsync(async (req, res, next) => {
         booking.tour._id.toString() === tour._id.toString() &&
         booking.paid === true,
     );
-    bookId = foundBooking._id.toString();
+    if (foundBooking) {
+      bookId = foundBooking._id.toString();
+    }
+
+    const reviews = await Review.find({ user: req.user._id });
+    const foundReview = reviews.find(
+      (review) => review.tour._id.toString() === tour._id.toString(),
+    );
+
+    if (foundReview) {
+      review = foundReview;
+    }
+
+    if (!tour) {
+      next(new AppError('There is no tour that you are looking for. ', 400));
+    }
+
+    // 2) Build template
+    // 3) Render template using data from 1)
+
+    res.status(200).render('tour', {
+      title: `${tour.name} Tour`,
+      tour,
+      bookId,
+      review,
+    });
   }
-
-  if (!tour) {
-    next(new AppError('There is no tour that you are looking for. ', 400));
-  }
-
-  // 2) Build template
-  // 3) Render template using data from 1)
-
-  res.status(200).render('tour', {
-    title: `${tour.name} Tour`,
-    tour,
-    bookId,
-  });
 });
 
 exports.getLoginForm = (req, res) => {

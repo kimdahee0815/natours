@@ -6,6 +6,7 @@ export const deleteBooking = async (id) => {
   try {
     const res = axios.delete(`/api/v1/bookings/${id}`)
 
+    console.log(res);
     if (res.data.status === 'success') {
       showAlert('success', 'Your Booking was deleted successfully!');
       location.assign('/mytours');

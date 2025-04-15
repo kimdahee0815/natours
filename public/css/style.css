@@ -1231,6 +1231,16 @@ body {
   border-radius: 5px;
 }
 
+.password-reset-form {
+  margin: 0 auto;
+  max-width: 55rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  padding: 5rem 7rem;
+  border-radius: 5px;
+}
+
 .signup-form {
   margin: 0 auto;
   max-width: 55rem;
@@ -1273,6 +1283,16 @@ body {
 }
 
 .form__group:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin-bottom: 2.5rem;
 }
 
@@ -1331,4 +1351,11 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+
+.forgot__password {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 1rem;
+  color: #777;
 }

@@ -15,6 +15,7 @@ import { signup } from './signup';
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
+const passwordResetForm = document.querySelector('.form--password-reset');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
@@ -39,6 +40,16 @@ if (loginForm) {
   });
 }
 
+if(passwordResetForm) {
+  passwordResetForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--password-reset').textContent = 'Processing...';
+    const email = document.getElementById('email').value;
+
+    signup(email);
+    document.querySelector('.btn--password-reset').textContent = 'Reset Password';
+  });
+}
 
 if (signupForm) {
   signupForm.addEventListener('submit', (e) => {

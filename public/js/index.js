@@ -7,7 +7,7 @@ import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
 import { signup } from './signup';
-import { resetPassword } from '../../controllers/authController';
+import { forgotPassword } from '../../controllers/authController';
 
 // console.log('Hello from parcel!');
 

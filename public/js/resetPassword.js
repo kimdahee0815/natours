@@ -15,7 +15,11 @@ export const resetPassword = async (token, password, passwordConfirm) => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'Reset New Password!');
+      if(res.data.data.activeUser === true) {
+        showAlert('success', 'Your account has been activated again!');
+      }else{
+        showAlert('success', 'Password Reset Successfully!');
+      }
       location.assign('/');
     }
   } catch (err) {

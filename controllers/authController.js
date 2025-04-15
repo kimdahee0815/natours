@@ -29,7 +29,6 @@ const createSendToken = (user, statusCode, req, res) => {
   //Remove the password from the output
   user.password = undefined;
 
-  console.log(req.activeUser);
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -289,6 +288,9 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 
   // 2) If token has not expired, and there is user, set the new password
+  if (user && user.active === false) {
+    req.activeUser = true;
+  }
   if (!user) {
     return next(new AppError('Token is invalid or has expired', 400));
   }

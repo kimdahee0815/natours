@@ -14,10 +14,15 @@ router.use(protect);
 
 router.get('/checkout-session/:tourID', getCheckoutSession);
 
-router.use(restrictTo('admin', 'lead-guide'));
+router
+  .route('/')
+  .get(restrictTo('admin', 'lead-guide'), getAllBookings)
+  .post(createBooking);
 
-router.route('/').get(getAllBookings).post(createBooking);
-
-router.route('/:id').get(getBooking).patch(updateBooking).delete(deleteBooking);
+router
+  .route('/:id')
+  .get(restrictTo('admin', 'lead-guide'), getBooking)
+  .patch(restrictTo('admin', 'lead-guide'), updateBooking)
+  .delete(deleteBooking);
 
 module.exports = router;

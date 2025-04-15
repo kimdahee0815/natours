@@ -12,7 +12,12 @@ export const deleteBooking = async (id) => {
     }
   } catch (err) {
     console.log(err);
-    showAlert('error', err.response.data.message);
+    if(err.response){
+      showAlert('error', 'You cannot delete this booking!');
+    }else {
+      showAlert('error', err.response.data.message);
+    }
+    
   }
 };
 

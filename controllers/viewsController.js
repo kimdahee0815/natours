@@ -142,7 +142,7 @@ exports.getMyReviews = catchAsync(async (req, res, next) => {
   // 1) Find all Reviews
   const reviews = await Review.find({ user: req.user.id });
   if (reviews.length === 0) {
-    res.status(200).render('reviewOverview', {
+    return res.status(200).render('reviewOverview', {
       title: 'My Reviews',
       reviews: [],
     });

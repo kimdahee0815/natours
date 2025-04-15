@@ -102,11 +102,23 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect password!', 401));
   }
 
-  // 3) If so, delete account
+  // 3) If so, delete account (set active to false)
   await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    ),
+    //https
+    secure: req.secure || req.get('x-forwarded-proto') === 'https',
+    httpOnly: true,
+  };
+
+  res.cookie('jwt', '', cookieOptions);
 
   res.status(204).json({
     status: 'success',
+    token: '',
     data: null,
   });
 });

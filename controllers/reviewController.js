@@ -18,6 +18,7 @@ exports.setTourUserIds = catchAsync(async (req, res, next) => {
 
 exports.createReview = catchAsync(async (req, res, next) => {
   const { review, rating, tour, user } = req.body;
+  console.log(review, rating, tour, user);
   const newReview = await Review.create({
     review,
     rating,

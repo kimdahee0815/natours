@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 const { promisify } = require('util');
+const jwt = require('jsonwebtoken');
 const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');

@@ -72,7 +72,7 @@ block content
                 +reviewCard(review)
 
     if user
-        if bookId && user.role !== 'admin'
+        if bookId && user.role === 'user'
             .reviews__new
                 h2.heading-secondary.ma-bt-lg.middle Write your own review
                 form.form.form-review

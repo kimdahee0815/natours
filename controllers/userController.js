@@ -116,7 +116,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
   res.cookie('jwt', '', cookieOptions);
 
-  res.status(204).json({
+  res.status(200).json({
     status: 'success',
     token: '',
     data: null,

@@ -75,12 +75,14 @@ exports.getTour = catchAsync(async (req, res, next) => {
     }
 
     const reviews = await Review.find({ user: req.user._id });
-    const foundReview = reviews.find(
-      (review) => review.tour._id.toString() === tour._id.toString(),
-    );
+    if (reviews) {
+      const foundReview = reviews.find(
+        (review) => review.tour._id.toString() === tour._id.toString(),
+      );
 
-    if (foundReview) {
-      review = foundReview;
+      if (foundReview) {
+        review = foundReview;
+      }
     }
 
     if (!tour) {

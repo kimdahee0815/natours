@@ -89,7 +89,7 @@ block content
                             option(value='1') 1 - Poor
                     .form__group.middle
                         button.btn.btn--green.btn--create-review(data-tour-id=`${tour.id}`) Submit Review
-        if bookId && user.role === 'user' && review
+        if user.role === 'user' && review
             .reviews__update
                 h2.heading-secondary.ma-bt-lg.middle Your Review
                 form.form.form-review-update

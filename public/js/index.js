@@ -13,6 +13,7 @@ import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
+import { createReview } from './createReview';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -29,6 +30,7 @@ const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
 const createReviewForm = document.querySelector('.form-review');
+const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 
 //Delegation
@@ -142,11 +144,11 @@ if(userDeleteForm) {
 if(createReviewForm){
   createReviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const { tourId } = e.target.dataset;
+    const { tourId } = createReviewBtn.dataset;
     document.querySelector('.btn--create-review').textContent = 'Creating...';
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
-    console.log(tourId)
+
     await createReview(review, rating, tourId);
     document.querySelector('.btn--create-review').textContent = 'Create Review';
   }

@@ -67,9 +67,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
     isBooked = bookings.some((booking) => {
       console.log(booking.tour._id.toString());
-      console.log(tour._id);
-      return booking.tour._id.toString() === tour._id && booking.paid === true;
+      console.log(tour._id.toString());
+      return (
+        booking.tour._id.toString() === tour._id.toString() &&
+        booking.paid === true
+      );
     });
+    console.log(isBooked);
   }
 
   if (!tour) {

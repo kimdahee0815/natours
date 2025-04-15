@@ -13,6 +13,7 @@ import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
+import { deleteReview } from './deleteReview';
 
 // DOM Elements
 
@@ -33,6 +34,8 @@ const createReviewForm = document.querySelector('.form-review');
 const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 const updateReviewBtn = document.querySelector('.btn--update-review');
+const deleteReviewBtn = document.getElementById('deleteReview');
+
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -175,6 +178,15 @@ if (bookBtn) {
     const { tourId } = e.target.dataset;
     //console.log(tourId);
     bookTour(tourId);
+  });
+}
+
+if(deleteReviewBtn){
+  deleteReviewBtn.addEventListener('click', (e) => {
+    e.target.textContent = 'Deleting...';
+    const { reviewId } = e.target.dataset;
+
+    deleteReview(reviewId);
   });
 }
 

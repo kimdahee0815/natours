@@ -29,12 +29,5 @@ block content
                             p.card__text= review.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
 
                         .card__footer
-                            p
-                                span.card__footer-value= `$${review.tour.price}`
-                                | 
-                                span.card__footer-text per person
-                            p.card__ratings
-                                span.card__footer-value= review.tour.ratingsAverage
-                                | 
-                                span.card__footer-text= `rating (${review.tour.ratingsQuantity})`
-                            a.btn.btn--green.btn--small(href=`/tour/${review.tour.slug}`) Details
+                            a.btn.btn--green.btn--small(href=`/tour/${review.tour.slug}`) Update Review
+                            a.btn.btn--red.btn--small#deleteReview(data-review-id=`${review._id}`) Delete Review

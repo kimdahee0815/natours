@@ -97,6 +97,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   res.status(200).render('overview', {
     title: 'My Tours',
     tours,
+    bookings,
   });
 });
 

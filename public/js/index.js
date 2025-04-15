@@ -145,14 +145,19 @@ const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 10);
 
-uploadBtn.addEventListener('change', (e) => {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const uploadBtn = document.getElementById('photo');
+  const previewImg = document.getElementById('previewImg');
+
+  uploadBtn.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
     const fileReader = new FileReader();
-    fileReader.readAsDataURL(e.target.files[0]);
-    fileReader.onload = (event) => {
-      const img = document.getElementById('previewImg');
-      img.src = fileReader.result;
-    }
-    
-  }
-)
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = () => {
+      previewImg.src = fileReader.result;
+    };
+  });
+});

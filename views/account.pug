@@ -62,3 +62,19 @@ block content
                             input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
                         .form__group.right
                             button.btn.btn--small.btn--green.btn--save-password Save password
+                
+                .user-view__form-container
+                    h2.heading-secondary.ma-bt-md Delete account
+                    form.form.form-user-delete
+                        .form__group
+                            label.form__label(for='password') Current password
+                            input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                        .form__group.ma-bt-lg
+                            label.form__label(for='password-confirm') Confirm password
+                            input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                        .form__group.ma-bt-lg
+                            label.form__label(for='delete') Delete account
+                            input#delete.form__input(type='checkbox', required)
+                            label(for='delete') I want to delete my account
+                        .form__group.right
+                            button.btn.btn--small.btn--red.btn--delete-account Delete account

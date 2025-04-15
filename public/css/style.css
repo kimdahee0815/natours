@@ -128,6 +128,24 @@ body {
   line-height: 1.3;
   display: inline-block;
 }
+.heading-secondary-red {
+  font-size: 2.25rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#ff5f5f),
+    to(#b42828)
+  );
+  background-image: linear-gradient(to right, #ff5f5f, #b42828);
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 0.1rem;
+  line-height: 1.3;
+  display: inline-block;
+}
 .heading-secondary--error {
   background-image: -webkit-gradient(
     linear,
@@ -185,7 +203,10 @@ body {
 
 .btn,
 .btn:link,
-.btn:visited {
+.btn:visited,
+.btn-red,
+.btn-red:link,
+.btn-red:visited {
   font-size: 1.6rem;
   padding: 1.4rem 3rem;
   border-radius: 10rem;
@@ -203,14 +224,14 @@ body {
   cursor: pointer;
 }
 
-.btn:hover {
+.btn:hover, .btn-red:hover {
   -webkit-transform: translateY(-3px);
   transform: translateY(-3px);
   -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
-.btn:active {
+.btn:active, .btn-red:active {
   -webkit-transform: translateY(-1px);
   transform: translateY(-1px);
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -220,6 +241,11 @@ body {
 .btn:focus {
   outline: none;
   background-color: #2e864b;
+}
+
+.btn--red:focus {
+  outline: none;
+  background-color: #b42828;
 }
 
 .btn--white {
@@ -236,12 +262,12 @@ body {
 }
 
 .btn--red {
-  background-color: #ff7730;
+  background-color: #ff5f5f;
   color: #fff;
 }
 
 .btn--red::after {
-  background-color: #ff7730;
+  background-color: #ff5f5f;
 }
 
 .btn--wide {

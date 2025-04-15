@@ -7,9 +7,7 @@ import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
 import { signup } from './signup';
-import { forgotPassword } from '../../controllers/authController';
-
-// console.log('Hello from parcel!');
+import { forgotPassword } from './forgotPassword';
 
 // DOM Elements
 

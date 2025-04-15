@@ -164,8 +164,8 @@ if(deleteBookingBtn){
     e.target.textContent = 'Deleting...';
     const { tourId } = e.target.dataset;
 
+    console.log(tourId)
     deleteBooking(tourId);
-    e.target.textContent = 'Delete Booking';
   });
 }
 

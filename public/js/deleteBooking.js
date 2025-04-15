@@ -4,6 +4,7 @@ import { showAlert } from './alerts';
 
 export const deleteBooking = async (id) => {
   try {
+    console.log("id:", id)
     const res = await axios({
       method: 'DELETE',
       url: `/api/v1/bookings/${id}`,

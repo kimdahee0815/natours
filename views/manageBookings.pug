@@ -30,6 +30,6 @@ block content
                             h4.card__sub-heading= `Booking Price 💵`
                             p.card__text= `$${booking.price}`
                             
-                        .card__footer
-                            a.btn.btn--green.btn--small(href=`/tour/${booking.tour.slug}`) Update Booking
-                            a.btn.btn--red.btn--small.delete-manage-booking(data-booking-id=`${booking._id.toString()}`) Delete Booking
+                        .card__footer__btns
+                            a.btn.btn--green.btn--small--two--sides(href=`/tour/${booking.tour.slug}`) Update Booking
+                            a.btn.btn--red.btn--small--two--sides.delete-manage-booking(data-booking-id=`${booking._id.toString()}`) Delete Booking

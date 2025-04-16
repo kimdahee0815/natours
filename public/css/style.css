@@ -283,6 +283,13 @@ body {
   font-size: 1.4rem !important;
 }
 
+.btn--small--two--sides {
+  padding: 1.25rem 3rem !important;
+  font-size: 1.4rem !important;
+  text-align: center;
+  width: 15rem;
+}
+
 .btn--tiny {
   margin-bottom: 1rem;
   padding: 0.8rem 1rem !important;
@@ -1226,6 +1233,18 @@ body {
   grid-row-gap: 1rem;
   margin-top: auto;
 }
+.card__footer__btns {
+  background-color: #f7f7f7;
+  padding: 2.5rem 3rem 2.5rem 2.3rem;
+  border-top: 1px solid #f1f1f1;
+  font-size: 1.4rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  margin-top: auto;
+}
+
 .card__footer-value {
   font-weight: 700;
 }

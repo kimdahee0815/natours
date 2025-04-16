@@ -33,6 +33,6 @@ block content
                             h4.card__sub-heading= `Review Date 🗓️`
                             p.card__text= review.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
 
-                        .card__footer
-                            a.btn.btn--green.btn--small(href=`/tour/${review.tour.slug}`) Update Review
-                            a.btn.btn--red.btn--small.delete-manage-review(data-review-id=`${review._id}`) Delete Review
+                        .card__footer__btns
+                            a.btn.btn--green.btn--small--two--sides(href=`/tour/${review.tour.slug}`) Update Review
+                            a.btn.btn--red.btn--small--two--sides.delete-manage-review(data-review-id=`${review._id}`) Delete Review

@@ -245,7 +245,7 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   console.log(id);
   const review = await Review.findById(id);
-  const tour = Tour.findById(review.tour.id).populate({
+  const tour = await Tour.findOne({ id }).populate({
     path: 'reviews',
     fields: 'review rating user',
   });

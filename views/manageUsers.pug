@@ -5,9 +5,9 @@ block content
     main.main 
         h2.heading-secondary.ma-bt-lg.middle Manage Users
         if users.length === 0
-            h3.heading-secondary.ma-bt-md No Users found
+            h3.heading-secondary.ma-bt-md.middle No Users found
         else  
-            h3.heading-secondary.ma-bt-md= `User Number: ${users.length}`
+            h3.heading-secondary.ma-bt-md.middle= `User Number: ${users.length}`
         .card-container
             if users.length !== 0
                 each user in users

@@ -4,9 +4,9 @@ block content
     main.main 
         h2.heading-secondary.ma-bt-lg.middle All The Tours
         if tours.length === 0
-            h3.heading-secondary.ma-bt-md No Tours found
+            h3.heading-secondary.ma-bt-md.middle No Tours found
         else  
-            h3.heading-secondary.ma-bt-md= `Tour Number: ${tours.length}`
+            h3.heading-secondary.ma-bt-md.middle= `Tour Number: ${tours.length}`
         .card-container
             if tours.length !== 0
                 each tour in tours 

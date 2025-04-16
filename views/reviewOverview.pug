@@ -4,9 +4,9 @@ block content
     main.main 
         h2.heading-secondary.ma-bt-lg.middle Manage Your Reviews
         if reviews.length === 0
-            h3.heading-secondary.ma-bt-md No Reviews found
+            h3.heading-secondary.ma-bt-md.middle No Reviews found
         else  
-            h3.heading-secondary.ma-bt-md= `Review Number: ${reviews.length}`
+            h3.heading-secondary.ma-bt-md.middle= `Review Number: ${reviews.length}`
         .card-container-review
             if reviews.length !== 0
                 each review in reviews 

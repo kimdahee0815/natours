@@ -4,9 +4,9 @@ block content
     main.main 
         h2.heading-secondary.ma-bt-lg.middle Manage Bookings
         if bookings.length === 0
-            h3.heading-secondary.ma-bt-md No Bookings found
+            h3.heading-secondary.ma-bt-md.middle No Bookings found
         else  
-            h3.heading-secondary.ma-bt-md= `Booking Number: ${bookings.length}`
+            h3.heading-secondary.ma-bt-md.middle= `Booking Number: ${bookings.length}`
         .card-container
             if bookings.length !== 0
                 each booking in bookings 

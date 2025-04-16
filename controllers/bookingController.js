@@ -93,10 +93,13 @@ exports.webhookCheckout = (req, res, next) => {
 
 exports.getUserBookings = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+  console.log(id);
   const user = await User.findById(id);
+  console.log(user);
   const bookings = await Booking.find({ user: id });
+  console.log(bookings);
   const tours = await Tour.find({ user: id });
-
+  console.log(tours);
   res.status(200).render('overview', {
     title: `Manage ${user.name}'s Bookings`,
     tours,

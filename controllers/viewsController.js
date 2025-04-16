@@ -245,7 +245,10 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const review = await Review.findById(id);
-  const tour = await Tour.findById(review.tour._id);
+  const tour = await Tour.findOne({ slug: review.tour.slug }).populate({
+    path: 'reviews',
+    fields: 'review rating user',
+  });
 
   console.log(review);
   console.log(review.tour.startLocation);

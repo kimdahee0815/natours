@@ -28,4 +28,7 @@ mixin userCard(user)
             .btn.reviews__text#user-reviews(data-user-id=`${user._id}`) 
               | Reviews ✒️ — 
               span= `${user.reviews.length} review(s) ➡️`
+        .card__footer
+            a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User
+            a.btn.btn--red.btn--small.delete-manage-user(data-user-id=`${user._id}`) Delete User
         

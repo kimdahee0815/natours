@@ -2,12 +2,12 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const deleteTour = async (id) => {
+export const deleteManageReview = async (id) => {
   try {
-    const res = await axios.delete(`/api/v1/tour/${id}`)
+    const res = await axios.delete(`/api/v1/reviews/${id.toString()}`)
 
     if (res.data.status === 'success') {
-      showAlert('success', 'This Tour was deleted successfully!');
+      showAlert('success', 'This Review was deleted successfully!');
       location.reload(true);
     }
   } catch (err) {

@@ -14,7 +14,9 @@ import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
 import { deleteReview } from './deleteReview';
-import { deleteTour } from './deleteTour';
+import { deleteManageReview } from './deleteManageReview';
+import { deleteManageUser } from './deleteManageUser';
+import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 
 // DOM Elements
@@ -29,7 +31,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const deleteBookingBtn = document.getElementById('delete-booking');
-const deleteManageBookingBtn = document.getElementById('delete-booking');
+const deleteManageBookingBtn = document.getElementById('delete-manage-booking');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
@@ -38,7 +40,9 @@ const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 const updateReviewBtn = document.querySelector('.btn--update-review');
 const deleteReviewBtn = document.getElementById('delete-review');
+const deleteManageReviewBtn = document.getElementById('delete-manage-review')
 const deleteTourBtn = document.getElementById('delete-tour');
+const deleteManageUserBtn = document.getElementById('delete-manage-user')
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -195,6 +199,17 @@ if(deleteReviewBtn){
   });
 }
 
+if(deleteManageReviewBtn){
+  deleteManageReviewBtn.addEventListener('click',async (e) => {
+    e.target.textContent = 'Deleting...';
+    const { reviewId } = e.target.dataset;
+    console.log(reviewId);
+    await deleteManageReview(reviewId);
+    e.target.textContent = 'Delete Review';
+  }
+  );
+}
+
 if(deleteBookingBtn){
   deleteBookingBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Deleting...';
@@ -210,7 +225,7 @@ if(deleteTourBtn){
     e.target.textContent = 'Deleting...';
     const { tourId } = e.target.dataset;
 
-    await deleteTour(tourId);
+    await deleteManageTour(tourId);
     e.target.textContent = 'Delete Tour';
   });
 }
@@ -222,6 +237,16 @@ if(deleteManageBookingBtn){
     console.log(bookId);
     await deleteManageBooking(bookId);
     e.target.textContent = 'Delete Booking';
+  });
+}
+
+if(deleteManageUserBtn){
+  deleteManageUserBtn.addEventListener('click', async (e) => {
+    e.target.textContent = 'Deleting...';
+    const { userId } = e.target.dataset;
+
+    await deleteManageUser(userId);
+    e.target.textContent = 'Delete User';
   });
 }
 

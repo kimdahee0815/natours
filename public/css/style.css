@@ -283,6 +283,11 @@ body {
   font-size: 1.4rem !important;
 }
 
+.btn--tiny {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.5rem !important;
+}
+
 .btn-small,
 .btn-small:link,
 .btn-small:visited {

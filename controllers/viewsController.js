@@ -131,6 +131,12 @@ exports.getAccount = (req, res) => {
   });
 };
 
+exports.getUserAccount = (req, res) => {
+  res.status(200).render('account', {
+    title: 'User Account',
+  });
+};
+
 exports.getManageBookings = async (req, res) => {
   const bookings = await Booking.find({});
 

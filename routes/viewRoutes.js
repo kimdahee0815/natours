@@ -15,6 +15,7 @@ const {
   getMyReviews,
   getUserBookings,
   getUserReviews,
+  getUserAccount,
 } = require('../controllers/viewsController');
 const {
   protect,
@@ -60,6 +61,7 @@ router
   .route('/reviews/users/:id')
   .get(protect, restrictTo('admin', 'lead-guide'), getUserReviews);
 
+router.route('/users/:id').get(protect, restrictTo('admin'), getUserAccount);
 // router.post('/submit-user-data', protect, updateUserData);
 
 module.exports = router;

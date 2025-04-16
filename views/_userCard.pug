@@ -12,7 +12,7 @@ mixin userCard(user)
         h4.card__sub-heading= `User Active Status 🔔`
         p.reviews__text= user.active
         h4.card__sub-heading= `User Last Password Change 🔑`
-        p.reviews__text= user.passwordChangedAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        p.reviews__text= user.passwordResetToken ? user.passwordChangedAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No password change found'
         h4.card__sub-heading= `Password Reset Token 🔑`
         p.reviews__text= user.passwordResetToken ? user.passwordResetToken: 'No token found'
         h4.card__sub-heading= `Password Reset Token Expiration ⏳`

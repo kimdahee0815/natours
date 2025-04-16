@@ -20,13 +20,13 @@ router
   .post(restrictTo('user'), setTourUserIds, createReview);
 
 router
+  .route('/users/:id')
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserReviews);
+
+router
   .route('/:id')
   .get(getReview)
   .patch(restrictTo('user', 'admin'), updateReview)
   .delete(restrictTo('user', 'admin'), deleteReview);
-
-router
-  .route('/users/:id')
-  .get(protect, restrictTo('admin', 'lead-guide'), getUserReviews);
 
 module.exports = router;

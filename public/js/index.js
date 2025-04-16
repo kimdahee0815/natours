@@ -18,7 +18,8 @@ import { deleteManageReview } from './deleteManageReview';
 import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
-
+import { getUserBookings } from '../../controllers/bookingController';
+import { getUserReviews } from '../../controllers/reviewController';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -43,6 +44,9 @@ const deleteReviewBtn = document.getElementById('delete-review');
 const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
+const userBookingsBtn = document.getElementById('user-bookings')
+const userReviewsBtn = document.getElementById('user-reviews');
+
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -252,6 +256,23 @@ deleteManageUserBtns.forEach(btn => {
     clickedButton.textContent = 'Delete User';
   });
 });
+
+userBookingsBtn.addEventListener('click', async (e) => {
+  e.target.textContent = 'Loading...';
+  const { userId } = e.target.dataset;
+
+  await getUserBookings(userId);
+  e.target.textContent = 'User Bookings';
+});
+
+userReviewsBtn.addEventListener('click', async (e) => {
+  e.target.textContent = 'Loading...';
+  const { userId } = e.target.dataset;
+
+  await getUserReviews(userId);
+  e.target.textContent = 'User Reviews';
+});
+
 
 const alertMessage = document.querySelector('body').dataset.alert;
 

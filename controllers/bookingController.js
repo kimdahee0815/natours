@@ -92,7 +92,7 @@ exports.webhookCheckout = (req, res, next) => {
 };
 
 exports.getUserBookings = catchAsync(async (req, res, next) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const user = await User.findById(id);
   const bookings = await Booking.find({ user: id });
   const tours = await Tour.find({ user: id });

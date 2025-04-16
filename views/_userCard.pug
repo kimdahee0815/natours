@@ -21,11 +21,11 @@ mixin userCard(user)
             h4.card__sub-heading= `Password Reset Token Expiration ⏳`
             p.reviews__text= user.passwordResetExpires ? user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No expiration date found'
         if user.bookings.length > 0
-            a.reviews__text(href=`/bookings/users/${user._id.toString()}`) 
+            .btn.reviews__text#user-bookings(data-user-id=`${user._id}`) 
               | Booked Tours 🗓️ — 
               span= `${user.bookings.length} tour(s) ➡️`
         if user.reviews.length > 0
-            a.reviews__text(href=`/reviews/users/${user._id.toString()}`) 
+            .btn.reviews__text#user-reviews(data-user-id=`${user._id}`) 
               | Reviews ✒️ — 
               span= `${user.reviews.length} review(s) ➡️`
         

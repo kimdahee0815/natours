@@ -21,13 +21,13 @@ router
   .post(createBooking);
 
 router
+  .route('/users/:id')
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserBookings);
+
+router
   .route('/:id')
   .get(protect, restrictTo('admin', 'lead-guide'), getBooking)
   .patch(protect, restrictTo('admin', 'lead-guide'), updateBooking)
   .delete(deleteBooking);
-
-router
-  .route('/users/:id')
-  .get(protect, restrictTo('admin', 'lead-guide'), getUserBookings);
 
 module.exports = router;

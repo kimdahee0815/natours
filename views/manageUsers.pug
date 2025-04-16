@@ -12,7 +12,7 @@ block content
             if users.length !== 0
                 each user in users
                     +userCard(user)
-                .card__footer
-                    a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User
-                    a.btn.btn--red.btn--small.delete-manage-user(data-user-id=`${user._id}`) Delete User
+                    .card__footer
+                        a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User
+                        a.btn.btn--red.btn--small.delete-manage-user(data-user-id=`${user._id}`) Delete User
                 

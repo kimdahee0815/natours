@@ -257,19 +257,19 @@ deleteManageUserBtns.forEach(btn => {
   });
 });
 
-userBookingsBtn.addEventListener('click', async (e) => {
+userBookingsBtn.addEventListener('click', (e) => {
   e.target.textContent = 'Loading...';
   const { userId } = e.target.dataset;
 
-  await getUserBookings(userId);
+  getUserBookings(userId);
   e.target.textContent = 'User Bookings';
 });
 
-userReviewsBtn.addEventListener('click', async (e) => {
+userReviewsBtn.addEventListener('click', (e) => {
   e.target.textContent = 'Loading...';
   const { userId } = e.target.dataset;
 
-  await getUserReviews(userId);
+  getUserReviews(userId);
   e.target.textContent = 'User Reviews';
 });
 

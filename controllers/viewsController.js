@@ -40,7 +40,6 @@ exports.getTour = catchAsync(async (req, res, next) => {
     path: 'reviews',
     fields: 'review rating user',
   });
-  console.log(tour);
 
   let bookId = null;
   let review = null;

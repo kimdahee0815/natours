@@ -36,16 +36,13 @@ exports.createReview = catchAsync(async (req, res, next) => {
 
 exports.getUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   const user = await User.findById(id);
-  console.log(user);
   const reviews = await Review.find({ user: id });
-  console.log(reviews);
   if (!reviews) {
     return next(new AppError('This review does not exist.', 400));
   }
 
-  res.status(200).render('manageReviews', {
+  return res.status(200).render('manageReviews', {
     title: `Manage ${user.name}'s Reviews`,
     reviews,
   });

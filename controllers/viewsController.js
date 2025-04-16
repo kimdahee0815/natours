@@ -145,7 +145,6 @@ exports.getManageBookings = async (req, res) => {
 
 exports.getManageReviews = async (req, res) => {
   const reviews = await Review.find({});
-  console.log(reviews);
   if (!reviews) {
     next(new AppError('There are no reviews. ', 400));
   }

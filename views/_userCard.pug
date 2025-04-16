@@ -16,7 +16,7 @@ mixin userCard(user)
         h4.card__sub-heading= `Password Reset Token 🔑`
         p.reviews__text= user.passwordResetToken ? user.passwordResetToken: 'No token found'
         h4.card__sub-heading= `Password Reset Token Expiration ⏳`
-        p.reviews__text= user.passwordResetExpires? user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No expiration date found'
+        p.reviews__text= user.passwordResetExpires ? user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No expiration date found'
         h4.card__sub-heading= `Booked Tours 🗓️`
         p.reviews__text= user.bookings.length
         if user.bookings.length > 0

@@ -256,6 +256,8 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   });
   console.log(review);
   console.log(review.tour.startLocation);
+  console.log(review.tour.guides)
+  console.log(review.tour.locations);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
     tour: review.tour,

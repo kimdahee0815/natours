@@ -1,0 +1,35 @@
+extends base
+
+block content 
+    main.main 
+        .card-container-review
+            if reviews.length === 0
+                h2.heading-secondary.ma-bt-md No Reviews found
+            else
+                each review in reviews 
+                    .card
+                        .card__header
+                            .card__picture
+                                .card__picture-overlay &nbsp;
+                                img.card__picture-img(src=`/img/tours/${review.tour.imageCover}`, alt=`${review.tour.name}`)
+                            h3.heading-tertirary
+                                span= review.tour.name
+
+                        .card__details
+                            h4.card__sub-heading= `${review.tour.difficulty} ${review.tour.duration}-day tour`
+                            p.card__text= review.tour.summary
+                            h4.card__sub-heading= `Review by ${review.user.name}`
+                            p.card__text= review.user.email
+                            h4.card__sub-heading= `Review 😃`
+                            p.reviews__text= review.review
+                            h4.card__sub-heading= `Rating ⭐` 
+                            .reviews__rating
+                              each star in [1,2,3,4,5]
+                                svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active':'inactive'}`)
+                                    use(xlink:href='/img/icons.svg#icon-star')
+                            h4.card__sub-heading= `Review Date 🗓️`
+                            p.card__text= review.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
+
+                        .card__footer
+                            a.btn.btn--green.btn--small(href=`/tour/${review.tour.slug}`) Update Review
+                            a.btn.btn--red.btn--small#deleteReview(data-review-id=`${review._id}`) Delete Review

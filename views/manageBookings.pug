@@ -1,0 +1,33 @@
+extends base
+
+block content 
+    main.main 
+        .card-container
+            if bookings.length === 0
+                h2.heading-secondary.ma-bt-md No Bookings found
+            else
+                h2.heading-secondary.ma-bt-md= `Booking Number: ${bookings.length}`
+                each booking in bookings 
+                    .card
+                        .card__header
+                            .card__picture
+                                .card__picture-overlay &nbsp;
+                                img.card__picture-img(src=`/img/tours/${booking.tour.imageCover}`, alt=`${booking.tour.name}`)
+                            h3.heading-tertirary
+                                span= booking.tour.name
+
+                        .card__details
+                            h4.card__sub-heading= `${booking.tour.difficulty} ${booking.tour.duration}-day tour`
+                            p.card__text= booking.tour.summary
+                            h4.card__sub-heading= `Booked by ${booking.user.name} ✅`
+                            p.card__text= booking.user.email
+                            h4.card__sub-heading= `Booking Date 🗓️`
+                            p.card__text= booking.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                            h4.card__sub-heading= `Booking Status 🔔`
+                            p.card__text= booking.paid
+                            h4.card__sub-heading= `Booking Price 💵`
+                            p.card__text= `$${booking.price}`
+                            
+                        .card__footer
+                            a.btn.btn--green.btn--small(href=`/tour/${booking.tour.slug}`) Update Booking
+                            a.btn.btn--red.btn--small#deleteBooking(data-booking-id=`${booking._id}`) Delete Booking

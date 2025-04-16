@@ -131,6 +131,50 @@ exports.getAccount = (req, res) => {
   });
 };
 
+exports.getManageBookings = async (req, res) => {
+  const bookings = await Booking.find();
+
+  if (!bookings) {
+    next(new AppError('There are no bookings. ', 400));
+  }
+  res.status(200).render('manageBookings', {
+    title: 'Manage Bookings',
+    bookings,
+  });
+};
+
+exports.getManageReviews = async (req, res) => {
+  const reviews = await Review.find();
+
+  if (!reviews) {
+    next(new AppError('There are no reviews. ', 400));
+  }
+
+  res.status(200).render('manageReviews', {
+    title: 'Manage Reviews',
+    reviews,
+  });
+};
+
+exports.getManageTours = async (req, res) => {
+  const tours = await Tour.find();
+
+  if (!tours) {
+    next(new AppError('There are no tours. ', 400));
+  }
+
+  res.status(200).render('manageTours', {
+    title: 'Manage Tours',
+    tours,
+  });
+};
+
+exports.getManageUsers = (req, res) => {
+  res.status(200).render('manageUsers', {
+    title: 'Manage Users',
+  });
+};
+
 exports.getMyTours = catchAsync(async (req, res, next) => {
   // 1) Find all bookings
   //console.log(req.user.id);

@@ -15,6 +15,7 @@ import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
 import { deleteReview } from './deleteReview';
 import { deleteTour } from './deleteTour';
+import { deleteManageBooking } from './deleteManageBooking';
 
 // DOM Elements
 
@@ -28,6 +29,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const deleteBookingBtn = document.getElementById('delete-booking');
+const deleteManageBookingBtn = document.getElementById('delete-booking');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
@@ -210,6 +212,17 @@ if(deleteTourBtn){
 
     await deleteTour(tourId);
     e.target.textContent = 'Delete Tour';
+  });
+}
+
+if(deleteManageBookingBtn){
+  deleteManageBookingBtn.addEventListener('click', async (e) => {
+    e.target.textContent = 'Deleting...';
+    console.log(bookId);
+    const { bookId } = e.target.dataset;
+
+    await deleteManageBooking(bookId);
+    e.target.textContent = 'Delete Booking';
   });
 }
 

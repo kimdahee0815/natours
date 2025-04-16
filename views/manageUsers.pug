@@ -11,7 +11,7 @@ block content
         .card-container
             if users.length !== 0
                 each user in users
-                    +reviewCard()
+                    +userCard(user)
 
                     .card__footer
                         a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User

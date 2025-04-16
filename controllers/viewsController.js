@@ -40,6 +40,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
     path: 'reviews',
     fields: 'review rating user',
   });
+  console.log(tour);
 
   let bookId = null;
   let review = null;
@@ -244,7 +245,10 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   console.log(id);
   const review = await Review.findById(id);
-  const tour = await Tour.findById(review.tour.id);
+  const tour = Tour.findById(review.tour.id).populate({
+    path: 'reviews',
+    fields: 'review rating user',
+  });
   console.log(review);
   console.log(tour);
   return res.status(200).render('tour', {

@@ -163,7 +163,7 @@ exports.getManageReviews = async (req, res) => {
 
 exports.getManageTours = async (req, res) => {
   const tours = await Tour.find({});
-  console.log(tours);
+
   if (!tours) {
     next(new AppError('There are no tours. ', 400));
   }
@@ -176,7 +176,7 @@ exports.getManageTours = async (req, res) => {
 
 exports.getManageUsers = async (req, res) => {
   const users = await User.find({}).populate('reviews').populate('bookings');
-  console.log(users);
+
   if (!users) {
     next(new AppError('There are no tours. ', 400));
   }

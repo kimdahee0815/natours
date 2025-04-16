@@ -11,18 +11,21 @@ mixin userCard(user)
         p.reviews__text= user.role
         h4.card__sub-heading= `User Active Status 🔔`
         p.reviews__text= user.active
-        h4.card__sub-heading= `User Last Password Change 🔑`
-        p.reviews__text= user.passwordChangedAt ? user.passwordChangedAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No password change found'
-        h4.card__sub-heading= `Password Reset Token 🔑`
-        p.reviews__text= user.passwordResetToken ? user.passwordResetToken: 'No token found'
-        h4.card__sub-heading= `Password Reset Token Expiration ⏳`
-        p.reviews__text= user.passwordResetExpires ? user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No expiration date found'
-        h4.card__sub-heading= `Booked Tours 🗓️`
-        p.reviews__text= user.bookings.length
+        if user.passwordChangedAt
+            h4.card__sub-heading= `User Last Password Change 🔑`
+            p.reviews__text= user.passwordChangedAt ? user.passwordChangedAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No password change found'
+        if user.passwordResetToken
+            h4.card__sub-heading= `Password Reset Token 🔑`
+            p.reviews__text= user.passwordResetToken ? user.passwordResetToken: 'No token found'
+        if user.passwordResetExpires
+            h4.card__sub-heading= `Password Reset Token Expiration ⏳`
+            p.reviews__text= user.passwordResetExpires ? user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'No expiration date found'
         if user.bookings.length > 0
-            a.btn.btn--green.btn--small(href=`/bookings/${user._id}`) User's Booked Tours
-        h4.card__sub-heading= `Reviews ✒️`
-        p.reviews__text= user.reviews.length
+            a.reviews__text(href=`/bookings/users/${user._id.toString()}`) 
+              | Booked Tours 🗓️ — 
+              span= `${user.bookings.length} tour(s) ➡️`
         if user.reviews.length > 0
-            a.btn.btn--green.btn--small(href=`/reviews/${user._id}`) User's Reviews
+            a.reviews__text(href=`/reviews/users/${user._id.toString()}`) 
+              | Reviews ✒️ — 
+              span= `${user.reviews.length} review(s) ➡️`
         

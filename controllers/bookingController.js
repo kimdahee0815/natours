@@ -91,6 +91,19 @@ exports.webhookCheckout = (req, res, next) => {
   });
 };
 
+exports.getUserBookings = catchAsync(async (req, res, next) => {
+  const { id } = req.body;
+  const user = await User.findById(id);
+  const bookings = await Booking.find({ user: id });
+  const tours = await Tour.find({ user: id });
+
+  res.status(200).render('overview', {
+    title: `Manage ${user.name}'s Bookings`,
+    tours,
+    bookings,
+  });
+});
+
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
 exports.getAllBookings = factory.getAll(Booking);

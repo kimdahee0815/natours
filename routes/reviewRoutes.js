@@ -6,6 +6,7 @@ const {
   updateReview,
   deleteReview,
   setTourUserIds,
+  getUserReviews,
 } = require('../controllers/reviewController');
 const { protect, restrictTo } = require('../controllers/authController');
 
@@ -23,5 +24,9 @@ router
   .get(getReview)
   .patch(restrictTo('user', 'admin'), updateReview)
   .delete(restrictTo('user', 'admin'), deleteReview);
+
+router
+  .route('/users/:id')
+  .get(restrictTo('admin', 'lead-guide'), getUserReviews);
 
 module.exports = router;

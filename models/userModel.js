@@ -46,6 +46,18 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'user',
+  localField: '_id',
+});
+
+userSchema.virtual('bookings', {
+  ref: 'Booking',
+  foreignField: 'user',
+  localField: '_id',
+});
+
 // userSchema.pre(/^find/, function (next) {
 //   // this points to the current query
 //   this.find({ active: { $ne: false } });

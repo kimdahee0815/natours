@@ -3,8 +3,24 @@ mixin userCard(user)
         .reviews__avatar
             img.reviews__avatar-img(src=`/img/users/${user.photo}`, alt=`${user.name}`)
             h6.reviews__user= user.name
-        p.reviews__text= review.review
-        .reviews__rating
-            each star in [1,2,3,4,5]
-                svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active':'inactive'}`)
-                    use(xlink:href='/img/icons.svg#icon-star')
+        h4.card__sub-heading= `User ID 🆔`
+        p.reviews__text= user._id
+        h4.card__sub-heading= `User Email 📧`
+        p.reviews__text= user.email
+        h4.card__sub-heading= `User Role 👤`
+        p.reviews__text= user.role
+        h4.card__sub-heading= `User Active Status 🔔`
+        p.reviews__text= user.active
+        h4.card__sub-heading= `User Last Password Change 🔑`
+        p.reviews__text= user.passwordChangedAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        h4.card__sub-heading= `Password Reset Token 🔑`
+        p.reviews__text= user.passwordResetToken
+        h4.card__sub-heading= `Password Reset Token Expiration ⏳`
+        p.reviews__text= user.passwordResetExpires.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        h4.card__sub-heading= `Booked Tours 🗓️`
+        p.reviews__text= user.bookings.length
+        a.btn.btn--green.btn--small(href=`/user/${user.slug}`) User's Booked Tours
+        h4.card__sub-heading= `Reviews ✒️`
+        p.reviews__text= user.reviews.length
+        a.btn.btn--green.btn--small(href=`/user/${user.slug}`) User's Reviews
+        

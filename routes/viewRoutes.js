@@ -37,16 +37,16 @@ router.get('/my-reviews', protect, getMyReviews);
 
 router.get(
   '/manage-tours',
-  restrictTo('admin', 'lead-guide'),
   protect,
+  restrictTo('admin', 'lead-guide'),
   getManageTours,
 );
-router.get('/manage-users', restrictTo('admin'), protect, getManageUsers);
-router.get('/manage-reviews', restrictTo('admin'), protect, getManageReviews);
+router.get('/manage-users', protect, restrictTo('admin'), getManageUsers);
+router.get('/manage-reviews', protect, restrictTo('admin'), getManageReviews);
 router.get(
   '/manage-bookings',
-  restrictTo('admin', 'lead-guide'),
   protect,
+  restrictTo('admin', 'lead-guide'),
   getManageBookings,
 );
 

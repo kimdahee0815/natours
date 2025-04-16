@@ -232,6 +232,7 @@ if(deleteTourBtn){
 
 if(deleteManageBookingBtn){
   deleteManageBookingBtn.addEventListener('click', async (e) => {
+    console.log(e.target);
     e.target.textContent = 'Deleting...';
     const { bookId } = e.target.dataset;
     console.log(bookId);

@@ -4,7 +4,7 @@ import { showAlert } from './alerts';
 
 export const deleteManageUser = async (id) => {
   try {
-    const res = await axios.delete(`/api/v1/users/${id.toString()}`)
+    const res = await axios.delete(`/api/v1/users/${id}`)
 
     if (res.data.status === 'success') {
       showAlert('success', 'This Account was deleted successfully!');

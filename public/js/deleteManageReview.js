@@ -4,7 +4,7 @@ import { showAlert } from './alerts';
 
 export const deleteManageReview = async (id) => {
   try {
-    const res = await axios.delete(`/api/v1/reviews/${id.toString()}`)
+    const res = await axios.delete(`/api/v1/reviews/${id}`)
 
     if (res.data.status === 'success') {
       showAlert('success', 'This Review was deleted successfully!');

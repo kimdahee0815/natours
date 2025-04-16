@@ -2,10 +2,13 @@ extends base
 
 block content 
     main.main 
+        h2.heading-secondary.ma-bt-lg.middle Manage Reviews
+        if reviews.length === 0
+            h3.heading-secondary.ma-bt-md No Reviews found
+        else  
+            h3.heading-secondary.ma-bt-md= `Review Number: ${reviews.length}`
         .card-container-review
-            if reviews.length === 0
-                h2.heading-secondary.ma-bt-md No Reviews found
-            else
+            if reviews.length !== 0
                 each review in reviews 
                     .card
                         .card__header

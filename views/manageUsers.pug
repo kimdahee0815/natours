@@ -3,13 +3,16 @@ include _userCard
 
 block content 
     main.main 
+        h2.heading-secondary.ma-bt-lg.middle Manage Users
+        if users.length === 0
+            h3.heading-secondary.ma-bt-md No Users found
+        else  
+            h3.heading-secondary.ma-bt-md= `User Number: ${users.length}`
         .card-container
-            if users.length === 0
-                h2.heading-secondary.ma-bt-md No Users found
-            else
-              each user in users
-                +reviewCard()
+            if users.length !== 0
+                each user in users
+                    +reviewCard()
 
-                .card__footer
-                    a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User
-                    a.btn.btn--red.btn--small#deleteUser(data-user-id=`${user._id}`) Delete User
+                    .card__footer
+                        a.btn.btn--green.btn--small(href=`/user/${user.slug}`) Update User
+                        a.btn.btn--red.btn--small#deleteUser(data-user-id=`${user._id}`) Delete User

@@ -248,7 +248,6 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
     path: 'tour',
     populate: [
       { path: 'guides', select: '-__v -passwordChangedAt' },
-      { path: 'locations' },
       {
         path: 'reviews',
         populate: [{ path: 'user', select: 'name photo' }],
@@ -256,6 +255,7 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
     ],
   });
   console.log(review);
+  console.log(review.tour.startLocations);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
     tour: review.tour,

@@ -18,8 +18,7 @@ import { deleteManageReview } from './deleteManageReview';
 import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
-import { getUserBookings } from './getUserBookings';``
-import { getUserReviews } from './getUserReviews';
+
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -256,26 +255,6 @@ deleteManageUserBtns.forEach(btn => {
     clickedButton.textContent = 'Delete User';
   });
 });
-
-// userBookingsBtns.forEach(btn => {
-//   btn.addEventListener('click', async function (e) {
-//     const clickedButton = e.currentTarget;
-//     const { userId } = clickedButton.dataset;
-//     console.log('clickkk');
-//     console.log(userId)
-//     await getUserBookings(userId);
-//   });
-// });
-
-// userReviewsBtns.forEach(btn => {
-//   btn.addEventListener('click', async function (e) {
-//     const clickedButton = e.currentTarget;
-//     const { userId } = clickedButton.dataset;
-//     console.log('clickkk');
-//     console.log(userId)
-//     await getUserReviews(userId);
-//   });
-// });
 
 
 const alertMessage = document.querySelector('body').dataset.alert;

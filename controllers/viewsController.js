@@ -169,9 +169,16 @@ exports.getManageTours = async (req, res) => {
   });
 };
 
-exports.getManageUsers = (req, res) => {
+exports.getManageUsers = async (req, res) => {
+  const tours = await User.find();
+
+  if (!tours) {
+    next(new AppError('There are no tours. ', 400));
+  }
+
   res.status(200).render('manageUsers', {
     title: 'Manage Users',
+    users,
   });
 };
 

@@ -245,16 +245,11 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const review = await Review.findById(id);
-  const tour = await Tour.findOne({ slug: review.tour.slug }).populate({
+  const tour = await Tour.findOne({ _id: review.tour._id }).populate({
     path: 'reviews',
     fields: 'review rating user',
   });
 
-  console.log(review);
-  console.log(review.tour.startLocation);
-  console.log(review.tour.guides)
-  console.log(review.tour.locations);
-  console.log(tour);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
     tour,

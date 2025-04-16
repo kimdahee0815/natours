@@ -244,23 +244,17 @@ exports.getUserReviews = catchAsync(async (req, res, next) => {
 exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const review = await Review.findById(id).populate({
-    path: 'tour',
-    populate: [
-      { path: 'guides', select: '-__v -passwordChangedAt' },
-      {
-        path: 'reviews',
-        populate: [{ path: 'user', select: 'name photo' }],
-      },
-    ],
-  });
+  const review = await Review.findById(id);
+  const tour = await Tour.findById(review.tour._id);
+
   console.log(review);
   console.log(review.tour.startLocation);
   console.log(review.tour.guides)
   console.log(review.tour.locations);
+  console.log(tour);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
-    tour: review.tour,
+    tour,
     review,
   });
 });

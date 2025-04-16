@@ -244,10 +244,11 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   console.log(id);
   const review = await Review.findById(id);
+  const tour = await Tour.findById(review.tour.id);
   console.log(review);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
-    tour: review.tour,
+    tour,
     review,
   });
 });

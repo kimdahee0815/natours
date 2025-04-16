@@ -84,21 +84,21 @@ exports.getTour = catchAsync(async (req, res, next) => {
         review = foundReview;
       }
     }
-
-    if (!tour) {
-      next(new AppError('There is no tour that you are looking for. ', 400));
-    }
-
-    // 2) Build template
-    // 3) Render template using data from 1)
-
-    res.status(200).render('tour', {
-      title: `${tour.name} Tour`,
-      tour,
-      bookId,
-      review,
-    });
   }
+
+  if (!tour) {
+    next(new AppError('There is no tour that you are looking for. ', 400));
+  }
+
+  // 2) Build template
+  // 3) Render template using data from 1)
+
+  res.status(200).render('tour', {
+    title: `${tour.name} Tour`,
+    tour,
+    bookId,
+    review,
+  });
 });
 
 exports.getLoginForm = (req, res) => {

@@ -31,7 +31,7 @@ const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const deleteBookingBtn = document.getElementById('delete-booking');
-const deleteManageBookingBtn = document.getElementById('delete-manage-booking');
+const deleteManageBookingBtns = document.querySelectorAll('.delete-manage-booking');
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
@@ -40,9 +40,9 @@ const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 const updateReviewBtn = document.querySelector('.btn--update-review');
 const deleteReviewBtn = document.getElementById('delete-review');
-const deleteManageReviewBtn = document.getElementById('delete-manage-review')
-const deleteTourBtn = document.getElementById('delete-tour');
-const deleteManageUserBtn = document.getElementById('delete-manage-user')
+const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
+const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
+const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -199,16 +199,16 @@ if(deleteReviewBtn){
   });
 }
 
-if(deleteManageReviewBtn){
-  deleteManageReviewBtn.addEventListener('click',async (e) => {
-    e.target.textContent = 'Deleting...';
-    const { reviewId } = e.target.dataset;
-    console.log(reviewId);
+deleteManageReviewBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    clickedButton.textContent = 'Deleting...';
+    const { reviewId } = clickedButton.dataset;
+
     await deleteManageReview(reviewId);
-    e.target.textContent = 'Delete Review';
-  }
-  );
-}
+    clickedButton.textContent = 'Delete Review';
+  });
+});
 
 if(deleteBookingBtn){
   deleteBookingBtn.addEventListener('click', async (e) => {
@@ -220,36 +220,38 @@ if(deleteBookingBtn){
   });
 }
 
-if(deleteTourBtn){
-  deleteTourBtn.addEventListener('click', async (e) => {
-    e.target.textContent = 'Deleting...';
-    const { tourId } = e.target.dataset;
+deleteManageTourBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    clickedButton.textContent = 'Deleting...';
+    const { tourId } = clickedButton.dataset;
 
     await deleteManageTour(tourId);
-    e.target.textContent = 'Delete Tour';
+    clickedButton.textContent = 'Delete Tour';
   });
-}
+});
 
-if(deleteManageBookingBtn){
-  deleteManageBookingBtn.addEventListener('click', async (e) => {
-    console.log(e.target);
-    e.target.textContent = 'Deleting...';
-    const { bookId } = e.target.dataset;
-    console.log(bookId);
+deleteManageBookingBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    clickedButton.textContent = 'Deleting...';
+    const { bookId } = clickedButton.dataset;
+
     await deleteManageBooking(bookId);
-    e.target.textContent = 'Delete Booking';
+    clickedButton.textContent = 'Delete Booking';
   });
-}
+});
 
-if(deleteManageUserBtn){
-  deleteManageUserBtn.addEventListener('click', async (e) => {
-    e.target.textContent = 'Deleting...';
-    const { userId } = e.target.dataset;
+deleteManageUserBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    clickedButton.textContent = 'Deleting...';
+    const { userId } = clickedButton.dataset;
 
     await deleteManageUser(userId);
-    e.target.textContent = 'Delete User';
+    clickedButton.textContent = 'Delete User';
   });
-}
+});
 
 const alertMessage = document.querySelector('body').dataset.alert;
 

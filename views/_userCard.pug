@@ -20,9 +20,9 @@ mixin userCard(user)
         h4.card__sub-heading= `Booked Tours 🗓️`
         p.reviews__text= user.bookings.length
         if user.bookings.length > 0
-            a.btn.btn--green.btn--small(href=`/user/${user.slug}`) User's Booked Tours
+            a.btn.btn--green.btn--small(href=`/bookings/${user._id}`) User's Booked Tours
         h4.card__sub-heading= `Reviews ✒️`
         p.reviews__text= user.reviews.length
         if user.reviews.length > 0
-            a.btn.btn--green.btn--small(href=`/user/${user.slug}`) User's Reviews
+            a.btn.btn--green.btn--small(href=`/reviews/${user._id}`) User's Reviews
         

@@ -1192,6 +1192,12 @@ body {
   grid-column-gap: 2rem;
   padding: 2.5rem 3rem;
 }
+.card__details__review {
+  display: grid;
+  grid-row-gap: 1.75rem;
+  grid-column-gap: 2rem;
+  padding: 2.5rem 3rem;
+}
 .card__sub-heading {
   font-size: 1.2rem;
   text-transform: uppercase;
@@ -1257,7 +1263,7 @@ body {
 .card .btn-small,
 .card .btn {
   grid-row: 1 / 3;
-  justify-self: end;
+  justify-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }

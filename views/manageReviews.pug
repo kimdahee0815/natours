@@ -18,7 +18,7 @@ block content
                             h3.heading-tertirary
                                 span= review.tour.name
 
-                        .card__details
+                        .card__details__review
                             h4.card__sub-heading= `${review.tour.difficulty} ${review.tour.duration}-day tour`
                             p.card__text= review.tour.summary
                             h4.card__sub-heading= `Review by ${review.user.name}`
@@ -34,5 +34,5 @@ block content
                             p.card__text= review.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
 
                         .card__footer__btns
-                            a.btn.btn--green.btn--small--two--sides(href=`/tour/${review.tour.slug}`) Update Review
-                            a.btn.btn--red.btn--small--two--sides.delete-manage-review(data-review-id=`${review._id}`) Delete Review
+                            a.btn.btn--green(href=`/tour/${review.tour.slug}`) Update Review
+                            a.btn.btn--red.delete-manage-review(data-review-id=`${review._id}`) Delete Review

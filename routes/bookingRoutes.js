@@ -17,17 +17,17 @@ router.get('/checkout-session/:tourID', getCheckoutSession);
 
 router
   .route('/')
-  .get(restrictTo('admin', 'lead-guide'), getAllBookings)
+  .get(protect, restrictTo('admin', 'lead-guide'), getAllBookings)
   .post(createBooking);
 
 router
   .route('/:id')
-  .get(restrictTo('admin', 'lead-guide'), getBooking)
-  .patch(restrictTo('admin', 'lead-guide'), updateBooking)
+  .get(protect, restrictTo('admin', 'lead-guide'), getBooking)
+  .patch(protect, restrictTo('admin', 'lead-guide'), updateBooking)
   .delete(deleteBooking);
 
 router
   .route('/users/:id')
-  .get(restrictTo('admin', 'lead-guide'), getUserBookings);
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserBookings);
 
 module.exports = router;

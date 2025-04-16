@@ -27,6 +27,6 @@ router
 
 router
   .route('/users/:id')
-  .get(restrictTo('admin', 'lead-guide'), getUserReviews);
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserReviews);
 
 module.exports = router;

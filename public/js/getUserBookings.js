@@ -6,6 +6,7 @@ export const getUserBookings = async (id) => {
   try {
     await axios(`/api/v1/bookings/users/${id}`);
 
+    window.location.href = `/manage-bookings?userId=${id}`;
   } catch (err) {
     console.log(err);
     showAlert('error', err.response.data.message);

@@ -6,7 +6,6 @@ const {
   getAllBookings,
   updateBooking,
   deleteBooking,
-  getUserBookings,
 } = require('../controllers/bookingController');
 const { protect, restrictTo } = require('../controllers/authController');
 
@@ -19,10 +18,6 @@ router
   .route('/')
   .get(protect, restrictTo('admin', 'lead-guide'), getAllBookings)
   .post(createBooking);
-
-router
-  .route('/users/:id')
-  .get(protect, restrictTo('admin', 'lead-guide'), getUserBookings);
 
 router
   .route('/:id')

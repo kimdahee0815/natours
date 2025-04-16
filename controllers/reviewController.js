@@ -34,20 +34,6 @@ exports.createReview = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUserReviews = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
-  const reviews = await Review.find({ user: id });
-  if (!reviews) {
-    return next(new AppError('This review does not exist.', 400));
-  }
-
-  return res.status(200).render('manageReviews', {
-    title: `Manage ${user.name}'s Reviews`,
-    reviews,
-  });
-});
-
 exports.getReview = factory.getOne(Review);
 exports.getAllReviews = factory.getAll(Review);
 exports.updateReview = factory.updateOne(Review);

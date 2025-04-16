@@ -13,6 +13,8 @@ const {
   getManageBookings,
   getMyTours,
   getMyReviews,
+  getUserBookings,
+  getUserReviews,
 } = require('../controllers/viewsController');
 const {
   protect,
@@ -49,6 +51,14 @@ router.get(
   restrictTo('admin', 'lead-guide'),
   getManageBookings,
 );
+
+router
+  .route('/bookings/users/:id')
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserBookings);
+
+router
+  .route('/reviews/users/:id')
+  .get(protect, restrictTo('admin', 'lead-guide'), getUserReviews);
 
 // router.post('/submit-user-data', protect, updateUserData);
 

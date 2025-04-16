@@ -220,6 +220,32 @@ exports.getMyReviews = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getUserReviews = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  const reviews = await Review.find({ user: id });
+  if (!reviews) {
+    return next(new AppError('This review does not exist.', 400));
+  }
+
+  return res.status(200).render('manageReviews', {
+    title: `Manage ${user.name}'s Reviews`,
+    reviews,
+  });
+});
+
+exports.getUserBookings = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  const bookings = await Booking.find({ user: id });
+  const tours = await Tour.find({ user: id });
+
+  return res.status(200).render('overview', {
+    title: `Manage ${user.name}'s Bookings`,
+    tours,
+    bookings,
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

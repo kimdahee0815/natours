@@ -1246,7 +1246,7 @@ body {
   margin-top: auto;
 }
 .justify-self-end {
-  justify-self: end;
+  justify-self: end !important;
 }
 .card__footer__btns {
   background-color: #f7f7f7;

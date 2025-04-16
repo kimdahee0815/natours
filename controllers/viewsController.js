@@ -133,7 +133,7 @@ exports.getAccount = (req, res) => {
 
 exports.getManageBookings = async (req, res) => {
   const bookings = await Booking.find({});
-  console.log(bookings);
+
   if (!bookings) {
     next(new AppError('There are no bookings. ', 400));
   }
@@ -145,7 +145,7 @@ exports.getManageBookings = async (req, res) => {
 
 exports.getManageReviews = async (req, res) => {
   const reviews = await Review.find({});
-
+  console.log(reviews);
   if (!reviews) {
     next(new AppError('There are no reviews. ', 400));
   }
@@ -158,7 +158,7 @@ exports.getManageReviews = async (req, res) => {
 
 exports.getManageTours = async (req, res) => {
   const tours = await Tour.find({});
-
+  console.log(tours);
   if (!tours) {
     next(new AppError('There are no tours. ', 400));
   }

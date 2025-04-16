@@ -257,25 +257,25 @@ deleteManageUserBtns.forEach(btn => {
   });
 });
 
-userBookingsBtns.forEach(btn => {
-  btn.addEventListener('click', async function (e) {
-    const clickedButton = e.currentTarget;
-    const { userId } = clickedButton.dataset;
-    console.log('clickkk');
-    console.log(userId)
-    await getUserBookings(userId);
-  });
-});
+// userBookingsBtns.forEach(btn => {
+//   btn.addEventListener('click', async function (e) {
+//     const clickedButton = e.currentTarget;
+//     const { userId } = clickedButton.dataset;
+//     console.log('clickkk');
+//     console.log(userId)
+//     await getUserBookings(userId);
+//   });
+// });
 
-userReviewsBtns.forEach(btn => {
-  btn.addEventListener('click', async function (e) {
-    const clickedButton = e.currentTarget;
-    const { userId } = clickedButton.dataset;
-    console.log('clickkk');
-    console.log(userId)
-    await getUserReviews(userId);
-  });
-});
+// userReviewsBtns.forEach(btn => {
+//   btn.addEventListener('click', async function (e) {
+//     const clickedButton = e.currentTarget;
+//     const { userId } = clickedButton.dataset;
+//     console.log('clickkk');
+//     console.log(userId)
+//     await getUserReviews(userId);
+//   });
+// });
 
 
 const alertMessage = document.querySelector('body').dataset.alert;

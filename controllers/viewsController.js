@@ -246,6 +246,7 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   const review = await Review.findById(id);
   const tour = await Tour.findById(review.tour.id);
   console.log(review);
+  console.log(tour);
   return res.status(200).render('tour', {
     title: `Manage ${review.user.name}'s Review`,
     tour,

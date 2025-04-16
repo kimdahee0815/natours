@@ -44,8 +44,8 @@ const deleteReviewBtn = document.getElementById('delete-review');
 const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
-const userBookingsBtn = document.getElementById('user-bookings')
-const userReviewsBtn = document.getElementById('user-reviews');
+const userBookingsBtns = document.querySelectorAll('.user-bookings')
+const userReviewsBtns = document.querySelectorAll('.user-reviews');
 
 //Delegation
 if (mapBox) {
@@ -257,16 +257,22 @@ deleteManageUserBtns.forEach(btn => {
   });
 });
 
-userBookingsBtn.addEventListener('click', async (e) => {
-  const { userId } = e.target.dataset;
-  console.log(userId)
-  await getUserBookings(userId);
+userBookingsBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    const { userId } = clickedButton.dataset;
+
+    await getUserBookings(userId);
+  });
 });
 
-userReviewsBtn.addEventListener('click', async (e) => {
-  const { userId } = e.target.dataset;
-  console.log(userId)
-  await getUserReviews(userId);
+userReviewsBtns.forEach(btn => {
+  btn.addEventListener('click', async function (e) {
+    const clickedButton = e.currentTarget;
+    const { userId } = clickedButton.dataset;
+
+    await getUserReviews(userId);
+  });
 });
 
 

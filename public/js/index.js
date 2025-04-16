@@ -18,8 +18,8 @@ import { deleteManageReview } from './deleteManageReview';
 import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
-import { getUserBookings } from '../../controllers/bookingController';
-import { getUserReviews } from '../../controllers/reviewController';
+import { getUserBookings } from './getUserBookings';``
+import { getUserReviews } from './getUserReviews';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -257,20 +257,16 @@ deleteManageUserBtns.forEach(btn => {
   });
 });
 
-userBookingsBtn.addEventListener('click', (e) => {
-  e.target.textContent = 'Loading...';
+userBookingsBtn.addEventListener('click', async (e) => {
   const { userId } = e.target.dataset;
 
-  getUserBookings(userId);
-  e.target.textContent = 'User Bookings';
+  await getUserBookings(userId);
 });
 
-userReviewsBtn.addEventListener('click', (e) => {
-  e.target.textContent = 'Loading...';
+userReviewsBtn.addEventListener('click', async (e) => {
   const { userId } = e.target.dataset;
 
-  getUserReviews(userId);
-  e.target.textContent = 'User Reviews';
+  await getUserReviews(userId);
 });
 
 

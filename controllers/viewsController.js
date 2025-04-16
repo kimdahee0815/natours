@@ -133,7 +133,7 @@ exports.getAccount = (req, res) => {
 
 exports.getManageBookings = async (req, res) => {
   const bookings = await Booking.find({});
-
+  console.log(bookings);
   if (!bookings) {
     next(new AppError('There are no bookings. ', 400));
   }

@@ -1251,7 +1251,7 @@ body {
   border-top: 1px solid #f1f1f1;
   font-size: 1.4rem;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   margin-top: auto;

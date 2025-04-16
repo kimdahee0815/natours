@@ -14,6 +14,7 @@ import { deleteBooking } from './deleteBooking';
 import { createReview }  from './createReview';
 import { updateReview }  from './updateReview';
 import { deleteReview } from './deleteReview';
+import { deleteTour } from './deleteTour';
 
 // DOM Elements
 
@@ -34,7 +35,8 @@ const createReviewForm = document.querySelector('.form-review');
 const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 const updateReviewBtn = document.querySelector('.btn--update-review');
-const deleteReviewBtn = document.getElementById('deleteReview');
+const deleteReviewBtn = document.getElementById('delete-review');
+const deleteTourBtn = document.getElementById('delete-tour');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -198,6 +200,16 @@ if(deleteBookingBtn){
 
     await deleteBooking(bookId);
     e.target.textContent = 'Delete Booking';
+  });
+}
+
+if(deleteTourBtn){
+  deleteTourBtn.addEventListener('click', async (e) => {
+    e.target.textContent = 'Deleting...';
+    const { tourId } = e.target.dataset;
+
+    await deleteTour(tourId);
+    e.target.textContent = 'Delete Tour';
   });
 }
 

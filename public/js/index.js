@@ -218,9 +218,8 @@ if(deleteTourBtn){
 if(deleteManageBookingBtn){
   deleteManageBookingBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Deleting...';
-    console.log(bookId);
     const { bookId } = e.target.dataset;
-
+    console.log(bookId);
     await deleteManageBooking(bookId);
     e.target.textContent = 'Delete Booking';
   });

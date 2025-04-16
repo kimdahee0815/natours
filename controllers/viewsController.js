@@ -240,6 +240,17 @@ exports.getUserReviews = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateUserReviews = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const review = await Review.findById(id);
+
+  return res.status(200).render('tour', {
+    title: `Manage ${review.user.name}'s Review`,
+    tour: review.tour,
+    review,
+  });
+});
+
 exports.getUserBookings = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const user = await User.findById(id);

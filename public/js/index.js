@@ -43,9 +43,6 @@ const deleteReviewBtn = document.getElementById('delete-review');
 const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
-const userBookingsBtns = document.querySelectorAll('.user-bookings')
-const userReviewsBtns = document.querySelectorAll('.user-reviews');
-
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);

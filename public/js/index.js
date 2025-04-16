@@ -259,13 +259,13 @@ deleteManageUserBtns.forEach(btn => {
 
 userBookingsBtn.addEventListener('click', async (e) => {
   const { userId } = e.target.dataset;
-
+  console.log(userId)
   await getUserBookings(userId);
 });
 
 userReviewsBtn.addEventListener('click', async (e) => {
   const { userId } = e.target.dataset;
-
+  console.log(userId)
   await getUserReviews(userId);
 });
 

@@ -36,6 +36,7 @@ exports.createReview = catchAsync(async (req, res, next) => {
 
 exports.getUserReviews = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+  console.log(id);
   const user = await User.findById(id);
   const reviews = await Review.find({ user: id });
 

@@ -23,7 +23,7 @@ mixin userCard(user)
         if user.bookings.length > 0
             a.btn.btn--green.btn--tiny.user-bookings(href=`/bookings/users/${user._id}`)
               | Booked Tours 🗓️ — 
-              span= `${user.bookings.length}${user.bookings.length === 1? '' : 's'} 🏞️`
+              span= `${user.bookings.length} tour${user.bookings.length === 1? '' : 's'} 🏞️`
         if user.reviews.length > 0
             a.btn.btn--green.btn--tiny.user-reviews(href=`/reviews/users/${user._id}`)
               | Reviews ✅ — 

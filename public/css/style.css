@@ -1245,6 +1245,9 @@ body {
   grid-row-gap: 1rem;
   margin-top: auto;
 }
+.justify-self-end {
+  justify-self: end;
+}
 .card__footer__btns {
   background-color: #f7f7f7;
   padding: 2.5rem 3rem 2.5rem 2.3rem;

@@ -9,42 +9,35 @@ block content
             h3.heading-secondary.ma-bt-md.middle= `Tour Number: ${tours.length}`
         .card-container
             if tours.length !== 0
-                each tour in tours 
+                each booking in bookings 
                     .card
                         .card__header
                             .card__picture
                                 .card__picture-overlay &nbsp;
-                                img.card__picture-img(src=`${tour.imageCover}`, alt=`${tour.name}`)
+                                img.card__picture-img(src=`${booking.tour.imageCover}`, alt=`${booking.tour.name}`)
                             h3.heading-tertirary
-                                span= tour.name
+                                span= booking.tour.name
 
                         .card__details
-                            h4.card__sub-heading= `${tour.difficulty} ${tour.duration}-day tour`
-                            p.card__text= tour.summary
+                            h4.card__sub-heading= `${booking.tour.difficulty} ${booking.tour.duration}-day tour`
+                            p.card__text= booking.tour.summary
                             .card__data
                                 svg.card__icon
                                     use(xlink:href='/img/icons.svg#icon-map-pin')
-                                span= tour.startLocation.description
+                                span= booking.tour.startLocation.description
                             .card__data
                                 svg.card__icon
                                     use(xlink:href='/img/icons.svg#icon-calendar')
-                                span= tour.startDates[0].toLocaleString('en-us',{month:'long',year:'numeric'})
+                                span= booking.tour.startDates[0].toLocaleString('en-us',{month:'long',year:'numeric'})
                             .card__data
                                 svg.card__icon
                                     use(xlink:href='/img/icons.svg#icon-flag')
-                                span= `${tour.locations.length} stops`
+                                span= `${booking.tour.locations.length} stops`
                             .card__data
                                 svg.card__icon
                                     use(xlink:href='/img/icons.svg#icon-user')
-                                span= `${tour.maxGroupSize} people`
+                                span= `${booking.tour.maxGroupSize} people`
 
-                        .card__footer
-                            p
-                                span.card__footer-value= `$${tour.price}`
-                                | 
-                                span.card__footer-text per person
-                            p.card__ratings
-                                span.card__footer-value= tour.ratingsAverage
-                                | 
-                                span.card__footer-text= `rating (${tour.ratingsQuantity})`
-                            a.btn.btn--green.btn--small.justify-self-end(href=`/tour/${tour.slug}`) Details
+                        .card__footer__btns
+                            a.btn.btn--green.btn--small--two--sides(href=`/tour/${booking.tour.slug}`) Update Booking
+                            a.btn.btn--red.btn--small--two--sides.delete-manage-booking(data-booking-id=`${booking._id.toString()}`) Delete Booking

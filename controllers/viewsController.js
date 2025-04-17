@@ -262,9 +262,8 @@ exports.getUserBookings = catchAsync(async (req, res, next) => {
   const bookings = await Booking.find({ user: id });
   const tours = bookings.map((el) => el.tour);
 
-  return res.status(200).render('overview', {
+  return res.status(200).render('userBookingOverview', {
     title: `Manage ${user.name}'s Bookings`,
-    manage: true,
     tours,
     bookings,
   });

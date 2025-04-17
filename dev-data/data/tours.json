@@ -8,7 +8,7 @@
     },
     "ratingsAverage": 4.8,
     "ratingsQuantity": 6,
-    "images": ["https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-1.jpg", "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-2.jpg", "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-3.jpg"],
+    "images": ["https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-1.jpg", "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-2.jpg", "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-3.jpg"],
     "startDates": [
       "2021-06-19T09:00:00.000Z",
       "2021-07-20T09:00:00.000Z",
@@ -23,7 +23,7 @@
     "price": 497,
     "summary": "Exploring the jaw-dropping US east coast by foot and by boat",
     "description": "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nIrure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "imageCover": "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-cover.jpg",
+    "imageCover": "https://dahee-natours-project.s3.amazonaws.com/tours/tour-2-cover.jpg",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2959",
@@ -136,7 +136,7 @@
     "price": 997,
     "summary": "Exciting adventure in the snow with snowboarding and skiing",
     "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!\nDolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipisicing elit!",
-    "imageCover": "https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/https://dahee-natours-project.s3.amazonaws.com/tours/tour-3-cover.jpg",
+    "imageCover": "https://dahee-natours-project.s3.amazonaws.com/tours/tour-3-cover.jpg",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c295c",

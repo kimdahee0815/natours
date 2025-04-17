@@ -270,9 +270,7 @@ exports.getUserBookings = catchAsync(async (req, res, next) => {
 });
 
 exports.getMyBilling = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const paidBookings = await Booking.find({ user: id, paid: true });
+  const paidBookings = await Booking.find({ user: req.user.id, paid: true });
 
   res.status(200).render('billing', {
     title: 'My Billing',

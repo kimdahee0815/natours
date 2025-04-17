@@ -91,11 +91,14 @@ block content
                         button.btn.btn--green.btn--create-review(data-tour-id=`${tour.id}`) Submit Review
         if (user.role === 'user' || user.role === 'admin') && review
             .reviews__update
-                h2.heading-secondary.ma-bt-lg.middle Your Review
+                if user.role === 'admin'
+                    h2.heading-secondary.ma-bt-lg.middle= `Manage ${review.user.name}'s Review`
+                else
+                    h2.heading-secondary.ma-bt-lg.middle Your Review
                 form.form.form-review-update
                     .form__group
                         if user.role === 'admin'
-                            label.form__label(for='review')= `Manage ${user.name}'s Review`
+                            label.form__label(for='review')= `Manage ${review.user.name}'s Review`
                         else 
                             label.form__label(for='review') Your Review
                         textarea#review.form__input(name='review', required)= review.review 

@@ -21,11 +21,12 @@ export const drawChart = (id) => am5.ready(async function() {
     const res = await axios(`/api/v1/bookings/billing/${id}`);
 
     if (res.data.status === 'success') {
-        showAlert('success', 'Got Your Billing Correctly!');
         billingData = res.data.paidBookings;
         if(billingData.length === 0){
           showAlert('error', 'You have no billing Data!');
           return;
+        }else{
+          showAlert('success', 'Got Your Billing Correctly!');
         }
     }
   } catch (err) {

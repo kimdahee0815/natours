@@ -241,9 +241,9 @@ deleteManageBookingBtns.forEach(btn => {
   btn.addEventListener('click', async function (e) {
     const clickedButton = e.currentTarget;
     clickedButton.textContent = 'Deleting...';
-    const { bookId } = clickedButton.dataset;
+    const { bookingId } = clickedButton.dataset;
 
-    await deleteManageBooking(bookId);
+    await deleteManageBooking(bookingId);
     clickedButton.textContent = 'Delete Booking';
   });
 });

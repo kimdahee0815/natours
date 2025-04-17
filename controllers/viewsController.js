@@ -272,11 +272,11 @@ exports.getUserBookings = catchAsync(async (req, res, next) => {
 exports.getMyBilling = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const bookings = await Booking.find({ user: id });
-  const tours = bookings.map((el) => el.tour);
+  const paidBookings = await Booking.find({ user: id, paid: true });
 
   res.status(200).render('billing', {
     title: 'My Billing',
+    paidBookings,
   });
 });
 // exports.updateUserData = catchAsync(async (req, res, next) => {

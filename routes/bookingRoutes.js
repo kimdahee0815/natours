@@ -6,6 +6,7 @@ const {
   getAllBookings,
   updateBooking,
   deleteBooking,
+  getUserBooking,
 } = require('../controllers/bookingController');
 const { protect, restrictTo } = require('../controllers/authController');
 
@@ -24,5 +25,7 @@ router
   .get(protect, restrictTo('admin', 'lead-guide'), getBooking)
   .patch(protect, restrictTo('admin', 'lead-guide'), updateBooking)
   .delete(deleteBooking);
+
+router.get('/billing/:id', protect, getUserBooking);
 
 module.exports = router;

@@ -18,7 +18,7 @@ import { deleteManageReview } from './deleteManageReview';
 import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
-import './chart';
+import { drawChart } from './chart';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -43,7 +43,7 @@ const deleteReviewBtn = document.getElementById('delete-review');
 const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
-
+const chart = document.getElementById('chartdiv');
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -278,4 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     });
   }
+
+  if(chart){
+    const { userId } = chart.dataset;
+    drawChart(userId);
+  }
 });
+
+

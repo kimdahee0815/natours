@@ -1,15 +1,34 @@
 /* eslint-disable */
-am5.ready(function() {
-  // Only create chart if element exists
-  if (!document.getElementById('chartdiv')) return;
+import axios from 'axios';
+import { showAlert, hideAlert } from './alerts';
+
+export const drawChart = (id) => am5.ready(async function() {
 
   // Create root element
+  // https://www.amcharts.com/docs/v5/getting-started/#Root_element
   var root = am5.Root.new("chartdiv");
   
   // Set themes
+  // https://www.amcharts.com/docs/v5/concepts/themes/
   root.setThemes([
     am5themes_Animated.new(root)
   ]);
+  
+  let billingData = null;
+  // Get User's Billing
+  try {
+
+    const res = await axios(`/api/v1/bookings/billing/${id}`);
+
+    if (res.data.status === 'success') {
+        showAlert('success', 'Got Your Billing Correctly!');
+        bookingData = res.data.data.paidBookings;
+        console.log(bookingData);
+    }
+  } catch (err) {
+    console.log(err);
+    showAlert('error', err.response.data.message);
+  }
 
   var data = [{
     name: "Monica",
@@ -50,6 +69,7 @@ am5.ready(function() {
   }];
   
   // Create chart
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/
   var chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
@@ -57,24 +77,29 @@ am5.ready(function() {
       wheelX: "none",
       wheelY: "none",
       paddingBottom: 50,
-      paddingTop: 40
+      paddingTop: 40,
+      paddingLeft:0,
+      paddingRight:0
     })
   );
   
   // Create axes
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+  
   var xRenderer = am5xy.AxisRendererX.new(root, {
-    minorGridEnabled: true,
-    minGridDistance: 60
+    minorGridEnabled:true,
+    minGridDistance:60
   });
   xRenderer.grid.template.set("visible", false);
   
   var xAxis = chart.xAxes.push(
     am5xy.CategoryAxis.new(root, {
-      paddingTop: 40,
+      paddingTop:40,
       categoryField: "name",
       renderer: xRenderer
     })
   );
+  
   
   var yRenderer = am5xy.AxisRendererY.new(root, {});
   yRenderer.grid.template.set("strokeDasharray", [3]);
@@ -87,12 +112,13 @@ am5.ready(function() {
   );
   
   // Add series
+  // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
   var series = chart.series.push(
     am5xy.ColumnSeries.new(root, {
-      name: "Bookings",
+      name: "Income",
       xAxis: xAxis,
       yAxis: yAxis,
-      valueYField: "bookings",
+      valueYField: "steps",
       categoryXField: "name",
       sequencedInterpolation: true,
       calculateAggregates: true,
@@ -117,11 +143,11 @@ am5.ready(function() {
   
   var currentlyHovered;
   
-  series.columns.template.events.on("pointerover", (e) => {
+  series.columns.template.events.on("pointerover", function (e) {
     handleHover(e.target.dataItem);
   });
   
-  series.columns.template.events.on("pointerout", (e) => {
+  series.columns.template.events.on("pointerout", function (e) {
     handleOut();
   });
   
@@ -153,7 +179,7 @@ am5.ready(function() {
   
   var circleTemplate = am5.Template.new({});
   
-  series.bullets.push((root, series, dataItem) => {
+  series.bullets.push(function (root, series, dataItem) {
     var bulletContainer = am5.Container.new(root, {});
     var circle = bulletContainer.children.push(
       am5.Circle.new(
@@ -169,6 +195,7 @@ am5.ready(function() {
       am5.Circle.new(root, { radius: 27 })
     );
   
+    // only containers can be masked, so we add image to another container
     var imageContainer = bulletContainer.children.push(
       am5.Container.new(root, {
         mask: maskCircle
@@ -216,7 +243,7 @@ am5.ready(function() {
   cursor.lineX.set("visible", false);
   cursor.lineY.set("visible", false);
   
-  cursor.events.on("cursormoved", () => {
+  cursor.events.on("cursormoved", function () {
     var dataItem = series.get("tooltip").dataItem;
     if (dataItem) {
       handleHover(dataItem);
@@ -226,12 +253,9 @@ am5.ready(function() {
   });
   
   // Make stuff animate on load
-    series.appear();
-    chart.appear(1000, 100);
-
-    // Cleanup on destroy
-    return () => {
-      root.dispose();
-    };
-  });
-
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+  chart.appear(1000, 100);
+  
+  }); // end am5.ready()
+;

@@ -91,6 +91,19 @@ exports.webhookCheckout = (req, res, next) => {
   });
 };
 
+exports.getUserBooking = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const paidBookings = await Booking.find({ user: id, paid: true });
+
+  return res.status(200).json({
+    status: 'success',
+    data: {
+      paidBookings,
+    },
+  });
+});
+
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
 exports.getAllBookings = factory.getAll(Booking);

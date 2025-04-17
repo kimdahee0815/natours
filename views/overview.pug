@@ -2,7 +2,7 @@ extends base
 
 block content 
     main.main 
-        h2.heading-secondary.ma-bt-lg.middle All The Tours
+        h2.heading-secondary.ma-bt-lg.middle= `${title}`
         if tours.length === 0
             h3.heading-secondary.ma-bt-md.middle No Tours found
         else  

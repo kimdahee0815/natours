@@ -60,7 +60,6 @@ const cspOptions = {
     ],
     'style-src': [
       "'self'",
-      "'unsafe-inline'",
       'https://dahee-natours-project.s3.amazonaws.com/',
       'http://localhost:8000',
       'https://fonts.googleapis.com',
@@ -71,7 +70,6 @@ const cspOptions = {
     'font-src': ["'self'", 'https://fonts.gstatic.com'],
     'script-src': [
       "'self'",
-      "'unsafe-inline'",
       'data',
       'blob',
       'https://*.stripe.com',
@@ -86,7 +84,6 @@ const cspOptions = {
     ],
     'worker-src': [
       "'self'",
-      "'unsafe-inline'",
       'data:',
       'blob:',
       'https://*.stripe.com',
@@ -134,11 +131,6 @@ const cspOptions = {
       "'self'",
       'https://dahee-natours-project.s3.amazonaws.com/',
     ],
-    'frame-ancestors': [
-      "'self'",
-      'https://dahee-natours-project.s3.amazonaws.com',
-      'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app'
-    ],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],
   },
@@ -147,10 +139,6 @@ const cspOptions = {
 app.use(
   helmet({
     contentSecurityPolicy: cspOptions,
-    crossOriginEmbedderPolicy: false,
-    crossOriginResourcePolicy: {
-      policy: 'cross-origin',
-    },
   }),
 );
 

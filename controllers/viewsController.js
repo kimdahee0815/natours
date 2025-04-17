@@ -256,13 +256,7 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUserBookings = catchAsync(async (req, res, next) =>
-  res.status(200).render('billing', {
-    title: 'My Billing',
-  }),
-);
-
-exports.getMyBilling = catchAsync(async (req, res, next) => {
+exports.getUserBookings = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const user = await User.findById(id);
   const bookings = await Booking.find({ user: id });
@@ -274,6 +268,13 @@ exports.getMyBilling = catchAsync(async (req, res, next) => {
     bookings,
   });
 });
+
+
+exports.getMyBilling = catchAsync(async (req, res, next) =>
+  res.status(200).render('billing', {
+    title: 'My Billing',
+  }),
+);
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

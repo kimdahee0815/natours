@@ -11,15 +11,6 @@ am5.ready(function() {
     am5themes_Animated.new(root)
   ]);
   
-  // Your actual data here
-  var data = tourData.map(tour => ({
-    name: tour.name,
-    bookings: tour.bookingsCount,
-    pictureSettings: {
-      src: tour.imageCover
-    }
-  }));
-  
   // Create chart
   var chart = root.container.children.push(
     am5xy.XYChart.new(root, {

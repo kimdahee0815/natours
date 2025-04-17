@@ -22,7 +22,7 @@ export const drawChart = (id) => am5.ready(async function() {
 
     if (res.data.status === 'success') {
         showAlert('success', 'Got Your Billing Correctly!');
-        billingData = res.data.data.paidBookings;
+        billingData = res.data.paidBookings;
         console.log(billingData);
     }
   } catch (err) {

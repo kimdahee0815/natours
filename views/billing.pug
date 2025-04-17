@@ -30,7 +30,7 @@ block content
                 .chart-container
                     h2.heading-secondary.ma-bt-md Your Billings
                     div#chartdiv(data-user-id=`${user._id}`)
-                if paidBookings.length === 0
+                if paidBookings
                     h3.heading-secondary.ma-bt-md.middle No bookings found
                 else  
                     div.tbl-section

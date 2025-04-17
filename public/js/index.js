@@ -216,7 +216,7 @@ if(deleteBookingBtn){
     const { bookId } = e.target.dataset;
 
     await deleteBooking(bookId);
-    e.target.textContent = 'Delete Booking';
+    e.target.textContent = 'Book tour now!';
   });
 }
 

@@ -6,10 +6,6 @@ mixin navItem(link, text, icon, active)
             svg
                 use(xlink:href=`/img/icons.svg#icon-${icon}`)
             | #{text}
-block append head
-    script(src="https://cdn.amcharts.com/lib/5/index.js")
-    script(src="https://cdn.amcharts.com/lib/5/xy.js")
-    script(src="https://cdn.amcharts.com/lib/5/themes/Animated.js")
 
 block content 
     main.main

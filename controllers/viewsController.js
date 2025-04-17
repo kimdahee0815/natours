@@ -259,7 +259,8 @@ exports.updateUserReviews = catchAsync(async (req, res, next) => {
 exports.getUserBookings = catchAsync(async (req, res, next) =>
   res.status(200).render('billing', {
     title: 'My Billing',
-  }));
+  }),
+);
 
 exports.getMyBilling = catchAsync(async (req, res, next) => {
   const { id } = req.params;

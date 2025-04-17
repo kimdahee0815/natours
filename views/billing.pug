@@ -29,6 +29,9 @@ block content
             .billing__container
                 .chart-container
                     h2.heading-secondary.ma-bt-md Your Billings
+                if !paidBookings
+                    h3.heading-secondary.ma-bt-md.middle No bookings found
+                else
                     div#chartdiv(data-user-id=`${user._id}`)
                 if !paidBookings
                     h3.heading-secondary.ma-bt-md.middle No bookings found

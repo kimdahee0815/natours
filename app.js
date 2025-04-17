@@ -53,9 +53,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const cspOptions = {
   directives: {
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-    'default-src': ['self'],
+    'default-src': ["'self'"],
     'style-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'https://dahee-natours-project.s3.amazonaws.com/',
       'http://localhost:8000',
@@ -66,7 +66,7 @@ const cspOptions = {
     ],
     'font-src': ['self', 'https://fonts.gstatic.com'],
     'script-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'data',
       'blob',
@@ -80,7 +80,7 @@ const cspOptions = {
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'worker-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'data:',
       'blob:',
@@ -91,7 +91,7 @@ const cspOptions = {
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'frame-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'data:',
       'blob:',
@@ -102,7 +102,7 @@ const cspOptions = {
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'img-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'data:',
       'blob:',
@@ -115,7 +115,7 @@ const cspOptions = {
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'connect-src': [
-      'self',
+      "'self'",
       'unsafe-inline',
       'data:',
       'blob:',
@@ -128,6 +128,10 @@ const cspOptions = {
       'ws://localhost:1234/',
       'https://dahee-natours-project.s3.amazonaws.com/',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
+    ],
+    'form-action': [
+      "'self'",
+      'https://dahee-natours-project.s3.amazonaws.com/',
     ],
   },
 };

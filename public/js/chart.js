@@ -14,7 +14,7 @@ export const drawChart = (id) => am5.ready(async function() {
     am5themes_Animated.new(root)
   ]);
   
-  let billingData = null;
+  let billingData = [];
   // Get User's Billing
   try {
     showAlert('success', 'Getting your Billing...');
@@ -31,21 +31,25 @@ export const drawChart = (id) => am5.ready(async function() {
     
   }
 
-  var data = billingData.reduce((acc, billing) => {
-    const existing = acc.find(item => item.name === billing.tour.name);
-    if (existing) {
-      existing.steps += billing.price;
-    } else {
-      acc.push({
-        name: billing.tour.name,
-        steps: billing.price,
-        pictureSettings: {
-          src: `${billing.tour.imageCover}`
-        }
-      });
-    }
-    return acc;
-  }, []).sort((a, b) => b.steps - a.steps);
+  let data = [];
+  if(billingData.length !== 0){
+    data = billingData.reduce((acc, billing) => {
+      const existing = acc.find(item => item.name === billing.tour.name);
+      if (existing) {
+        existing.steps += billing.price;
+      } else {
+        acc.push({
+          name: billing.tour.name,
+          steps: billing.price,
+          pictureSettings: {
+            src: `${billing.tour.imageCover}`
+          }
+        });
+      }
+      return acc;
+    }, []).sort((a, b) => b.steps - a.steps);
+  }
+  
 
   
   // Create chart

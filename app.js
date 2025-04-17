@@ -57,6 +57,7 @@ const cspOptions = {
     'style-src': [
       'self',
       'unsafe-inline',
+      'https://dahee-natours-project.s3.amazonaws.com/',
       'http://localhost:8000',
       'https://fonts.googleapis.com',
       'https://unpkg.com',
@@ -110,6 +111,7 @@ const cspOptions = {
       'https://*.cloudflare.com/',
       'https://bundle.js:*',
       'http://localhost:8000',
+      'https://dahee-natours-project.s3.amazonaws.com/',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'connect-src': [
@@ -124,6 +126,7 @@ const cspOptions = {
       'http://localhost:8000',
       'ws://localhost:58446/',
       'ws://localhost:1234/',
+      'https://dahee-natours-project.s3.amazonaws.com/',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
   },

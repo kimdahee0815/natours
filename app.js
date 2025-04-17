@@ -53,7 +53,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 const cspOptions = {
   directives: {
     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-    'default-src': ["'self'"],
+    'default-src': [
+      "'self'",
+      'https://dahee-natours-project.s3.amazonaws.com/',
+    ],
     'style-src': [
       "'self'",
       'unsafe-inline',
@@ -64,7 +67,7 @@ const cspOptions = {
       'https://api.mapbox.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
-    'font-src': ['self', 'https://fonts.gstatic.com'],
+    'font-src': ["'self'", 'https://fonts.gstatic.com'],
     'script-src': [
       "'self'",
       'unsafe-inline',

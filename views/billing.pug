@@ -1,0 +1,36 @@
+extends base
+
+mixin navItem(link, text, icon, active)
+    li(class=`${active}? 'side-nav--active':''`)
+        a(href=`${link}`)
+            svg
+                use(xlink:href=`/img/icons.svg#icon-${icon}`)
+            | #{text}
+block append head
+    script(src="https://cdn.amcharts.com/lib/5/index.js")
+    script(src="https://cdn.amcharts.com/lib/5/xy.js")
+    script(src="https://cdn.amcharts.com/lib/5/themes/Animated.js")
+
+block content 
+    main.main
+        .user-view
+            nav.user-view__menu
+                ul.side-nav
+                    +navItem('/me', 'Settings','settings',true)
+                    +navItem('/my-tours', 'My bookings','briefcase',true)
+                    +navItem('/my-reviews', 'My reviews','star',true)
+                    +navItem('/my-billing', 'Billing','credit-card',true)
+
+                - if(user.role === 'admin')
+                    .admin-nav
+                        h5.admin-nav__heading Admin
+                        ul.side-nav
+                            +navItem('/manage-tours', 'Manage tours','map',true)
+                            +navItem('/manage-users', 'Manage users','users',true)
+                            +navItem('/manage-reviews', 'Manage reviews','star',true)
+                            +navItem('/manage-bookings', 'Manage bookings','briefcase',true)
+
+            .user-view__content
+                .user-view__form-container
+                    h2.heading-secondary.ma-bt-md Your Billings
+                    div#chartdiv

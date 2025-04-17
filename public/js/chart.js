@@ -57,7 +57,7 @@ export const drawChart = (id) => am5.ready(async function() {
       wheelX: "none",
       wheelY: "none",
       paddingBottom: 50,
-      paddingTop: 100,
+      paddingTop: 70,
       paddingLeft:0,
       paddingRight:0
     })

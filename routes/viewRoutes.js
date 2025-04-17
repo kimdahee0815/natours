@@ -17,6 +17,7 @@ const {
   getUserReviews,
   getUserAccount,
   updateUserReviews,
+  getMyBilling,
 } = require('../controllers/viewsController');
 const {
   protect,
@@ -38,6 +39,7 @@ router.get('/forgot-password', isLoggedIn, getForgotPasswordForm);
 router.get('/me', protect, getAccount);
 router.get('/my-tours', protect, getMyTours);
 router.get('/my-reviews', protect, getMyReviews);
+router.get('/my-billing', protect, getMyBilling);
 
 router.get(
   '/manage-tours',

@@ -94,7 +94,10 @@ block content
                 h2.heading-secondary.ma-bt-lg.middle Your Review
                 form.form.form-review-update
                     .form__group
-                        label.form__label(for='review') Your Review
+                        if user.role === 'admin'
+                            label.form__label(for='review')= Manage `${user.name}```s Review
+                        else 
+                            label.form__label(for='review') Your Review
                         textarea#review.form__input(name='review', required)= review.review 
                     .form__group
                         label.form__label(for='rating') Rating

@@ -17,7 +17,7 @@ export const drawChart = (id) => am5.ready(async function() {
   let billingData = null;
   // Get User's Billing
   try {
-
+    showAlert('success', 'Getting your Billing...');
     const res = await axios(`/api/v1/bookings/billing/${id}`);
 
     if (res.data.status === 'success') {
@@ -27,47 +27,26 @@ export const drawChart = (id) => am5.ready(async function() {
     }
   } catch (err) {
     console.log(err);
-    showAlert('error', 'No billing Data');
+    showAlert('error', 'Error getting your billing data!');
     
   }
 
-  var data = [{
-    name: "Monica",
-    steps: 45688,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg"
+  var data = billingData.reduce((acc, billing) => {
+    const existing = acc.find(item => item.name === billing.tour.name);
+    if (existing) {
+      existing.steps += billing.price;
+    } else {
+      acc.push({
+        name: billing.tour.name,
+        steps: billing.price,
+        pictureSettings: {
+          src: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/tours/${billing.tour.imageCover}`
+        }
+      });
     }
-  }, {
-    name: "Joey",
-    steps: 35781,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg"
-    }
-  }, {
-    name: "Ross",
-    steps: 25464,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/ross.jpg"
-    }
-  }, {
-    name: "Phoebe",
-    steps: 18788,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/phoebe.jpg"
-    }
-  }, {
-    name: "Rachel",
-    steps: 15465,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg"
-    }
-  }, {
-    name: "Chandler",
-    steps: 11561,
-    pictureSettings: {
-      src: "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg"
-    }
-  }];
+    return acc;
+  }, []).sort((a, b) => b.steps - a.steps);
+
   
   // Create chart
   // https://www.amcharts.com/docs/v5/charts/xy-chart/

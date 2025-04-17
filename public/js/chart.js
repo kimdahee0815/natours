@@ -27,11 +27,7 @@ export const drawChart = (id) => am5.ready(async function() {
     }
   } catch (err) {
     console.log(err);
-    if(err.response){
-      showAlert('error', err.response.data.message);
-    } else{
-      showAlert('error', 'No billing Data');
-    }
+    showAlert('error', 'No billing Data');
     
   }
 

@@ -264,6 +264,7 @@ exports.getUserBookings = catchAsync(async (req, res, next) => {
 
   return res.status(200).render('overview', {
     title: `Manage ${user.name}'s Bookings`,
+    manage: true,
     tours,
     bookings,
   });

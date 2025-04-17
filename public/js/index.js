@@ -216,6 +216,11 @@ if(deleteBookingBtn){
     const { bookId } = e.target.dataset;
 
     await deleteBooking(bookId);
+    e.target.classList.remove('btn--red');
+    e.target.classList.add('btn--green');
+    e.target.id = 'book-tour';
+    e.target.dataset.tourId = e.target.dataset.bookId; 
+    delete e.target.dataset.bookId;
     e.target.textContent = 'Book tour now!';
   });
 }

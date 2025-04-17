@@ -14,7 +14,7 @@ block content
     section.section-header
         .header__hero
             .header__hero-overlay &nbsp;
-            img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+            img.header__hero-img(src=`https://dahee-natours-project.s3.amazonaws.com/tours/${tour.imageCover}`, alt=`${tour.name}`)
 
         .heading-box
             h1.heading-primary
@@ -22,11 +22,11 @@ block content
             .heading-box__group
                 .heading-box__detail
                     svg.heading-box__icon
-                        use(xlink:href='/img/icons.svg#icon-clock')
+                        use(xlink:href='https://dahee-natours-project.s3.amazonaws.com/icons.svg#icon-clock')
                     span.heading-box__text= `${tour.duration} days`
                 .heading-box__detail
                     svg.heading-box__icon
-                        use(xlink:href='/img/icons.svg#icon-map-pin')
+                        use(xlink:href='https://dahee-natours-project.s3.amazonaws.com/icons.svg#icon-map-pin')
                     span.heading-box__text= tour.startLocation.description
 
     section.section-description
@@ -44,7 +44,7 @@ block content
                     h2.heading-secondary.ma-bt-lg Your tour guides
                     each guide in tour.guides
                         .overview-box__detail
-                            img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
+                            img.overview-box__img(src=`https://dahee-natours-project.s3.amazonaws.com/users/${guide.photo}`, alt=`${guide.name}`)
                             - if(guide.role === 'lead-guide')
                                 span.overview-box__label Lead Guide 
                             - if(guide.role === 'guide')
@@ -61,7 +61,7 @@ block content
     section.section-pictures
         each img, i in tour.images 
             .picture-box
-                img.picture-box__img(src=`/img/tours/${img}`, alt=`${tour.name} ${i+1}`, class=`picture-box__img--${i+1}`)
+                img.picture-box__img(src=`https://dahee-natours-project.s3.amazonaws.com/tours/${img}`, alt=`${tour.name} ${i+1}`, class=`picture-box__img--${i+1}`)
 
     section.section-map
         #map(data-locations=`${JSON.stringify(tour.locations)}`)
@@ -109,9 +109,9 @@ block content
     section.section-cta
     .cta
         .cta__img.cta__img--logo
-            img(src='/img/logo-white.png', alt='Natours logo')
-        img.cta__img.cta__img--1(src=`/img/tours/${tour.images[1]}`, alt='Tour picture')
-        img.cta__img.cta__img--2(src=`/img/tours/${tour.images[2]}`, alt='Tour picture')
+            img(src='https://dahee-natours-project.s3.amazonaws.com/logo-white.png', alt='Natours logo')
+        img.cta__img.cta__img--1(src=`https://dahee-natours-project.s3.amazonaws.com/tours/${tour.images[1]}`, alt='Tour picture')
+        img.cta__img.cta__img--2(src=`https://dahee-natours-project.s3.amazonaws.com/tours/${tour.images[2]}`, alt='Tour picture')
         .cta__content
             h2.heading-secondary What are you waiting for?
             p.cta__text=`${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`

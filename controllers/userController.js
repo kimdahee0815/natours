@@ -2,6 +2,7 @@
 const multer = require('multer');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const sharp = require('sharp');
+const { uploadToS3 } = require('../utils/s3');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -36,11 +37,22 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 
-  await sharp(req.file.buffer)
+  const processedImage = await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    .toBuffer();
+
+  try {
+    const url = await uploadToS3(
+      processedImage,
+      `users/${req.file.filename}`,
+      'image/jpeg',
+    );
+    req.file.filename = url;
+  } catch (err) {
+    return next(new AppError('Error uploading to S3:', err));
+  }
 
   next();
 });

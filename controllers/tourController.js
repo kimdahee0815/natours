@@ -3,6 +3,7 @@
 const multer = require('multer');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const sharp = require('sharp');
+const { uploadToS3 } = require('../utils/s3');
 const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -37,24 +38,36 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 
   // 1) Cover Image
   const imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
-  await sharp(req.files.imageCover[0].buffer)
+  const processedCoverImage = await sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
     .toFormat('jpeg')
     .jpeg({ quality: 90 })
-    .toFile(`public/img/tours/${imageCoverFilename}`);
-  req.body.imageCover = imageCoverFilename;
+    .toBuffer();
+
+  req.body.imageCover = await uploadToS3(
+    processedCoverImage,
+    `tours/${imageCoverFilename}`,
+    'image/jpeg',
+  );
 
   // 2) Images
   req.body.images = [];
   await Promise.all(
     req.files.images.map(async (file, i) => {
       const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
-      await sharp(file.buffer)
+
+      const processedImage = await sharp(file.buffer)
         .resize(2000, 1333)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`public/img/tours/${filename}`);
-      req.body.images.push(filename);
+        .toBuffer();
+
+      const url = await uploadToS3(
+        processedImage,
+        `tours/${filename}`,
+        'image/jpeg',
+      );
+      req.body.images.push(url);
     }),
   );
   //console.log(req.body);

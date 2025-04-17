@@ -4,7 +4,7 @@ mixin navItem(link, text, icon, active)
     li(class=`${active}? 'side-nav--active':''`)
         a(href=`${link}`)
             svg
-                use(xlink:href=`img/icons.svg#icon-${icon}`)
+                use(xlink:href=`https://dahee-natours-project.s3.amazonaws.com/icons.svg#icon-${icon}`)
             | #{text}
 
 block content 
@@ -41,7 +41,7 @@ block content
                             label.form__label(for='email') Email address
                             input#email.form__input(type='email', name='email',value=`${user.email}`, required)
                         .form__group.form__photo-upload
-                            img#previewImg.form__user-photo(src=`/img/users/${user.photo}`, alt=`photo of ${user.name}`)
+                            img#previewImg.form__user-photo(src=`${user.photo}`, alt=`photo of ${user.name}`)
                             input.form__upload(type='file', accept='image/*', id='photo', name='photo')
                             label(for='photo') Choose New Photo
                         .form__group.right

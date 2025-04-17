@@ -14,7 +14,7 @@ block content
                         .card__header
                             .card__picture
                                 .card__picture-overlay &nbsp;
-                                img.card__picture-img(src=`/img/tours/${review.tour.imageCover}`, alt=`${review.tour.name}`)
+                                img.card__picture-img(src=`https://dahee-natours-project.s3.amazonaws.com/tours/${review.tour.imageCover}`, alt=`${review.tour.name}`)
                             h3.heading-tertirary
                                 span= review.tour.name
 
@@ -27,7 +27,7 @@ block content
                             .reviews__rating
                                 each star in [1,2,3,4,5]
                                     svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active':'inactive'}`)
-                                        use(xlink:href='/img/icons.svg#icon-star')
+                                        use(xlink:href='https://dahee-natours-project.s3.amazonaws.com/icons.svg#icon-star')
                             h4.card__sub-heading= `My Review Date 🗓️`
                             p.card__text= review.createdAt.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })
 

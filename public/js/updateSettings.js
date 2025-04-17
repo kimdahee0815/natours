@@ -17,9 +17,11 @@ export const updateSettings = async (data, type) => {
 
     if (res.data.status === 'success') {
       if (type === 'data') {
-        location.reload(true); // Reload the page to reflect changes
+        showAlert('success', `${type.toUpperCase()} updated successfully!`);
+        if (res.data.data.user.photo) {
+          document.querySelector('.form__user-photo').src = res.data.data.user.photo;
+        }
       }
-      showAlert('success', `${type.toUpperCase()} updated successfully!`);
     }
   } catch (err) {
     showAlert('error', err.response.data.message);

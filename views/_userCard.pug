@@ -1,7 +1,7 @@
 mixin userCard(user)
     .reviews__card
         .reviews__avatar
-            img.reviews__avatar-img(src=`${user.photo ? user.photo : 'https://dahee-natours-project.s3.amazonaws.com/users/default.jpg'}`, alt=`${user.name}`)
+            img.reviews__avatar-img(src=`${user.photo}`, alt=`${user.name}`)
             h6.reviews__user= user.name
         h4.card__sub-heading= `User ID 🆔`
         p.reviews__text= user._id

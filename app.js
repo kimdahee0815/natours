@@ -77,6 +77,7 @@ const cspOptions = {
       'https://unpkg.com',
       'http://localhost:8000',
       'https://cdn.jsdelivr.net',
+      'https://dahee-natours-project.s3.amazonaws.com/',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'worker-src': [

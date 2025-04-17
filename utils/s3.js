@@ -14,7 +14,6 @@ exports.uploadToS3 = async (file, filename, mimetype) => {
     Key: filename,
     Body: file,
     ContentType: mimetype,
-    ACL: 'public-read',
   };
 
   try {

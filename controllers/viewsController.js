@@ -269,12 +269,16 @@ exports.getUserBookings = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMyBilling = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
 
-exports.getMyBilling = catchAsync(async (req, res, next) =>
+  const bookings = await Booking.find({ user: id });
+  const tours = bookings.map((el) => el.tour);
+
   res.status(200).render('billing', {
     title: 'My Billing',
-  }),
-);
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

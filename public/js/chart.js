@@ -23,11 +23,14 @@ export const drawChart = (id) => am5.ready(async function() {
     if (res.data.status === 'success') {
         showAlert('success', 'Got Your Billing Correctly!');
         billingData = res.data.paidBookings;
-        console.log(billingData);
+        if(billingData.length === 0){
+          showAlert('error', 'You have no billing Data!');
+          return;
+        }
     }
   } catch (err) {
     console.log(err);
-    showAlert('error', 'Error getting your billing data!');
+    showAlert('error', 'Error getting your billing Data!');
     
   }
 

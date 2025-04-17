@@ -95,7 +95,7 @@ block content
                 form.form.form-review-update
                     .form__group
                         if user.role === 'admin'
-                            label.form__label(for='review')= Manage `${user.name}```s Review
+                            label.form__label(for='review')= `Manage ${user.name}'s Review`
                         else 
                             label.form__label(for='review') Your Review
                         textarea#review.form__input(name='review', required)= review.review 

@@ -56,11 +56,13 @@ const cspOptions = {
     'default-src': [
       "'self'",
       'https://dahee-natours-project.s3.amazonaws.com',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app',
     ],
     'style-src': [
       "'self'",
       'https://dahee-natours-project.s3.amazonaws.com/',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'http://localhost:8000',
       'https://fonts.googleapis.com',
       'https://unpkg.com',
@@ -80,6 +82,7 @@ const cspOptions = {
       'http://localhost:8000',
       'https://cdn.jsdelivr.net',
       'https://dahee-natours-project.s3.amazonaws.com/',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'worker-src': [
@@ -101,6 +104,7 @@ const cspOptions = {
       'https://*.cloudflare.com/',
       'https://bundle.js:*',
       'https://dahee-natours-project.s3.amazonaws.com',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'img-src': [
@@ -113,6 +117,7 @@ const cspOptions = {
       'https://bundle.js:*',
       'http://localhost:8000',
       'https://dahee-natours-project.s3.amazonaws.com/',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'connect-src': [
@@ -125,11 +130,13 @@ const cspOptions = {
       'ws://localhost:58446/',
       'ws://localhost:1234/',
       'https://dahee-natours-project.s3.amazonaws.com/',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
     ],
     'form-action': [
       "'self'",
       'https://dahee-natours-project.s3.amazonaws.com/',
+      'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
     ],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],

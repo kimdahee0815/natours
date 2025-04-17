@@ -40,7 +40,7 @@ export const drawChart = (id) => am5.ready(async function() {
         name: billing.tour.name,
         steps: billing.price,
         pictureSettings: {
-          src: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/tours/${billing.tour.imageCover}`
+          src: `${billing.tour.imageCover}`
         }
       });
     }
@@ -57,7 +57,7 @@ export const drawChart = (id) => am5.ready(async function() {
       wheelX: "none",
       wheelY: "none",
       paddingBottom: 50,
-      paddingTop: 40,
+      paddingTop: 100,
       paddingLeft:0,
       paddingRight:0
     })

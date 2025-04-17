@@ -134,6 +134,8 @@ const cspOptions = {
       "'self'",
       'https://dahee-natours-project.s3.amazonaws.com/',
     ],
+    'object-src': ["'none'"],
+    'base-uri': ["'self'"],
   },
 };
 

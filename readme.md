@@ -1,19 +1,11 @@
 # Natours - Eco-Tour Booking App 🌍🗺️
-
-![Natours Logo](https://dahee-natours-project.s3.amazonaws.com/favicon.png)
+<img src="https://dahee-natours-project.s3.amazonaws.com/favicon.png" width="150" height="150" /> NATOURS
 
 Natours is a dynamic and eco-friendly tour booking platform that allows users to explore and book eco-tours with ease. Built with modern technologies, this app provides a polished UI, secure authentication, and a smooth payment flow. Admins have powerful management tools and insights to oversee the platform.
 
 ## 🚀 Tech Stack
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) 
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) 
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)  
-![Stripe](https://img.shields.io/badge/Stripe-008C51?style=for-the-badge&logo=stripe&logoColor=white)  
-![Mapbox](https://img.shields.io/badge/Mapbox-0083FF?style=for-the-badge&logo=mapbox&logoColor=white)  
-![SendGrid](https://img.shields.io/badge/SendGrid-00B0A1?style=for-the-badge&logo=sendgrid&logoColor=white)  
-![AWS S3](https://img.shields.io/badge/AWS%20S3-569A31?style=for-the-badge&logo=amazonaws&logoColor=white)  
-![Koyeb](https://img.shields.io/badge/Koyeb-1D72B8?style=for-the-badge&logo=koyeb&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)  ![Stripe](https://img.shields.io/badge/Stripe-008C51?style=for-the-badge&logo=stripe&logoColor=white)  ![Mapbox](https://img.shields.io/badge/Mapbox-0083FF?style=for-the-badge&logo=mapbox&logoColor=white)  ![SendGrid](https://img.shields.io/badge/SendGrid-00B0A1?style=for-the-badge&logo=sendgrid&logoColor=white)  ![AWS S3](https://img.shields.io/badge/AWS%20S3-569A31?style=for-the-badge&logo=amazonaws&logoColor=white)  ![Koyeb](https://img.shields.io/badge/Koyeb-1D72B8?style=for-the-badge&logo=koyeb&logoColor=white)
 
 ## 🌟 Key Features
 

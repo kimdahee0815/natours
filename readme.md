@@ -1,4 +1,4 @@
-# <img src="https://dahee-natours-project.s3.amazonaws.com/favicon.png" width="40" height="40" />Natours - Eco-Tour Booking App 🌍🗺️
+# <img src="https://dahee-natours-project.s3.amazonaws.com/favicon.png" width="40" height="40" alt="Natours"/>Natours - Eco-Tour Booking App 🌍🗺️
 
 Natours is a dynamic and eco-friendly tour booking platform that allows users to explore and book eco-tours with ease. Built with **Node.js**, **Express**, **MongoDB**, and **Pug** for server-side rendering, the app also integrates Stripe for secure payments, Mapbox for interactive tour maps, AWS S3 for scalable image storage, and SendGrid for transactional emails. With a polished UI, JWT-based authentication, and robust security features, users enjoy a seamless experience while admins benefit from powerful management tools and data-driven insights.
 
@@ -30,3 +30,17 @@ Natours is a dynamic and eco-friendly tour booking platform that allows users to
 
 - **MVC Structure**: The project follows a clean Model-View-Controller architecture for maintainability and scalability.
 - **🖥️ Server-Side Rendering**: The frontend is built with Pug for server-side rendering (SSR), ensuring fast load times and SEO optimization.
+
+---
+
+## 🚀 Live Demo
+
+👉 [Book Your Tour on Natours](https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/)
+
+---
+
+## 🖼 Preview
+
+
+
+---

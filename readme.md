@@ -1,5 +1,4 @@
-# Natours - Eco-Tour Booking App 🌍🗺️
-<img src="https://dahee-natours-project.s3.amazonaws.com/favicon.png" width="150" height="150" /> NATOURS
+# Natours - Eco-Tour Booking App <img src="https://dahee-natours-project.s3.amazonaws.com/favicon.png" width="150" height="150" />
 
 Natours is a dynamic and eco-friendly tour booking platform that allows users to explore and book eco-tours with ease. Built with modern technologies, this app provides a polished UI, secure authentication, and a smooth payment flow. Admins have powerful management tools and insights to oversee the platform.
 

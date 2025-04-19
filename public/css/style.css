@@ -1387,7 +1387,7 @@ body {
 }
 
 .reviews__new, .reviews__update {
-  margin: 0 auto;
+  margin: 10rem auto;
   width: 70%;
   background-color: #fff;
   -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);

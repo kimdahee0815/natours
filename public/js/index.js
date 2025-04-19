@@ -309,6 +309,12 @@ if (ratingInput) {
   if (window.review) {
       const initialRating = review.rating;
       ratingHiddenInput.value = initialRating;
+      stars.forEach(s => {
+        if (s.dataset.rating <= initialRating) {
+            s.classList.remove('reviews__star--inactive');
+            s.classList.add('reviews__star--active');
+        }
+    });
   }
 
   stars.forEach(star => {

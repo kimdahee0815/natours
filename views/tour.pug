@@ -104,12 +104,11 @@ block content
                         textarea#review.form__input(name='review', required)= review.review 
                     .form__group
                         label.form__label(for='rating') Rating
-                        select#rating.form__input(name='rating', value=review.rating)
-                            option(value='5', selected=(review.rating == 5)) 5 - Excellent
-                            option(value='4', selected=(review.rating == 4)) 4 - Very Good
-                            option(value='3', selected=(review.rating == 3)) 3 - Good
-                            option(value='2', selected=(review.rating == 2)) 2 - Fair
-                            option(value='1', selected=(review.rating == 1)) 1 - Poor
+                        .reviews__rating.rating-input
+                            - for (let i = 1; i <= 5; i++)
+                                svg.reviews__star.reviews__star--inactive(class=`star-${i}` data-rating=i)
+                                    use(xlink:href='/img/icons.svg#icon-star')
+                        input#rating.form__input(type='hidden', name='rating', required)
                     .form__group.middle
                         button.btn.btn--green.btn--update-review(data-review-id=`${review._id}`) Update Review
     section.section-cta

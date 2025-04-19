@@ -44,6 +44,8 @@ const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review'
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
 const chart = document.getElementById('chartdiv');
+const ratingInput = document.querySelector('.rating-input');
+
 //Delegation
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -159,6 +161,11 @@ if(createReviewForm){
     document.querySelector('.btn--create-review').textContent = 'Creating...';
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
+
+    if (!rating || !review) {
+      showAlert('error', 'Please select a rating');
+      return;
+    }
 
     await createReview(review, rating, tourId);
     document.querySelector('.btn--create-review').textContent = 'Create Review';
@@ -285,4 +292,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+if (ratingInput) {
+  const stars = ratingInput.querySelectorAll('.reviews__star');
+  const ratingHiddenInput = document.getElementById('rating');
+
+  stars.forEach(star => {
+      star.addEventListener('click', (e) => {
+          const rating = e.currentTarget.dataset.rating;
+          ratingHiddenInput.value = rating;
+          
+          // Update visual state
+          stars.forEach(s => {
+              if (s.dataset.rating <= rating) {
+                  s.classList.add('active');
+                  s.classList.remove('reviews__star--inactive');
+                  s.classList.add('reviews__star--active');
+              } else {
+                  s.classList.remove('active');
+                  s.classList.add('reviews__star--inactive');
+                  s.classList.remove('reviews__star--active');
+              }
+          });
+      });
+  });
+}
 

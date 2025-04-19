@@ -368,6 +368,10 @@ if(createTourForm){
     form.append('imageCover', imageCover);
     Array.from(images).forEach(img => form.append('images', img));
     
+    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
+      .map(option => option.value);
+    form.append('guides', JSON.stringify(selectedGuides));
+    
     await createTours(form);   
     document.querySelector('.btn--create-tour').textContent = 'Create Tour';
   });

@@ -65,10 +65,10 @@ block content
             button.btn.btn--small.btn--green#add-date(type='button') Add Date
           
           .form__group
-            label.form__label Tour Guides
-            select#guides.form__input(multiple)
-              each guide in guides
-                option(value=guide.id)= guide.name
+              label.form__label Tour Guides
+              select#guides.form__input(name='guides[]', multiple, size='4')
+                  each guide in guides
+                      option(value=guide.id, data-role=guide.role)= `${guide.name} (${guide.role})`
           
           .form__group
             label.form__label Cover Image

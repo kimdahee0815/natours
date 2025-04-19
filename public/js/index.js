@@ -296,24 +296,50 @@ if (ratingInput) {
   const stars = ratingInput.querySelectorAll('.reviews__star');
   const ratingHiddenInput = document.getElementById('rating');
 
+  // Set initial rating if reviewing
+  if (window.review) {
+      const initialRating = review.rating;
+      ratingHiddenInput.value = initialRating;
+      stars.forEach(s => {
+          if (s.dataset.rating <= initialRating) {
+              s.classList.add('reviews__star--active');
+              s.classList.remove('reviews__star--inactive');
+          }
+      });
+  }
+
   stars.forEach(star => {
-      star.addEventListener('click', (e) => {
-          const rating = e.currentTarget.dataset.rating;
+      star.addEventListener('click', function(e) {
+          e.preventDefault();
+          const rating = this.dataset.rating;
           ratingHiddenInput.value = rating;
-          
+
           // Update visual state
           stars.forEach(s => {
               if (s.dataset.rating <= rating) {
-                  s.classList.add('active');
                   s.classList.remove('reviews__star--inactive');
                   s.classList.add('reviews__star--active');
               } else {
-                  s.classList.remove('active');
-                  s.classList.add('reviews__star--inactive');
                   s.classList.remove('reviews__star--active');
+                  s.classList.add('reviews__star--inactive');
               }
+          });
+      });
+
+      // Add hover effect
+      star.addEventListener('mouseenter', function() {
+          const rating = this.dataset.rating;
+          stars.forEach(s => {
+              if (s.dataset.rating <= rating) {
+                  s.classList.add('reviews__star--hover');
+              }
+          });
+      });
+
+      star.addEventListener('mouseleave', function() {
+          stars.forEach(s => {
+              s.classList.remove('reviews__star--hover');
           });
       });
   });
 }
-

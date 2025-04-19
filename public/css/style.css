@@ -721,6 +721,27 @@ body {
   font-style: italic;
   font-weight: 400;
 }
+.reviews__rating {
+  margin-top: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.reviews__star {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1px;
+}
+.reviews__star--active {
+  fill: #55c57a;
+}
+.reviews__star--inactive {
+  fill: #bbb;
+}
+.reviews__star--hover {
+  transform: scale(1.1);
+  fill: #55c57a;
+}
 
 /* Review Stars */
 .rating-input {
@@ -737,28 +758,21 @@ body {
   height: 3rem;
   cursor: pointer;
   transition: all 0.2s;
+  color: #bbb;
 }
 
-/* Hover effect for the star and all stars before it */
 .rating-input .reviews__star:hover,
 .rating-input .reviews__star:hover ~ .reviews__star {
-    fill: #55c57a;
-    transform: scale(1.1);
+  color: #55c57a;
+  transform: scale(1.1);
 }
 
-/* Default state */
-.rating-input .reviews__star {
-    fill: #bbb;
+.rating-input .reviews__star--active {
+  color: #55c57a;
 }
 
-/* Inactive state */
 .rating-input .reviews__star--inactive {
-  fill: #bbb;
-}
-
-/* Active state */
-.rating-input .reviews__star.reviews__star--active {
-    fill: #55c57a;
+  color: #bbb;
 }
 
 .section-cta {

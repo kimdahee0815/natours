@@ -118,7 +118,16 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect password!', 401));
   }
 
-  // 3) If so, delete account (set active to false)
+  // 3) If so, delete account (set active to false), Delete all associated data
+  await Review.deleteMany({ user: req.user.id });
+  await Booking.deleteMany({ user: req.user.id });
+
+  // Remove user from tour guides if they are a guide
+  await Tour.updateMany(
+    { guides: req.user.id },
+    { $pull: { guides: req.user.id }}
+  );
+
   await User.findByIdAndUpdate(req.user.id, { active: false });
 
   const cookieOptions = {
@@ -149,18 +158,18 @@ exports.createUser = (req, res) => {
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const userTobeDeleted = await User.findByIdAndDelete(req.params.id);
 
-  const review = await Review.findByIdAndDelete({ user: req.params.id });
-  const booking = await Booking.findByIdAndDelete({ user: req.params.id });
-  const tours = await Booking.find({ guides: req.params.id });
-  if (tours) {
-    await Tour.updateMany(
-      { guides: req.params.id },
-      { $pull: { guides: req.params.id } },
-    );
-  }
   if (!userTobeDeleted) {
     return next(new AppError('No User Found with that ID!', 404));
   }
+  // Delete all associated data
+  await Review.deleteMany({ user: req.params.id });
+  await Booking.deleteMany({ user: req.params.id });
+
+  // Remove user from tour guides if they are a guide
+  await Tour.updateMany(
+    { guides: req.params.id },
+    { $pull: { guides: req.params.id } }
+  );
 
   res.status(200).json({
     status: 'success',

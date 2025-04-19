@@ -1515,6 +1515,8 @@ td{
 .rating-input {
   cursor: pointer;
   display: flex;
+  flex-direction: row-reverse;  
+  justify-content: flex-end;    
   gap: 0.5rem;
   margin: 1rem 0;
 }
@@ -1525,20 +1527,21 @@ td{
   transition: all 0.2s;
 }
 
+/* Hover effect for the star and all stars before it */
 .rating-input .reviews__star:hover,
-.rating-input .reviews__star.active {
-  transform: scale(1.1);
-  fill: #55c57a;
-}
-
+.rating-input .reviews__star:hover ~ .reviews__star,
+.rating-input .reviews__star.active,
 .rating-input .reviews__star.active ~ .reviews__star {
-  fill: #bbb;
+    fill: #55c57a;
+    transform: scale(1.1);
 }
 
-.rating-input:hover .reviews__star {
-  fill: #55c57a;
+/* Default state */
+.rating-input .reviews__star {
+    fill: #bbb;
 }
 
-.rating-input .reviews__star:hover ~ .reviews__star {
-  fill: #bbb;
+/* Active state */
+.rating-input .reviews__star.reviews__star--active {
+    fill: #55c57a;
 }

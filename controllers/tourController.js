@@ -162,8 +162,11 @@ exports.getDistances = catchAsync(async (req, res, next) => {
 exports.deleteTour = catchAsync(async (req, res, next) => {
   const tourTobeDeleted = await Tour.findByIdAndDelete(req.params.id);
 
-  const review = await Review.findByIdAndDelete({ user: req.params.id });
-  const booking = await Booking.findByIdAndDelete({ user: req.params.id });
+  // Delete all reviews associated with this tour
+  await Review.deleteMany({ tour: req.params.id });
+
+  // Delete all bookings associated with this tour
+  await Booking.deleteMany({ tour: req.params.id });
 
   if (!tourTobeDeleted) {
     return next(new AppError('No Tour Found with that ID!', 404));

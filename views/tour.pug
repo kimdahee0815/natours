@@ -82,7 +82,7 @@ block content
                     .form__group
                         label.form__label(for='rating') Rating
                         .reviews__rating.rating-input
-                            - for (let i = 5; i >= 1; i--)
+                            - for (let i = 1; i <= 5; i++)
                                 svg.reviews__star(class=`star-${i} ${review && review.rating >= i ? 'reviews__star--active' : 'reviews__star--inactive'}` data-rating=i)
                                     use(xlink:href='/img/icons.svg#icon-star')
                         input#rating.form__input(type='hidden', name='rating', required)
@@ -104,7 +104,7 @@ block content
                     .form__group
                         label.form__label(for='rating') Rating
                         .reviews__rating.rating-input
-                            - for (let i = 5; i >= 1; i--)
+                            - for (let i = 1; i <= 5; i++)
                                 svg.reviews__star(class=`star-${i} ${review && review.rating >= i ? 'reviews__star--active' : 'reviews__star--inactive'}` data-rating=i)
                                     use(xlink:href='/img/icons.svg#icon-star')
                         input#rating.form__input(type='hidden', name='rating', required, value=review ? review.rating : '')

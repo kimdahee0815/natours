@@ -72,6 +72,7 @@ const cspOptions = {
     'font-src': ["'self'", 'https://fonts.gstatic.com'],
     'script-src': [
       "'self'",
+      "'unsafe-inline'",
       'data',
       'blob',
       'https://*.stripe.com',

@@ -168,9 +168,17 @@ if(createReviewForm){
     }
 
     await createReview(review, rating, tourId);
+    createReviewForm.reset();
+    window.review = null;
+  
     document.querySelector('.btn--create-review').textContent = 'Create Review';
-  }
-  );
+  
+    const stars = document.querySelectorAll('.reviews__star');
+    stars.forEach(s => {
+      s.classList.remove('reviews__star--active');
+      s.classList.add('reviews__star--inactive');
+    });
+  });
 }
 
 if(updateReviewForm){
@@ -182,6 +190,7 @@ if(updateReviewForm){
     const { reviewId } = updateReviewBtn.dataset;
 
     await updateReview(review, rating, reviewId);
+    window.review = { rating, review };
     document.querySelector('.btn--update-review').textContent = 'Update Review';
   }
   );

@@ -51,7 +51,7 @@ const locationsContainer = document.getElementById('locations-container');
 const datesContainer = document.getElementById('dates-container');
 const addLocationBtn = document.getElementById('add-location');
 const addDateBtn = document.getElementById('add-date');
-
+const guidSearch = document.getElementById('guide-search');
 
 //Delegation
 if (mapBox) {
@@ -323,6 +323,24 @@ if(createTourForm){
     });
   });
 
+  if (guideSearch) {
+    const guidesSelect = document.getElementById('guides');
+    const guideOptions = Array.from(guidesSelect.options);
+
+    guideSearch.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        guideOptions.forEach(option => {
+            const guideName = option.getAttribute('data-name');
+            const guideRole = option.getAttribute('data-role');
+            const matchesSearch = guideName.includes(searchTerm) || 
+                                guideRole.includes(searchTerm);
+            
+            option.style.display = matchesSearch ? '' : 'none';
+        });
+    });
+}
+
   createTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--create-tour').textContent = 'Creating...';
@@ -371,7 +389,7 @@ if(createTourForm){
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
       .map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
-    
+
     await createTours(form);   
     document.querySelector('.btn--create-tour').textContent = 'Create Tour';
   });

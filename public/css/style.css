@@ -1635,3 +1635,28 @@ select[multiple] option:checked {
   background-color: #55c57a;
   color: #fff;
 }
+
+.guides-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.guides-search {
+  margin-bottom: 1rem;
+}
+
+.guides-search input {
+  width: 100%;
+  padding: 0.8rem;
+}
+
+#guides option {
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+#guides option:hover {
+  background-color: #55c57a;
+  color: #fff;
+}

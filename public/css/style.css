@@ -738,6 +738,10 @@ body {
 .reviews__star--inactive {
   fill: #bbb;
 }
+.reviews__star--hover {
+  transform: scale(1.1);
+  fill: #55c57a;
+}
 
 .section-cta {
   margin-top: calc(0px - var(--section-rotate));

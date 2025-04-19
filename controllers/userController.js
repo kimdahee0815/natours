@@ -125,7 +125,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   // Remove user from tour guides if they are a guide
   await Tour.updateMany(
     { guides: req.user.id },
-    { $pull: { guides: req.user.id }}
+    { $pull: { guides: req.user.id } },
   );
 
   await User.findByIdAndUpdate(req.user.id, { active: false });
@@ -168,7 +168,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
   // Remove user from tour guides if they are a guide
   await Tour.updateMany(
     { guides: req.params.id },
-    { $pull: { guides: req.params.id } }
+    { $pull: { guides: req.params.id } },
   );
 
   res.status(200).json({

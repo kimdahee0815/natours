@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const Stripe = require('stripe');
 const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
+const Review = require('../models/reviewModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-// const AppError = require('../utils/appError');
+const AppError = require('../utils/appError');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
@@ -101,9 +103,22 @@ exports.getUserBooking = catchAsync(async (req, res, next) => {
     paidBookings,
   });
 });
+exports.deleteBooking = catchAsync(async (req, res, next) => {
+  const bookingTobeDeleted = await Booking.findByIdAndDelete(req.params.id);
+
+  const review = await Review.findByIdAndDelete({ user: req.params.id });
+
+  if (!bookingTobeDeleted) {
+    return next(new AppError('No User Found with that ID!', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: null,
+  });
+});
 
 exports.createBooking = factory.createOne(Booking);
 exports.getBooking = factory.getOne(Booking);
 exports.getAllBookings = factory.getAll(Booking);
 exports.updateBooking = factory.updateOne(Booking);
-exports.deleteBooking = factory.deleteOne(Booking);

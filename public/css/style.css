@@ -743,8 +743,8 @@ body {
 .rating-input {
   cursor: pointer;
   display: flex;
-  flex-direction: row-reverse;  /* Keep this to maintain click behavior */
-  justify-content: flex-end;    /* Change this to align stars to the right */
+  flex-direction: row; /* Changed from row-reverse */
+  justify-content: flex-start;
   gap: 0.5rem;
   margin: 1rem 0;
 }
@@ -752,6 +752,7 @@ body {
 .rating-input .reviews__star {
   width: 3rem;
   height: 3rem;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -761,10 +762,13 @@ body {
 }
 
 /* Hover effects */
+.rating-input:hover .reviews__star {
+  fill: #bbb;
+}
+
 .rating-input .reviews__star:hover,
 .rating-input .reviews__star:hover ~ .reviews__star {
   fill: #55c57a;
-  transform: scale(1.1);
 }
 
 /* Active state */
@@ -772,9 +776,9 @@ body {
   fill: #55c57a;
 }
 
-/* Inactive state */
-.rating-input .reviews__star--inactive {
-  fill: #bbb;
+/* Hover animation */
+.rating-input .reviews__star:hover {
+  transform: scale(1.1);
 }
 
 .section-cta {

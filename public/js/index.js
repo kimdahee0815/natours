@@ -307,7 +307,7 @@ if (ratingInput) {
 
   // Set initial rating if reviewing
   if (window.review) {
-      const initialRating = review.rating;
+      const initialRating = window.review.rating;
       ratingHiddenInput.value = initialRating;
       stars.forEach(s => {
         if (s.dataset.rating <= initialRating) {

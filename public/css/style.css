@@ -769,6 +769,10 @@ body {
   fill: #bbb;
 }
 
+.rating-input .reviews__star use {
+  pointer-events: none;
+}
+
 .section-cta {
   margin-top: calc(0px - var(--section-rotate));
   padding: 3rem;

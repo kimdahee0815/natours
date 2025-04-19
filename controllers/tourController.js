@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // const fs = require('fs');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const multer = require('multer');
@@ -5,6 +6,8 @@ const multer = require('multer');
 const sharp = require('sharp');
 const { uploadToS3 } = require('../utils/s3');
 const Tour = require('../models/tourModel');
+const Booking = require('../models/bookingModel');
+const Review = require('../models/reviewModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
@@ -156,6 +159,22 @@ exports.getDistances = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.deleteTour = catchAsync(async (req, res, next) => {
+  const tourTobeDeleted = await Tour.findByIdAndDelete(req.params.id);
+
+  const review = await Review.findByIdAndDelete({ user: req.params.id });
+  const booking = await Booking.findByIdAndDelete({ user: req.params.id });
+
+  if (!tourTobeDeleted) {
+    return next(new AppError('No Tour Found with that ID!', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 // const tours = JSON.parse(
 //   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
 // );
@@ -190,7 +209,6 @@ exports.getAllTours = factory.getAll(Tour);
 exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 exports.createTour = factory.createOne(Tour);
 exports.updateTour = factory.updateOne(Tour);
-exports.deleteTour = factory.deleteOne(Tour);
 
 // const newId = tours[tours.length - 1].id + 1;
 // const newTour = Object.assign({ id: newId }, req.body);

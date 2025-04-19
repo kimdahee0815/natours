@@ -81,12 +81,11 @@ block content
                         textarea#review.form__input(name='review', placeholder='Tell us about your experience!', required)
                     .form__group
                         label.form__label(for='rating') Rating
-                        select#rating.form__input(name='rating')
-                            option(value='5') 5 - Excellent
-                            option(value='4') 4 - Very Good
-                            option(value='3') 3 - Good
-                            option(value='2') 2 - Fair
-                            option(value='1') 1 - Poor
+                        .reviews__rating.rating-input
+                            - for (let i = 1; i <= 5; i++)
+                                svg.reviews__star.reviews__star--inactive(class=`star-${i}` data-rating=i)
+                                    use(xlink:href='/img/icons.svg#icon-star')
+                        input#rating.form__input(type='hidden', name='rating', required)
                     .form__group.middle
                         button.btn.btn--green.btn--create-review(data-tour-id=`${tour.id}`) Submit Review
         if (user.role === 'user' || user.role === 'admin') && review

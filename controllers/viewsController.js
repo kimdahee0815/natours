@@ -282,7 +282,7 @@ exports.getCreateTourForm = catchAsync(async (req, res) => {
   // Get all guides for the select input
   const guides = await User.find({ role: { $in: ['guide', 'lead-guide'] } });
 
-  res.status(200).render('createTour', {
+  res.status(200).render('createTours', {
     title: 'Create New Tour',
     guides,
   });

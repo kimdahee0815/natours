@@ -72,6 +72,6 @@ router
 
 router
   .route('/tours')
-  .get(protect, restrictTo('admin', 'lead-guide', 'guide'), getCreateTourForm);
+  .get(protect, restrictTo('admin', 'lead-guide'), getCreateTourForm);
 
 module.exports = router;

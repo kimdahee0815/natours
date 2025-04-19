@@ -19,6 +19,7 @@ import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
+import { createTours } from './createTours';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -367,7 +368,7 @@ if(createTourForm){
     form.append('imageCover', imageCover);
     Array.from(images).forEach(img => form.append('images', img));
     
-    await createTour(form);   
+    await createTours(form);   
     document.querySelector('.btn--create-tour').textContent = 'Create Tour';
   });
 }

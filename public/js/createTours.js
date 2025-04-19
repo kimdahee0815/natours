@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const createTour = async (tourData) => {
+export const createTours = async (tourData) => {
   try {
     const res = await axios({
       method: 'POST',

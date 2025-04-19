@@ -106,10 +106,14 @@ exports.getUserBooking = catchAsync(async (req, res, next) => {
 exports.deleteBooking = catchAsync(async (req, res, next) => {
   const bookingTobeDeleted = await Booking.findByIdAndDelete(req.params.id);
 
-  const review = await Review.findByIdAndDelete({ user: req.params.id });
+  // Find and delete review associated with this booking
+  const review = await Review.findOneAndDelete({
+    user: bookingTobeDeleted.user,
+    tour: bookingTobeDeleted.tour,
+  });
 
   if (!bookingTobeDeleted) {
-    return next(new AppError('No User Found with that ID!', 404));
+    return next(new AppError('No Booking Found with that ID!', 404));
   }
 
   res.status(200).json({

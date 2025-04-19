@@ -6,7 +6,7 @@ const {
   getSignupForm,
   getForgotPasswordForm,
   getAccount,
-  //updateUserData,
+  getCreateTourForm,
   getManageTours,
   getManageUsers,
   getManageReviews,
@@ -69,5 +69,9 @@ router
   .route('/reviews/tours/:id')
   .get(protect, restrictTo('admin'), updateUserReviews);
 // router.post('/submit-user-data', protect, updateUserData);
+
+router
+  .route('/tours')
+  .get(protect, restrictTo('admin', 'lead-guide', 'guide'), getCreateTourForm);
 
 module.exports = router;

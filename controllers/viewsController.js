@@ -277,6 +277,16 @@ exports.getMyBilling = catchAsync(async (req, res, next) => {
     paidBookings,
   });
 });
+
+exports.getCreateTourForm = catchAsync(async (req, res) => {
+  // Get all guides for the select input
+  const guides = await User.find({ role: { $in: ['guide', 'lead-guide'] } });
+
+  res.status(200).render('createTour', {
+    title: 'Create New Tour',
+    guides,
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

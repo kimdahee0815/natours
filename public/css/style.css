@@ -1544,3 +1544,58 @@ td{
 .font--bold{
   font-weight: 700 !important;
 }
+
+/* create tour form */
+.create-form {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 5rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+}
+
+.form__location-inputs,
+.form__date-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form__location-inputs button,
+.form__date-inputs button {
+  align-self: end;
+}
+
+.form--create-tour textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form--create-tour .btn--small {
+  padding: 1.25rem 2rem;
+  margin-top: 1rem;
+}
+
+.form__location-inputs,
+.form__date-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+
+.btn--remove-location,
+.btn--remove-date {
+    margin-top: 1rem;
+    align-self: end;
+}
+
+#add-location,
+#add-date {
+    margin-top: 1rem;
+}

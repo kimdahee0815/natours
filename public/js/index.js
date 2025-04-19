@@ -45,6 +45,12 @@ const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
 const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
 const chart = document.getElementById('chartdiv');
 const ratingInput = document.querySelector('.rating-input');
+const createTourForm = document.querySelector('.form--create-tour');
+const locationsContainer = document.getElementById('locations-container');
+const datesContainer = document.getElementById('dates-container');
+const addLocationBtn = document.getElementById('add-location');
+const addDateBtn = document.getElementById('add-date');
+
 
 //Delegation
 if (mapBox) {
@@ -279,6 +285,92 @@ deleteManageUserBtns.forEach(btn => {
 const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 10);
+
+if(createTourForm){
+  addLocationBtn.addEventListener('click', () => {
+    const locationDiv = document.createElement('div');
+    locationDiv.className = 'form__location-inputs';
+    locationDiv.innerHTML = `
+        <input class="form__input location-address" type="text" placeholder="Address" required>
+        <input class="form__input location-coordinates" type="text" placeholder="Coordinates (lat,lng)" required>
+        <input class="form__input location-description" type="text" placeholder="Description" required>
+        <input class="form__input location-day" type="number" placeholder="Day of visit" required>
+        <button class="btn btn--small btn--red btn--remove-location" type="button">Remove</button>
+    `;
+    locationsContainer.appendChild(locationDiv);
+
+    // Add remove button handler
+    const removeBtn = locationDiv.querySelector('.btn--remove-location');
+    removeBtn.addEventListener('click', () => {
+        locationDiv.remove();
+    });
+  });
+
+  addDateBtn.addEventListener('click', () => {
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'form__date-inputs';
+    dateDiv.innerHTML = `
+        <input class="form__input tour-date" type="datetime-local" required>
+        <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
+    `;
+    datesContainer.appendChild(dateDiv);
+
+    // Add remove button handler
+    const removeBtn = dateDiv.querySelector('.btn--remove-date');
+    removeBtn.addEventListener('click', () => {
+        dateDiv.remove();
+    });
+  });
+
+  createTourForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--create-tour').textContent = 'Creating...';
+    const form = new FormData();
+    
+    form.append('name', document.getElementById('name').value);
+    form.append('duration', document.getElementById('duration').value);
+    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
+    form.append('difficulty', document.getElementById('difficulty').value);
+    form.append('price', document.getElementById('price').value);
+    form.append('summary', document.getElementById('summary').value);
+    form.append('description', document.getElementById('description').value);
+    
+    const startLocation = {
+      type: 'Point',
+      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
+      address: document.getElementById('address').value,
+      description: document.getElementById('description-loc').value
+    };
+    form.append('startLocation', JSON.stringify(startLocation));
+
+    const locations = [];
+    document.querySelectorAll('.form__location-inputs').forEach(loc => {
+        locations.push({
+            type: 'Point',
+            coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
+            address: loc.querySelector('.location-address').value,
+            description: loc.querySelector('.location-description').value,
+            day: loc.querySelector('.location-day').value
+        });
+    });
+    form.append('locations', JSON.stringify(locations));
+
+    const startDates = [];
+    document.querySelectorAll('.tour-date').forEach(date => {
+        startDates.push(date.value);
+    });
+    form.append('startDates', JSON.stringify(startDates));
+
+    const imageCover = document.getElementById('imageCover').files[0];
+    const images = document.getElementById('images').files;
+    
+    form.append('imageCover', imageCover);
+    Array.from(images).forEach(img => form.append('images', img));
+    
+    await createTour(form);   
+    document.querySelector('.btn--create-tour').textContent = 'Create Tour';
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   if(uploadBtn) {

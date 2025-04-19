@@ -71,7 +71,7 @@ router
 // router.post('/submit-user-data', protect, updateUserData);
 
 router
-  .route('/tours')
+  .route('/create-tour')
   .get(protect, restrictTo('admin', 'lead-guide'), getCreateTourForm);
 
 module.exports = router;

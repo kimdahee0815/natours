@@ -1546,7 +1546,19 @@ td{
 }
 
 /* create tour form */
-.create-form {
+.manage-tour-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 2rem;
+}
+
+.manage-tour-header .btn {
+  padding: 1.4rem 3rem;
+}
+
+.create-tour-form {
   max-width: 120rem;
   margin: 0 auto;
   padding: 5rem;

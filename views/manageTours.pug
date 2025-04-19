@@ -2,7 +2,10 @@ extends base
 
 block content 
     main.main 
-        h2.heading-secondary.ma-bt-lg.middle Manage Tours
+        .manage-tour-header
+            h2.heading-secondary.ma-bt-lg.middle Manage Tours
+            a.btn.btn--green(href='/create-tour') Create New Tour
+            
         if tours.length === 0
             h3.heading-secondary.ma-bt-md.middle No Tours found
         else  

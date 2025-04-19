@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const multer = require('multer');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const sharp = require('sharp');
 const { uploadToS3 } = require('../utils/s3');
 const User = require('../models/userModel');
+const Review = require('../models/reviewModel');
+const Booking = require('../models/bookingModel');
+const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
@@ -142,7 +146,28 @@ exports.createUser = (req, res) => {
   });
 };
 
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const userTobeDeleted = await User.findByIdAndDelete(req.params.id);
+
+  const review = await Review.findByIdAndDelete({ user: req.params.id });
+  const booking = await Booking.findByIdAndDelete({ user: req.params.id });
+  const tours = await Booking.find({ guides: req.params.id });
+  if (tours) {
+    await Tour.updateMany(
+      { guides: req.params.id },
+      { $pull: { guides: req.params.id } },
+    );
+  }
+  if (!userTobeDeleted) {
+    return next(new AppError('No User Found with that ID!', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);
 exports.updateUser = factory.updateOne(User);
-exports.deleteUser = factory.deleteOne(User);

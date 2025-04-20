@@ -336,7 +336,7 @@ if(createTourForm){
 
   addDateBtn.addEventListener('click', () => {
     const existingDates = document.querySelectorAll('.tour-date');
-    const lastDate = existingDates[existingDates.length - 1];
+    const lastDate = existingDates[0];
     
     if (lastDate && !lastDate.value) {
       showAlert('error', 'Please select a date for the current entry before adding a new one!');

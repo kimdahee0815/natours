@@ -294,8 +294,10 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 
 if(createTourForm){
   addLocationBtn.addEventListener('click', () => {
-    const lastLocation = document.querySelector('.form__location-inputs');
-    
+    const existingLocations = document.querySelectorAll('.form__location-inputs');
+    const lastLocation = existingLocations[0];
+    console.log(lastLocation);
+
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
       const coordinates = lastLocation.querySelector('#location-coordinates')? lastLocation.querySelector('#location-coordinates').value: undefined;

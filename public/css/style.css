@@ -1660,3 +1660,33 @@ select[multiple] option:checked {
   background-color: #55c57a;
   color: #fff;
 }
+
+.guides-selection select {
+  padding: 1rem;
+  height: auto;
+  min-height: 15rem;
+  background-color: #f7f7f7;
+}
+
+.guides-selection option {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.guides-selection option:hover {
+  background-color: #55c57a !important;
+  color: #fff;
+}
+
+.guides-selection option:checked {
+  background-color: #55c57a !important;
+  color: #fff;
+}
+
+.guides-selection option:active {
+  background-color: #55c57a !important;
+  color: #fff;
+}

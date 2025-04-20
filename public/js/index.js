@@ -327,10 +327,21 @@ if(createTourForm){
     const guidesSelect = document.getElementById('guides');
     const guideOptions = Array.from(guidesSelect.options);
 
-    guideSearch.addEventListener('change', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
+    guideOptions.forEach(option => {
+      option.addEventListener('click', function() {
+          this.style.backgroundColor = this.selected ? '#55c57a' : '';
+          this.style.color = this.selected ? '#fff' : '';
+      });
+    });
+
+    guideSearch.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
         
         guideOptions.forEach(option => {
+            if (!searchTerm) {
+              option.style.display = '';
+              return;
+            }
             const guideName = option.getAttribute('data-name');
             const guideRole = option.getAttribute('data-role');
             const matchesSearch = guideName.includes(searchTerm) || 

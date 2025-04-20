@@ -13,7 +13,7 @@ export const getCoordinates = async function (address) {
     
     if (data.features && data.features.length > 0) {
       const [lng, lat] = data.features[0].center;
-      return `${lng},${lat}`;
+      return `${lat},${lng}`;
     }
     return '';
   } catch (err) {

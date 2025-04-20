@@ -294,12 +294,23 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 
 if(createTourForm){
   addLocationBtn.addEventListener('click', () => {
-    const locationDiv = document.createElement('div');
-    locationDiv.className = 'form__location-inputs';
-    
-    // Get values from last location if it exists
     const existingLocations = document.querySelectorAll('.form__location-inputs');
     const lastLocation = existingLocations[existingLocations.length - 1];
+    
+    if (lastLocation) {
+      const address = lastLocation.querySelector('.location-address').value;
+      const coordinates = lastLocation.querySelector('.location-coordinates').value;
+      const description = lastLocation.querySelector('.location-description').value;
+      const day = lastLocation.querySelector('.location-day').value;
+      
+      if (!address || !coordinates || !description || !day) {
+        showAlert('error', 'Please fill in all fields for the current location before adding a new one');
+        return;
+      }
+    }
+
+    const locationDiv = document.createElement('div');
+    locationDiv.className = 'form__location-inputs';
     
     const lastValues = {
       address: lastLocation ? lastLocation.querySelector('.location-address').value : '',
@@ -317,7 +328,6 @@ if(createTourForm){
     `;
     locationsContainer.appendChild(locationDiv);
 
-    // Add remove button handler
     const removeBtn = locationDiv.querySelector('.btn--remove-location');
     removeBtn.addEventListener('click', () => {
         locationDiv.remove();
@@ -325,10 +335,17 @@ if(createTourForm){
   });
 
   addDateBtn.addEventListener('click', () => {
+    const existingDates = document.querySelectorAll('.tour-date');
+    const lastDate = existingDates[existingDates.length - 1];
+    
+    if (lastDate && !lastDate.value) {
+      showAlert('error', 'Please select a date for the current entry before adding a new one');
+      return;
+    }
+
     const dateDiv = document.createElement('div');
     dateDiv.className = 'form__date-inputs';
-    const existingDates = document.querySelectorAll('.tour-date');
-    const lastDateValue = existingDates.length > 0 ? existingDates[existingDates.length - 1].value : '';
+    const lastDateValue = lastDate ? lastDate.value : '';
     
     dateDiv.innerHTML = `
         <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
@@ -336,7 +353,6 @@ if(createTourForm){
     `;
     datesContainer.appendChild(dateDiv);
 
-    // Add remove button handler
     const removeBtn = dateDiv.querySelector('.btn--remove-date');
     removeBtn.addEventListener('click', () => {
         dateDiv.remove();
@@ -362,7 +378,6 @@ if(createTourForm){
     });
 
     guideSearch.addEventListener('input', function(e) {
-        console.log(e.target.value)
         const searchTerm = e.target.value.toLowerCase().trim();
         
         guideOptions.forEach(option => {

@@ -53,16 +53,16 @@ block content
                     input#location-coordinates.form__input(type='text', placeholder='Coordinates (lat,lng)')
                     input#location-description.form__input(type='text', placeholder='Description')
                     input#location-day.form__input(type='number', placeholder='Day of visit')
+                    button.btn.btn--small.btn--green.middle#add-location(type='button') Add Location
                     button.btn.btn--small.btn--red.btn--remove-location(type='button') Remove
-            button.btn.btn--small.btn--green.middle#add-location(type='button') Add Location
 
           .form__group
             label.form__label Start Dates
             #dates-container
                 .form__date-inputs
                     input.form__input.tour-date(type='datetime-local', required)
+                    button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
                     button.btn.btn--small.btn--red.btn--remove-date(type='button') Remove
-            button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
           
           .form__group
               label.form__label Tour Guides

@@ -304,7 +304,6 @@ if(createTourForm){
       const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
       
       if (!address || !coordinates || !description || !day) {
-        console.log(address, coordinates, description, day)
         showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
         return;
       }
@@ -334,10 +333,10 @@ if(createTourForm){
         locationDiv.remove();
     });
 
-    address = "";
-    coordinates = "";
-    description = "";
-    day= "";
+    lastLocation.querySelector('#location-address').value = '';
+    lastLocation.querySelector('#location-coordinates').value = '';
+    lastLocation.querySelector('#location-description').value = '';
+    lastLocation.querySelector('#location-day').value = '';
   });
 
   addDateBtn.addEventListener('click', () => {
@@ -363,7 +362,9 @@ if(createTourForm){
         dateDiv.remove();
     });
 
-    lastDateValue = "";
+    if (lastDate) {
+      lastDate.value = '';
+    }
   });
 
   if (guideSearch) {

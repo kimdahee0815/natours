@@ -304,6 +304,7 @@ if(createTourForm){
       const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
       
       if (!address || !coordinates || !description || !day) {
+        console.log(address, coordinates, description, day)
         showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
         return;
       }

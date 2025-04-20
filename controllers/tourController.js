@@ -2,6 +2,7 @@
 // const fs = require('fs');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const sharp = require('sharp');
 const { uploadToS3 } = require('../utils/s3');
@@ -40,7 +41,13 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover || !req.files.images) return next();
 
   // 1) Cover Image
-  const imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+  let imageCoverFilename = '';
+  if (req.params?.id) {
+    imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+  } else {
+    imageCoverFilename = `tour-${uuidv4()}.jpeg`;
+  }
+
   const processedCoverImage = await sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
     .toFormat('jpeg')
@@ -57,7 +64,12 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   req.body.images = [];
   await Promise.all(
     req.files.images.map(async (file, i) => {
-      const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+      let filename = '';
+      if (req.params?.id) {
+        filename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+      } else {
+        filename = `tour-${uuidv4()}-${i + 1}.jpeg`;
+      }
 
       const processedImage = await sharp(file.buffer)
         .resize(2000, 1333)

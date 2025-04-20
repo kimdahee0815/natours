@@ -579,9 +579,10 @@ if(createTourForm){
     form.append('summary', summary);
     form.append('description', description);
     
+    const coordinatesStr = await getCoordinates(startLocationAddress);
     const startLocation = {
       type: 'Point',
-      coordinates: await getCoordinates(startLocationAddress).split(',').map(Number),
+      coordinates: coordinatesStr.split(',').map(Number),
       address: startLocationAddress,
       description: startLocationDescription
     };

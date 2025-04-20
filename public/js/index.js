@@ -312,7 +312,7 @@ if(createTourForm){
       };
 
       if (!address || !coordinates || !description || !day) {
-        showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
+        showAlert('error', 'Please fill in all fields for the current location and input correct location before adding a new one!');
         return;
       }
     }
@@ -335,7 +335,6 @@ if(createTourForm){
     });
 
     lastLocation.querySelector('#location-address').value = '';
-    lastLocation.querySelector('#location-coordinates').value = '';
     lastLocation.querySelector('#location-description').value = '';
     lastLocation.querySelector('#location-day').value = '';
   });

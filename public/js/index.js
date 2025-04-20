@@ -431,6 +431,21 @@ if(createTourForm){
       return;
   }
 
+  if (duration < 1) {
+    showAlert('error', 'Duration must be at least 1 day');
+    return;
+  }
+
+  if (maxGroupSize < 1) {
+    showAlert('error', 'Group size must be at least 1 person');
+    return;
+  }
+
+  if (price < 1) {
+    showAlert('error', 'Price must be greater than 0');
+    return;
+  }
+
   if (locations.length === 0) {
       showAlert('error', 'Please add at least one tour location');
       return;

@@ -74,12 +74,20 @@ block content
                           option(value=guide.id, data-role=guide.role, data-name=guide.name.toLowerCase())= `${guide.name} (${guide.role})`
           
           .form__group
-            label.form__label Cover Image
-            input#imageCover.form__input(type='file', accept='image/*', required)
-          
-          .form__group
-            label.form__label Tour Images (Up to 3)
-            input#images.form__input(type='file', accept='image/*', multiple)
+              label.form__label Cover Image
+              .form__photo-upload
+                  img#coverPreview.form__user-photo(src='https://dahee-natours-project.s3.amazonaws.com/default.jpg')
+                  input#imageCover.form__upload(type='file', accept='image/*', required)
+                  label.btn.btn--small.btn--green(for='imageCover') Choose cover image
+
+            .form__group
+                label.form__label Tour Images (Up to 3)
+                .form__photo-upload.form__photo-upload--multiple
+                    .preview-container#imagePreviewContainer
+                        each i in [1, 2, 3]
+                            img.form__user-photo.tour-image-preview(src='https://dahee-natours-project.s3.amazonaws.com/default.jpg')
+                    input#images.form__upload(type='file', accept='image/*', multiple)
+                    label.btn.btn--small.btn--green(for='images') Choose tour images
           
           .form__group.right
             button.btn.btn--green.middle Create Tour

@@ -52,6 +52,11 @@ const datesContainer = document.getElementById('dates-container');
 const addLocationBtn = document.getElementById('add-location');
 const addDateBtn = document.getElementById('add-date');
 const guideSearch = document.getElementById('guide-search');
+const imageCoverInput = document.getElementById('imageCover');
+const coverPreview = document.getElementById('coverPreview');
+const imagesInput = document.getElementById('images');
+const previewContainer = document.getElementById('imagePreviewContainer');
+const previewImages = previewContainer.querySelectorAll('.tour-image-preview');
 
 //Delegation
 if (mapBox) {
@@ -327,16 +332,19 @@ if(createTourForm){
     const guidesSelect = document.getElementById('guides');
     const guideOptions = Array.from(guidesSelect.options);
 
-    guidesSelect.addEventListener('mousedown', function(e) {
+    guidesSelect.addEventListener('click', function(e) {
+      e.preventDefault();
       const option = e.target;
       if (option.tagName === 'OPTION') {
-          e.preventDefault(); 
-          
           option.selected = !option.selected;
           option.style.backgroundColor = option.selected ? '#55c57a' : '';
           option.style.color = option.selected ? '#fff' : '';
       }
-  });
+    });
+
+    guidesSelect.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+    });
 
     guideSearch.addEventListener('input', function(e) {
         console.log(e.target.value)
@@ -423,6 +431,41 @@ document.addEventListener('DOMContentLoaded', () => {
     fileReader.onload = () => {
       previewImg.src = fileReader.result;
     };
+    });
+  }
+
+  if(createTourForm){
+    imageCoverInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        coverPreview.src = reader.result;
+      };
+    });
+
+    imagesInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      
+      // Reset all previews to default
+      previewImages.forEach(img => {
+        img.src = 'https://dahee-natours-project.s3.amazonaws.com/default.jpg';
+      });
+      
+      // Update previews with selected images
+      files.forEach((file, i) => {
+        if (i >= 3) return; // Only show up to 3 images
+        
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = () => {
+          previewImages[i].src = reader.result;
+        };
+      });
     });
   }
 

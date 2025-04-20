@@ -327,17 +327,15 @@ if(createTourForm){
     const guidesSelect = document.getElementById('guides');
     const guideOptions = Array.from(guidesSelect.options);
 
-    guidesSelect.addEventListener('click', function(e) {
+    guidesSelect.addEventListener('mousedown', function(e) {
       const option = e.target;
-      // Toggle selection
-      option.selected = !option.selected;
-      
-      // Update styles based on new selection state
-      option.style.backgroundColor = option.selected ? '#55c57a' : '';
-      option.style.color = option.selected ? '#fff' : '';
-      
-      // Prevent default to stop browser's default selection behavior
-      e.preventDefault();
+      if (option.tagName === 'OPTION') {
+          e.preventDefault(); 
+          
+          option.selected = !option.selected;
+          option.style.backgroundColor = option.selected ? '#55c57a' : '';
+          option.style.color = option.selected ? '#fff' : '';
+      }
   });
 
     guideSearch.addEventListener('input', function(e) {

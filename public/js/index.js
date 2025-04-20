@@ -2,7 +2,7 @@
 import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 import { login, logout } from './login';
-import { displayMap } from './mapbox';
+import { displayMap, getCoordinates } from './mapbox';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alerts';
@@ -19,7 +19,7 @@ import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
-import { createTours, getCoordinates } from './createTours';
+import { createTours } from './createTours';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -446,7 +446,7 @@ if(createTourForm){
       showAlert('error', 'Please select at least one guide');
       return;
   }
-  
+
     form.append('name', name);
     form.append('duration', duration);
     form.append('maxGroupSize', maxGroupSize);

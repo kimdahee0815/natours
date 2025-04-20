@@ -371,26 +371,38 @@ if(createTourForm){
     const guidesSelect = document.getElementById('guides');
     const guideOptions = Array.from(guidesSelect.options);
     let scrollPosition = 0;
+    let isSelecting = false;
 
+    // Store scroll position and handle selection
     guidesSelect.addEventListener('mousedown', function(e) {
-      scrollPosition = this.scrollTop;
-      e.preventDefault();
-      const option = e.target;
-      if (option.tagName === 'OPTION') {
-          const wasSelected = option.selected;
-          setTimeout(() => {
-              option.selected = !wasSelected;
-              option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
-              option.style.color = !wasSelected ? '#fff' : '';
-              this.scrollTop = scrollPosition;
-          }, 0);
+        scrollPosition = this.scrollTop;
+        e.preventDefault();
+        
+        const option = e.target;
+        if (option.tagName === 'OPTION') {
+            isSelecting = true;
+            const wasSelected = option.selected;
+            
+            requestAnimationFrame(() => {
+                option.selected = !wasSelected;
+                option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+                option.style.color = !wasSelected ? '#fff' : '';
+                this.scrollTop = scrollPosition;
+                isSelecting = false;
+            });
         }
     });
 
-    guidesSelect.addEventListener('focus', function(e) {
-      setTimeout(() => {
-          this.scrollTop = scrollPosition;
-      }, 0);
+    // Maintain scroll position
+    guidesSelect.addEventListener('scroll', function(e) {
+        if (!isSelecting) {
+            scrollPosition = this.scrollTop;
+        }
+    });
+
+    // Keep scroll position on blur
+    guidesSelect.addEventListener('blur', function() {
+        this.scrollTop = scrollPosition;
     });
 
     guideSearch.addEventListener('input', function(e) {

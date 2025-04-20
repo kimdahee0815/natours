@@ -1688,6 +1688,15 @@ select[multiple] option:checked {
   height: auto;
   min-height: 15rem;
   background-color: #f7f7f7;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.guides-selection select:focus {
+  outline: none;
 }
 
 .guides-selection option {
@@ -1698,11 +1707,7 @@ select[multiple] option:checked {
   transition: all 0.3s;
 }
 
-.guides-selection option:hover {
-  background-color: #55c57a !important;
-  color: #fff;
-}
-
+.guides-selection option:hover,
 .guides-selection option:checked {
   background-color: #55c57a !important;
   color: #fff;

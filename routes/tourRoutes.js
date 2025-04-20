@@ -42,11 +42,12 @@ router
   .route('/')
   .get(getAllTours)
   .post(
-    protect, 
-    restrictTo('admin', 'lead-guide'), 
+    protect,
+    restrictTo('admin', 'lead-guide'),
     uploadTourImages,
     resizeTourImages,
-    createTour);
+    createTour,
+  );
 
 router
   .route(`/:id`)

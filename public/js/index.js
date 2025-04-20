@@ -296,11 +296,23 @@ if(createTourForm){
   addLocationBtn.addEventListener('click', () => {
     const locationDiv = document.createElement('div');
     locationDiv.className = 'form__location-inputs';
+    
+    // Get values from last location if it exists
+    const existingLocations = document.querySelectorAll('.form__location-inputs');
+    const lastLocation = existingLocations[existingLocations.length - 1];
+    
+    const lastValues = {
+      address: lastLocation ? lastLocation.querySelector('.location-address').value : '',
+      coordinates: lastLocation ? lastLocation.querySelector('.location-coordinates').value : '',
+      description: lastLocation ? lastLocation.querySelector('.location-description').value : '',
+      day: lastLocation ? Number(lastLocation.querySelector('.location-day').value) + 1 : 1
+    };
+    
     locationDiv.innerHTML = `
-        <input class="form__input location-address" type="text" placeholder="Address" required>
-        <input class="form__input location-coordinates" type="text" placeholder="Coordinates (lat,lng)" required>
-        <input class="form__input location-description" type="text" placeholder="Description" required>
-        <input class="form__input location-day" type="number" placeholder="Day of visit" required>
+        <input class="form__input location-address" type="text" value="${lastValues.address}" placeholder="Address" required>
+        <input class="form__input location-coordinates" type="text" value="${lastValues.coordinates}" placeholder="Coordinates (lat,lng)" required>
+        <input class="form__input location-description" type="text" value="${lastValues.description}" placeholder="Description" required>
+        <input class="form__input location-day" type="number" value="${lastValues.day}" placeholder="Day of visit" required>
         <button class="btn btn--small btn--red btn--remove-location" type="button">Remove</button>
     `;
     locationsContainer.appendChild(locationDiv);
@@ -315,8 +327,11 @@ if(createTourForm){
   addDateBtn.addEventListener('click', () => {
     const dateDiv = document.createElement('div');
     dateDiv.className = 'form__date-inputs';
+    const existingDates = document.querySelectorAll('.tour-date');
+    const lastDateValue = existingDates.length > 0 ? existingDates[existingDates.length - 1].value : '';
+    
     dateDiv.innerHTML = `
-        <input class="form__input tour-date" type="datetime-local" required>
+        <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
         <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
     `;
     datesContainer.appendChild(dateDiv);

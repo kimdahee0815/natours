@@ -40,13 +40,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (!req.files.imageCover || !req.files.images) return next();
 
   // 1) Cover Image
-  let imageCoverFilename = '';
-  if (req.params.id) {
-    imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
-  }else{
-    imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
-  }
-  
+  const imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
   const processedCoverImage = await sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
     .toFormat('jpeg')

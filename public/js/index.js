@@ -19,7 +19,7 @@ import { deleteManageUser } from './deleteManageUser';
 import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
-import { createTours } from './createTours';
+import { createTours, getCoordinates } from './createTours';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -293,14 +293,14 @@ const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 10);
 
 if(createTourForm){
-  addLocationBtn.addEventListener('click', () => {
+  addLocationBtn.addEventListener('click', async () => {
     const lastLocation = document.querySelector('#form__location-inputs');
 
     const lastValues = {};
 
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
-      const coordinates = lastLocation.querySelector('#location-coordinates')? lastLocation.querySelector('#location-coordinates').value: undefined;
+      const coordinates = await getCoordinates(address);
       const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
       const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
       
@@ -411,25 +411,61 @@ if(createTourForm){
     document.querySelector('.btn--create-tour').textContent = 'Creating...';
     const form = new FormData();
     
-    form.append('name', document.getElementById('name').value);
-    form.append('duration', document.getElementById('duration').value);
-    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
-    form.append('difficulty', document.getElementById('difficulty').value);
-    form.append('price', document.getElementById('price').value);
-    form.append('summary', document.getElementById('summary').value);
-    form.append('description', document.getElementById('description').value);
+    const name = document.getElementById('name').value;
+    const duration = document.getElementById('duration').value;
+    const maxGroupSize = document.getElementById('maxGroupSize').value;
+    const difficulty = document.getElementById('difficulty').value;
+    const price = document.getElementById('price').value;
+    const summary = document.getElementById('summary').value;
+    const description = document.getElementById('description').value;
+    const startLocationAddress = document.getElementById('address').value;
+    const startLocationDescription = document.getElementById('description-loc').value;
+    const imageCover = document.getElementById('imageCover').files[0];
+    const images = document.getElementById('images').files;
+    const locations = document.querySelectorAll('.form__location-inputs');
+    const dates = document.querySelectorAll('.tour-date');
+    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions);
+
+    if (!name || !duration || !maxGroupSize || !difficulty || !price || !summary || 
+      !description || !startLocationAddress || !startLocationDescription || !imageCover) {
+      showAlert('error', 'Please fill in all required fields');
+      return;
+  }
+
+  if (locations.length === 0) {
+      showAlert('error', 'Please add at least one tour location');
+      return;
+  }
+
+  if (dates.length === 0) {
+      showAlert('error', 'Please add at least one tour date');
+      return;
+  }
+
+  if (selectedGuides.length === 0) {
+      showAlert('error', 'Please select at least one guide');
+      return;
+  }
+  
+    form.append('name', name);
+    form.append('duration', duration);
+    form.append('maxGroupSize', maxGroupSize);
+    form.append('difficulty', difficulty);
+    form.append('price', price);
+    form.append('summary', summary);
+    form.append('description', description);
     
     const startLocation = {
       type: 'Point',
-      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
-      address: document.getElementById('address').value,
-      description: document.getElementById('description-loc').value
+      coordinates: await getCoordinates(startLocationAddress).split(',').map(Number),
+      address: startLocationAddress,
+      description: startLocationDescription
     };
     form.append('startLocation', JSON.stringify(startLocation));
 
-    const locations = [];
+    const inputLocations = [];
     document.querySelectorAll('.form__location-inputs').forEach(loc => {
-        locations.push({
+      inputLocations.push({
             type: 'Point',
             coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
             address: loc.querySelector('.location-address').value,
@@ -437,7 +473,7 @@ if(createTourForm){
             day: loc.querySelector('.location-day').value
         });
     });
-    form.append('locations', JSON.stringify(locations));
+    form.append('locations', JSON.stringify(inputLocations));
 
     const startDates = [];
     document.querySelectorAll('.tour-date').forEach(date => {
@@ -445,14 +481,11 @@ if(createTourForm){
     });
     form.append('startDates', JSON.stringify(startDates));
 
-    const imageCover = document.getElementById('imageCover').files[0];
-    const images = document.getElementById('images').files;
     
     form.append('imageCover', imageCover);
     Array.from(images).forEach(img => form.append('images', img));
     
-    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
-      .map(option => option.value);
+    selectedGuides = selectedGuides.map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
     await createTours(form);   

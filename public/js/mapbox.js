@@ -1,6 +1,27 @@
 /* eslint-disable */
 //console.log('hello from the client side :D');
 
+export const getCoordinates = async function (address) {
+  try {
+    const accessToken = 'pk.eyJ1IjoiZGlhbmE4MTUiLCJhIjoiY2x4eTdlOG1yMnVqYTJtcXdubDMyeG93NCJ9.o2i4949_so-hIfkizreU_w';
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+        address
+      )}.json?access_token=${accessToken}`
+    );
+    const data = await response.json();
+    
+    if (data.features && data.features.length > 0) {
+      const [lng, lat] = data.features[0].center;
+      return `${lat},${lng}`;
+    }
+    return '';
+  } catch (err) {
+    console.error('Error getting coordinates:', err);
+    return '';
+  }
+}
+
 export const displayMap = (locations) => {
   mapboxgl.accessToken =
     'pk.eyJ1IjoiZGlhbmE4MTUiLCJhIjoiY2x4eTdlOG1yMnVqYTJtcXdubDMyeG93NCJ9.o2i4949_so-hIfkizreU_w';

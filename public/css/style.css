@@ -1473,7 +1473,7 @@ body {
 }
 
 .form__upload + label {
-  color: #55c57a;
+  color: #fff;
   display: inline-block;
   text-decoration: none;
   padding: 3px;

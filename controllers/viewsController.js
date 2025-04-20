@@ -67,12 +67,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
     req.user = currentUser;
 
     const bookings = await Booking.find({ user: req.user._id });
-
+    console.log(bookings);
     const foundBooking = bookings.find(
       (booking) =>
         booking.tour._id.toString() === tour._id.toString() &&
         booking.paid === true,
     );
+    console.log(foundBooking);
     if (foundBooking) {
       bookId = foundBooking._id.toString();
     }

@@ -37,8 +37,11 @@ exports.uploadTourImages = upload.fields([
 // upload.array('images', 5) req.files
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
-  //console.log(req.files);
-  if (!req.files.imageCover || !req.files.images) return next();
+  if (!req.files.imageCover)
+    return next(new AppError('Please provide a cover image', 400));
+  if (!req.files.images || req.files.images.length === 0) {
+    return next(new AppError('Please provide tour images', 400));
+  }
 
   // 1) Cover Image
   let imageCoverFilename = '';
@@ -66,10 +69,12 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
     req.files.images.map(async (file, i) => {
       let filename = '';
       if (req.params.id) {
-        filename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+        filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
       } else {
         filename = `tour-${uuidv4()}-${i + 1}.jpeg`;
       }
+
+      console.log(`Processing image ${i + 1}:`, filename);
 
       const processedImage = await sharp(file.buffer)
         .resize(2000, 1333)
@@ -86,7 +91,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
     }),
   );
   //console.log(req.body);
-
+  console.log('Final images array:', req.body.images);
   next();
 });
 

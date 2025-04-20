@@ -42,7 +42,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 
   // 1) Cover Image
   let imageCoverFilename = '';
-  if (req.params?.id) {
+  if (req.params.id) {
     imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
   } else {
     imageCoverFilename = `tour-${uuidv4()}.jpeg`;
@@ -65,7 +65,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   await Promise.all(
     req.files.images.map(async (file, i) => {
       let filename = '';
-      if (req.params?.id) {
+      if (req.params.id) {
         filename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
       } else {
         filename = `tour-${uuidv4()}-${i + 1}.jpeg`;
@@ -187,6 +187,24 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: null,
+  });
+});
+
+exports.createTour = catchAsync(async (req, res, next) => {
+  req.body.locations = JSON.parse(req.body.locations);
+  req.body.startDates = JSON.parse(req.body.startDates).map(
+    (dateStr) => new Date(dateStr),
+  );
+  req.body.guides = JSON.parse(req.body.guides);
+  const tourTobeCreated = await Tour.create(req.body);
+
+  if (!tourTobeCreated) {
+    return next(new AppError('Error Creating Tour!', 400));
+  }
+
+  res.status(201).json({
+    status: 'success',
+    data: tourTobeCreated,
   });
 });
 

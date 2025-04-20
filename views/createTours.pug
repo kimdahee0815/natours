@@ -74,7 +74,7 @@ block content
           .form__group
               label.form__label Cover Image
               .form__photo-upload
-                  img#coverPreview.form__user-photo(src='https://dahee-natours-project.s3.amazonaws.com/default.jpg')
+                  img#coverPreview.form__user-photo(src='https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg')
                   input#imageCover.form__upload(type='file', accept='image/*', required)
                   label.btn.btn--small.btn--green(for='imageCover') Choose cover image
 
@@ -83,7 +83,7 @@ block content
               .form__photo-upload.form__photo-upload--multiple
                   .preview-container#imagePreviewContainer
                       each i in [1, 2, 3]
-                          img.form__user-photo.tour-image-preview(src='https://dahee-natours-project.s3.amazonaws.com/default.jpg')
+                          img.form__user-photo.tour-image-preview(src=`https://dahee-natours-project.s3.amazonaws.com/tours/tour${i}.jpg`)
                   input#images.form__upload(type='file', accept='image/*', multiple)
                   label.btn.btn--small.btn--green(for='images') Choose tour images
           

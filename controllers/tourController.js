@@ -196,6 +196,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
     (dateStr) => new Date(dateStr),
   );
   req.body.guides = JSON.parse(req.body.guides);
+  req.body.startLocation = JSON.parse(req.body.startLocation);
   const tourTobeCreated = await Tour.create(req.body);
 
   if (!tourTobeCreated) {

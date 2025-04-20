@@ -8,6 +8,7 @@ export const createTours = async (tourData) => {
     for (let [key, value] of tourData.entries()) {
       tourDataObj[key] = value;
     }
+    console.log(tourDataObj)
     const res = await axios({
       method: 'POST',
       url: '/api/v1/tours',

@@ -240,7 +240,6 @@ exports.createTour = catchAsync(async (req, res, next) => {
 
 exports.getAllTours = factory.getAll(Tour);
 exports.getTour = factory.getOne(Tour, { path: 'reviews' });
-exports.createTour = factory.createOne(Tour);
 exports.updateTour = factory.updateOne(Tour);
 
 // const newId = tours[tours.length - 1].id + 1;

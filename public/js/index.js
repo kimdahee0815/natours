@@ -328,6 +328,7 @@ if(createTourForm){
     const guideOptions = Array.from(guidesSelect.options);
 
     guideSearch.addEventListener('change', function(e) {
+      console.log(e.target.value)
         const searchTerm = e.target.value.toLowerCase();
         
         guideOptions.forEach(option => {

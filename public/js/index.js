@@ -56,7 +56,7 @@ const imageCoverInput = document.getElementById('imageCover');
 const coverPreview = document.getElementById('coverPreview');
 const imagesInput = document.getElementById('images');
 const previewContainer = document.getElementById('imagePreviewContainer');
-const previewImages = previewContainer.querySelectorAll('.tour-image-preview');
+const previewImages = document.querySelectorAll('.tour-image-preview');
 
 //Delegation
 if (mapBox) {

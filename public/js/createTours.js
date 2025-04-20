@@ -4,16 +4,14 @@ import { showAlert } from './alerts';
 
 export const createTours = async (tourData) => {
   try {
+    const tourDataObj = {};
     for (let [key, value] of tourData.entries()) {
-      console.log(`${key}: ${value}`);
+      tourDataObj[key] = value;
     }
     const res = await axios({
       method: 'POST',
       url: '/api/v1/tours',
-      data: tourData,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      data: tourDataObj,
     });
 
     if (res.data.status === 'success') {

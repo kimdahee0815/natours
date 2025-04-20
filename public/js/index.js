@@ -51,7 +51,7 @@ const locationsContainer = document.getElementById('locations-container');
 const datesContainer = document.getElementById('dates-container');
 const addLocationBtn = document.getElementById('add-location');
 const addDateBtn = document.getElementById('add-date');
-const guidSearch = document.getElementById('guide-search');
+const guideSearch = document.getElementById('guide-search');
 
 //Delegation
 if (mapBox) {
@@ -327,8 +327,7 @@ if(createTourForm){
     const guidesSelect = document.getElementById('guides');
     const guideOptions = Array.from(guidesSelect.options);
 
-    guideSearch.addEventListener('change', function(e) {
-      console.log(e.target.value)
+    guideSearch.addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase();
         
         guideOptions.forEach(option => {

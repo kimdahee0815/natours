@@ -332,11 +332,15 @@ if(createTourForm){
     removeBtn.addEventListener('click', () => {
         locationDiv.remove();
     });
+
+    address = "";
+    coordinates = "";
+    description = "";
+    day= "";
   });
 
   addDateBtn.addEventListener('click', () => {
-    const existingDates = document.querySelectorAll('.tour-date');
-    const lastDate = existingDates[0];
+    const lastDate = document.querySelector('#tour-date');
     
     if (lastDate && !lastDate.value) {
       showAlert('error', 'Please select a date for the current entry before adding a new one!');
@@ -357,6 +361,8 @@ if(createTourForm){
     removeBtn.addEventListener('click', () => {
         dateDiv.remove();
     });
+
+    lastDateValue = "";
   });
 
   if (guideSearch) {

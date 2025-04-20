@@ -508,10 +508,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if(createTourForm){
+    let selectedCoverFile = null;
+
+    coverPreview.style.cursor = 'pointer';
+    coverPreview.title = 'Click to remove';
+  
+    coverPreview.addEventListener('click', () => {
+      coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+      selectedCoverFile = null;
+      imageCoverInput.value = '';
+    });
+
     imageCoverInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
   
+      selectedCoverFile = file;
       const reader = new FileReader();
       reader.readAsDataURL(file);
   

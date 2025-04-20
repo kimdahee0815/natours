@@ -295,7 +295,7 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 if(createTourForm){
   addLocationBtn.addEventListener('click', () => {
     const existingLocations = document.querySelectorAll('.form__location-inputs');
-    const lastLocation = existingLocations[existingLocations.length - 1];
+    const lastLocation = existingLocations[0];
     
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
@@ -313,10 +313,10 @@ if(createTourForm){
     locationDiv.className = 'form__location-inputs';
     
     const lastValues = {
-      address: lastLocation ? lastLocation.querySelector('.location-address').value : '',
-      coordinates: lastLocation ? lastLocation.querySelector('.location-coordinates').value : '',
-      description: lastLocation ? lastLocation.querySelector('.location-description').value : '',
-      day: lastLocation ? Number(lastLocation.querySelector('.location-day').value) + 1 : 1
+      address,
+      coordinates,
+      description,
+      day,
     };
     
     locationDiv.innerHTML = `

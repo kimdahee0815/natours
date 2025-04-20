@@ -298,10 +298,10 @@ if(createTourForm){
     const lastLocation = existingLocations[existingLocations.length - 1];
     
     if (lastLocation) {
-      const address = lastLocation.querySelector('.location-address')? lastLocation.querySelector('.location-address').value : undefined;
-      const coordinates = lastLocation.querySelector('.location-coordinates')? lastLocation.querySelector('.location-coordinates').value: undefined;
-      const description = lastLocation.querySelector('.location-description')? lastLocation.querySelector('.location-description').value : undefined;
-      const day = lastLocation.querySelector('.location-day')? lastLocation.querySelector('.location-day').value : undefined;
+      const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
+      const coordinates = lastLocation.querySelector('#location-coordinates')? lastLocation.querySelector('#location-coordinates').value: undefined;
+      const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
+      const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
       
       if (!address || !coordinates || !description || !day) {
         showAlert('error', 'Please fill in all fields for the current location before adding a new one!');

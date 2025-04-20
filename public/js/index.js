@@ -375,16 +375,22 @@ if(createTourForm){
     guidesSelect.addEventListener('mousedown', function(e) {
       scrollPosition = this.scrollTop;
       e.preventDefault();
-    });
-
-    guidesSelect.addEventListener('click', function(e) {
-      this.scrollTop = scrollPosition;
       const option = e.target;
       if (option.tagName === 'OPTION') {
-          option.selected = !option.selected;
-          option.style.backgroundColor = option.selected ? '#55c57a' : '';
-          option.style.color = option.selected ? '#fff' : '';
-      }
+          const wasSelected = option.selected;
+          setTimeout(() => {
+              option.selected = !wasSelected;
+              option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+              option.style.color = !wasSelected ? '#fff' : '';
+              this.scrollTop = scrollPosition;
+          }, 0);
+        }
+    });
+
+    guidesSelect.addEventListener('focus', function(e) {
+      setTimeout(() => {
+          this.scrollTop = scrollPosition;
+      }, 0);
     });
 
     guideSearch.addEventListener('input', function(e) {

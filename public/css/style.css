@@ -1732,3 +1732,12 @@ select[multiple] option:checked {
   transform: scale(1.05);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+
+.form__input:invalid:focus {
+  border-bottom: 3px solid #ff7730;
+}
+
+.form__input:focus {
+  outline: none;
+  border-bottom: 3px solid #55c57a;
+}

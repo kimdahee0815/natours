@@ -421,6 +421,23 @@ if(createTourForm){
             option.style.display = matchesSearch ? '' : 'none';
         });
     });
+
+    const startLocationInput = document.getElementById('address');
+    const startCoordinatesInput = document.getElementById('coordinates');
+
+    startLocationInput.addEventListener('blur', async function(e) {
+      const address = this.value;
+          if (address) {
+              try {
+                  const coordinates = await getCoordinates(address);
+                  if (coordinates) {
+                      startCoordinatesInput.value = coordinates;
+                  }
+              } catch (err) {
+                  console.error('Error getting coordinates:', err);
+              }
+          }
+  });
 }
 
   createTourForm.addEventListener('submit', async (e) => {

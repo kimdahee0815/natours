@@ -4,6 +4,7 @@ import { showAlert } from './alerts';
 
 export const createTours = async (tourData) => {
   try {
+    console.log(tourData);
     const res = await axios({
       method: 'POST',
       url: '/api/v1/tours',

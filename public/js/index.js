@@ -413,6 +413,81 @@ if(createTourForm){
 
   createTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const formFields = {
+      name: document.getElementById('name'),
+      duration: document.getElementById('duration'),
+      maxGroupSize: document.getElementById('maxGroupSize'),
+      difficulty: document.getElementById('difficulty'),
+      price: document.getElementById('price'),
+      summary: document.getElementById('summary'),
+      description: document.getElementById('description'),
+      startLocationAddress: document.getElementById('address'),
+      startLocationDescription: document.getElementById('description-loc'),
+      imageCover: document.getElementById('imageCover')
+  };
+
+  // Validation checks with focus
+  if (!formFields.name.value) {
+      showAlert('error', 'Please enter a tour name');
+      formFields.name.focus();
+      return;
+  }
+
+  if (!formFields.duration.value || formFields.duration.value < 1) {
+      showAlert('error', 'Duration must be at least 1 day');
+      formFields.duration.focus();
+      return;
+  }
+
+  if (!formFields.maxGroupSize.value || formFields.maxGroupSize.value < 1) {
+      showAlert('error', 'Group size must be at least 1 person');
+      formFields.maxGroupSize.focus();
+      return;
+  }
+
+  if (!formFields.difficulty.value) {
+      showAlert('error', 'Please select a difficulty level');
+      formFields.difficulty.focus();
+      return;
+  }
+
+  if (!formFields.price.value || formFields.price.value < 1) {
+      showAlert('error', 'Price must be greater than 0');
+      formFields.price.focus();
+      return;
+  }
+
+  if (!formFields.summary.value) {
+      showAlert('error', 'Please enter a tour summary');
+      formFields.summary.focus();
+      return;
+  }
+
+  if (!formFields.description.value) {
+      showAlert('error', 'Please enter a tour description');
+      formFields.description.focus();
+      return;
+  }
+
+  if (!formFields.startLocationAddress.value) {
+      showAlert('error', 'Please enter a start location address');
+      formFields.startLocationAddress.focus();
+      return;
+  }
+
+  if (!formFields.startLocationDescription.value) {
+      showAlert('error', 'Please enter a start location description');
+      formFields.startLocationDescription.focus();
+      return;
+  }
+
+  if (!formFields.imageCover.files[0]) {
+      showAlert('error', 'Please select a cover image');
+      formFields.imageCover.focus();
+      return;
+  }
+  
     document.querySelector('.btn--create-tour').textContent = 'Creating...';
     const form = new FormData();
     

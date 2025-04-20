@@ -294,8 +294,7 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 
 if(createTourForm){
   addLocationBtn.addEventListener('click', () => {
-    const existingLocations = document.querySelectorAll('.form__location-inputs');
-    const lastLocation = existingLocations[0];
+    const lastLocation = document.querySelector('.form__location-inputs');
     
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
@@ -303,6 +302,7 @@ if(createTourForm){
       const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
       const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
       
+      console.log(address, coordinates, description, day)
       if (!address || !coordinates || !description || !day) {
         showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
         return;

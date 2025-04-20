@@ -1712,6 +1712,13 @@ select[multiple] option:checked {
   height: 10rem;
   object-fit: cover;
   border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tour-image-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 #coverPreview {

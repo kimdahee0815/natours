@@ -1562,6 +1562,8 @@ td{
   box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
 }
 
+#form__location-inputs,
+.form__start-location-inputs,
 .form__location-inputs,
 .form__date-inputs {
   display: grid;
@@ -1570,6 +1572,8 @@ td{
   margin-bottom: 2rem;
 }
 
+#form__location-inputs button,
+.form__start-location-inputs button,
 .form__location-inputs button,
 .form__date-inputs button {
   align-self: end;
@@ -1585,6 +1589,8 @@ td{
   margin-top: 1rem;
 }
 
+#form__location-inputs,
+.form__start-location-inputs,
 .form__location-inputs,
 .form__date-inputs {
     display: grid;

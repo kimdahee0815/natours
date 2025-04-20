@@ -46,13 +46,6 @@ router
 router
   .route(`/:id`)
   .get(getTour)
-  .post(
-    protect,
-    restrictTo('admin', 'lead-guide'),
-    uploadTourImages,
-    resizeTourImages,
-    createTour,
-  )
   .patch(
     protect,
     restrictTo('admin', 'lead-guide'),

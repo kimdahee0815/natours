@@ -838,6 +838,7 @@ if(updateTourForm){
 
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    console.log(e.target)
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const { tourId } = updateTourBtn.dataset;
     const form = new FormData();

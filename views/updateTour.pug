@@ -73,13 +73,13 @@ block content
                     button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
           
           .form__group
-    label.form__label Tour Guides
-    .guides-selection
-        .guides-search
-            input#guide-search.form__input(type='text', placeholder='Search guides...')
-        select#guides.form__input(name='guides[]', multiple, size='4')
-            each guide in guides
-                option(value=guide.id, data-role=guide.role, data-name=guide.name.toLowerCase(), selected=tour.guides.some(g => g.id === guide.id))= `${guide.name} (${guide.role})`
+              label.form__label Tour Guides
+                  .guides-selection
+                      .guides-search
+                          input#guide-search.form__input(type='text', placeholder='Search guides...')
+                      select#guides.form__input(name='guides[]', multiple, size='4')
+                          each guide in guides
+                              option(value=guide.id, data-role=guide.role, data-name=guide.name.toLowerCase(), selected=tour.guides.some(g => g.id === guide.id))= `${guide.name} (${guide.role})`
           
           .form__group
               label.form__label Cover Image

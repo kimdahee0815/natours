@@ -939,6 +939,7 @@ if (guideSearch) {
 
     try {
       document.querySelector('.btn--update-tour').textContent = 'Updating...';
+      console.log('aaa');
       await updateTour(tourId, form);
     } catch (err) {
       showAlert('error', err.message);

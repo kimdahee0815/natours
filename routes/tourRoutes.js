@@ -2,7 +2,7 @@ const express = require('express');
 const {
   getAllTours,
   createTour,
-  getTour,
+  // getTour,
   updateTour,
   deleteTour,
   aliasTopTours,
@@ -51,7 +51,6 @@ router
 
 router
   .route(`/:id`)
-  .get(getTour)
   .patch(
     protect,
     restrictTo('admin', 'lead-guide'),

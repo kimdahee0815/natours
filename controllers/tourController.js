@@ -201,10 +201,8 @@ exports.createTour = catchAsync(async (req, res, next) => {
     (dateStr) => new Date(dateStr),
   );
   req.body.guides = JSON.parse(req.body.guides);
-  console.log(req.body.startLocation);
-  console.log(JSON.parse(req.body.startLocation));
   req.body.startLocation = JSON.parse(req.body.startLocation);
-  const tourTobeCreated = await Tour.create(req.body);
+  const tourTobeCreated = await Tour.save(req.body);
 
   if (!tourTobeCreated) {
     return next(new AppError('Error Creating Tour!', 400));

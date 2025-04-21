@@ -733,59 +733,62 @@ if (guideSearch) {
 
   // Store scroll position and handle selection
   guidesSelect.addEventListener('mousedown', function(e) {
-      scrollPosition = this.scrollTop;
-      e.preventDefault();
+    scrollPosition = this.scrollTop;
+    e.preventDefault();
+    
+    const option = e.target;
+    if (option.tagName === 'OPTION') {
+      isSelecting = true;
+      const wasSelected = option.selected;
       
-      const option = e.target;
-      if (option.tagName === 'OPTION') {
-          isSelecting = true;
-          const wasSelected = option.selected;
-          
-          requestAnimationFrame(() => {
-              option.selected = !wasSelected;
-              option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
-              option.style.color = !wasSelected ? '#fff' : '';
-              this.scrollTop = scrollPosition;
-              isSelecting = false;
-          });
-      }
+      requestAnimationFrame(() => {
+        option.selected = !wasSelected;
+        option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+        option.style.color = !wasSelected ? '#fff' : '';
+        this.scrollTop = scrollPosition;
+        isSelecting = false;
+      });
+    }
   });
 
-  // Maintain scroll position
-  guidesSelect.addEventListener('scroll', function(e) {
-      if (!isSelecting) {
-          scrollPosition = this.scrollTop;
-      }
+  // Maintain scroll position while scrolling
+  guidesSelect.addEventListener('scroll', function() {
+    if (!isSelecting) {
+      scrollPosition = this.scrollTop;
+    }
   });
 
   // Keep scroll position on blur
   guidesSelect.addEventListener('blur', function() {
+    setTimeout(() => {
       this.scrollTop = scrollPosition;
+    }, 0);
   });
 
+  // Guide search functionality 
   guideSearch.addEventListener('input', function(e) {
-      const searchTerm = e.target.value.toLowerCase().trim();
+    const searchTerm = e.target.value.toLowerCase().trim();
+    
+    guideOptions.forEach(option => {
+      if (!searchTerm) {
+        option.style.display = '';
+        return;
+      }
+      const guideName = option.getAttribute('data-name');
+      const guideRole = option.getAttribute('data-role');
+      const matchesSearch = guideName.includes(searchTerm) || 
+                          guideRole.includes(searchTerm);
       
-      guideOptions.forEach(option => {
-          if (!searchTerm) {
-            option.style.display = '';
-            return;
-          }
-          const guideName = option.getAttribute('data-name');
-          const guideRole = option.getAttribute('data-role');
-          const matchesSearch = guideName.includes(searchTerm) || 
-                              guideRole.includes(searchTerm);
-          
-          option.style.display = matchesSearch ? '' : 'none';
-      });
+      option.style.display = matchesSearch ? '' : 'none';
+    });
   });
 
   // Set initial styles for selected options
   guideOptions.forEach(option => {
-      if (option.selected) {
-          option.style.backgroundColor = '#55c57a';
-          option.style.color = '#fff';
-      }
+    if (option.selected) {
+      option.style.backgroundColor = '#55c57a';
+      option.style.color = '#fff';
+    }
   });
 }
 

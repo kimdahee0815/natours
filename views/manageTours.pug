@@ -42,5 +42,5 @@ block content
                                 span= `${tour.maxGroupSize} people`
 
                         .card__footer__btns
-                            a.btn.btn--green.btn--small--two--sides(href=`/tour/${tour.slug}`) Update Tour
+                            a.btn.btn--green.btn--small--two--sides(href=`/update-tour/${tour._id.toString()}`) Update Tour
                             a.btn.btn--red.btn--small--two--sides.delete-tour(data-tour-id=`${tour._id}`) Delete Tour

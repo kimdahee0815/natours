@@ -909,8 +909,6 @@ if(updateTourForm){
     e.preventDefault();
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const { tourId } = updateTourBtn.dataset;
-    console.log('Tour ID:', tourId);
-    console.log('Form submission started');
     const form = new FormData();
   
     // Basic tour info
@@ -930,7 +928,7 @@ if(updateTourForm){
       address: startLocationAddress,
       description: document.getElementById('description-loc').value
     };
-    console.log('Start location:', startLocation);
+
     form.append('startLocation', JSON.stringify(startLocation));
   
     // Tour locations
@@ -955,12 +953,10 @@ if(updateTourForm){
   
     // Images
     if (selectedCoverFile) {
-      console.log('Cover image selected:', selectedCoverFile.name);
       form.append('imageCover', selectedCoverFile);
     }
     selectedFiles.forEach(file => {
       if (file) {
-        console.log(`Tour image ${index + 1} selected:`, file.name);
         form.append('images', file);
       }
     });
@@ -968,13 +964,8 @@ if(updateTourForm){
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
       .map(option => option.value);
-    console.log('Selected guides:', selectedGuides);
     form.append('guides', JSON.stringify(selectedGuides));
   
-    console.log('Form data entries:');
-      for (let [key, value] of form.entries()) {
-        console.log(`${key}:`, value);
-      }
     await updateTour(tourId, form);
     document.querySelector('.btn--update-tour').textContent = 'Update Tour';
   });
@@ -1067,10 +1058,6 @@ document.addEventListener('DOMContentLoaded', () => {
         imagesInput.files = dt.files;
     });
     });
-  }
-
-  if(updateTourForm){
-
   }
 
   if(chart){

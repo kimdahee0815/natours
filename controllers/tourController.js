@@ -48,7 +48,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   if (req.params.id) {
     imageCoverFilename = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
   } else {
-    imageCoverFilename = `tour-${uuidv4()}.jpeg`;
+    imageCoverFilename = `tour-${uuidv4()}-cover.jpeg`;
   }
 
   const processedCoverImage = await sharp(req.files.imageCover[0].buffer)
@@ -90,7 +90,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
       req.body.images.push(url);
     }),
   );
-  //console.log(req.body);
+
   console.log('Final images array:', req.body.images);
   next();
 });

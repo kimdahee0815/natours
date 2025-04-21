@@ -463,6 +463,18 @@ if(createTourForm){
       return;
   }
 
+  if (formFields.name.value.length < 10) {
+    showAlert('error', 'Tour name must have at least 10 characters');
+    formFields.name.focus();
+    return;
+    }
+
+  if (formFields.name.value.length > 40) {
+    showAlert('error', 'Tour name must have less than 40 characters');
+    formFields.name.focus();
+    return;
+  }
+
   if (!formFields.duration.value || formFields.duration.value < 1) {
       showAlert('error', 'Duration must be at least 1 day');
       formFields.duration.focus();

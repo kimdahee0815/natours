@@ -726,25 +726,38 @@ if (updateTourForm) {
   const guidesSelect = document.getElementById('guides');
   const guideOptions = Array.from(guidesSelect.options);
   let scrollPosition = 0;
+  let isSelecting = false;
 
+  // Store scroll position and handle selection
   guidesSelect.addEventListener('mousedown', function(e) {
     scrollPosition = this.scrollTop;
     e.preventDefault();
     
     const option = e.target;
     if (option.tagName === 'OPTION') {
+      isSelecting = true;
       const wasSelected = option.selected;
-      setTimeout(() => {
+      
+      requestAnimationFrame(() => {
         option.selected = !wasSelected;
         option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
         option.style.color = !wasSelected ? '#fff' : '';
         this.scrollTop = scrollPosition;
-      }, 0);
+        isSelecting = false;
+      });
     }
   });
 
+  // Maintain scroll position while scrolling
   guidesSelect.addEventListener('scroll', function() {
-    scrollPosition = this.scrollTop;
+    if (!isSelecting) {
+      scrollPosition = this.scrollTop;
+    }
+  });
+
+  // Keep scroll position on blur
+  guidesSelect.addEventListener('blur', function() {
+    this.scrollTop = scrollPosition;
   });
 
   guideSearch.addEventListener('input', function(e) {
@@ -763,7 +776,7 @@ if (updateTourForm) {
       option.style.display = matchesSearch ? '' : 'none';
     });
   });
-  
+
   let selectedFiles = new Array(3).fill(null);
   let selectedCoverFile = null;
 

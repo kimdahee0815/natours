@@ -636,6 +636,166 @@ if(createTourForm){
 }
 
 if (updateTourForm) {
+  const addLocationBtn = document.getElementById('add-location');
+const locationsContainer = document.getElementById('locations-container');
+
+addLocationBtn.addEventListener('click', async () => {
+  const lastLocation = document.querySelector('#form__location-inputs');
+  
+  const lastValues = {
+    address: lastLocation.querySelector('#location-address').value || '',
+    description: lastLocation.querySelector('#location-description').value || '',
+    day: lastLocation.querySelector('#location-day').value || ''
+  };
+
+  if (lastLocation) {
+    if (!lastValues.address || !lastValues.description || !lastValues.day) {
+      showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
+      return;
+    }
+  }
+
+  const locationDiv = document.createElement('div');
+  locationDiv.className = 'form__location-inputs';
+  
+  locationDiv.innerHTML = `
+    <input class="form__input location-address" type="text" placeholder="Address" required>
+    <input class="form__input location-coordinates" type="text" placeholder="Coordinates (lat,lng)" required readonly>
+    <input class="form__input location-description" type="text" placeholder="Description" required>
+    <input class="form__input location-day" type="number" placeholder="Day of visit" required>
+    <button class="btn btn--small btn--red btn--remove-location" type="button">Remove</button>
+  `;
+  
+  locationsContainer.appendChild(locationDiv);
+
+  // Add coordinates calculation
+  const addressInput = locationDiv.querySelector('.location-address');
+  const coordinatesInput = locationDiv.querySelector('.location-coordinates');
+  
+  addressInput.addEventListener('blur', async () => {
+    if (addressInput.value) {
+      try {
+        const coordinates = await getCoordinates(addressInput.value);
+        if (coordinates) {
+          coordinatesInput.value = coordinates;
+        }
+      } catch (err) {
+        console.error('Error getting coordinates:', err);
+      }
+    }
+  });
+
+  // Add remove button handler
+  const removeBtn = locationDiv.querySelector('.btn--remove-location');
+  removeBtn.addEventListener('click', () => locationDiv.remove());
+});
+
+// Add date functionality
+const addDateBtn = document.getElementById('add-date');
+const datesContainer = document.getElementById('dates-container');
+
+addDateBtn.addEventListener('click', () => {
+  const lastDate = document.querySelector('#tour-date');
+  
+  if (lastDate && !lastDate.value) {
+    showAlert('error', 'Please select a date first');
+    return;
+  }
+
+  const dateDiv = document.createElement('div');
+  dateDiv.className = 'form__date-inputs';
+  
+  dateDiv.innerHTML = `
+    <input class="form__input tour-date" type="datetime-local" required>
+    <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
+  `;
+  
+  datesContainer.appendChild(dateDiv);
+
+  // Add remove button handler
+  const removeBtn = dateDiv.querySelector('.btn--remove-date');
+  removeBtn.addEventListener('click', () => dateDiv.remove());
+
+  // Clear the input date field
+  if (lastDate) {
+    lastDate.value = '';
+  }
+});
+
+// Add handlers for existing remove buttons
+document.querySelectorAll('.btn--remove-location').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.form__location-inputs').remove());
+});
+
+document.querySelectorAll('.btn--remove-date').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.form__date-inputs').remove());
+});
+
+if (guideSearch) {
+  const guidesSelect = document.getElementById('guides');
+  const guideOptions = Array.from(guidesSelect.options);
+  let scrollPosition = 0;
+  let isSelecting = false;
+
+  // Store scroll position and handle selection
+  guidesSelect.addEventListener('mousedown', function(e) {
+      scrollPosition = this.scrollTop;
+      e.preventDefault();
+      
+      const option = e.target;
+      if (option.tagName === 'OPTION') {
+          isSelecting = true;
+          const wasSelected = option.selected;
+          
+          requestAnimationFrame(() => {
+              option.selected = !wasSelected;
+              option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+              option.style.color = !wasSelected ? '#fff' : '';
+              this.scrollTop = scrollPosition;
+              isSelecting = false;
+          });
+      }
+  });
+
+  // Maintain scroll position while scrolling
+  guidesSelect.addEventListener('scroll', function() {
+      if (!isSelecting) {
+          scrollPosition = this.scrollTop;
+      }
+  });
+
+  // Keep scroll position on blur
+  guidesSelect.addEventListener('blur', function() {
+      this.scrollTop = scrollPosition;
+  });
+
+  // Guide search functionality
+  guideSearch.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      guideOptions.forEach(option => {
+          if (!searchTerm) {
+              option.style.display = '';
+              return;
+          }
+          const guideName = option.getAttribute('data-name');
+          const guideRole = option.getAttribute('data-role');
+          const matchesSearch = guideName.includes(searchTerm) || 
+                              guideRole.includes(searchTerm);
+          
+          option.style.display = matchesSearch ? '' : 'none';
+      });
+  });
+
+  // Set initial styles for selected options
+  guideOptions.forEach(option => {
+      if (option.selected) {
+          option.style.backgroundColor = '#55c57a';
+          option.style.color = '#fff';
+      }
+  });
+}
+
   let selectedCoverFile = null;
   let selectedFiles = new Array(3).fill(null);
 

@@ -529,6 +529,75 @@ if(createTourForm){
               }
           }
   });
+
+  let selectedCoverFile = null;
+  let selectedFiles = new Array(3).fill(null);
+
+  // Cover image handling
+  if (coverPreview) {
+    coverPreview.style.cursor = 'pointer';
+    coverPreview.title = 'Click to remove';
+    
+    coverPreview.addEventListener('click', () => {
+      coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+      selectedCoverFile = null;
+      imageCoverInput.value = '';
+    });
+
+    imageCoverInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      selectedCoverFile = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        coverPreview.src = reader.result;
+      };
+    });
+  }
+
+  // Tour images handling
+  if (previewImages) {
+    previewImages.forEach((preview, index) => {
+      preview.style.cursor = 'pointer';
+      preview.title = 'Click to remove';
+      
+      preview.addEventListener('click', () => {
+        preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+        selectedFiles[index] = null;
+        
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => {
+          if (file) dt.items.add(file);
+        });
+        imagesInput.files = dt.files;
+      });
+    });
+
+    imagesInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      const availableSlot = selectedFiles.findIndex(file => file === null);
+      
+      if (availableSlot === -1) {
+        showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
+        return;
+      }
+      
+      files.forEach((file, i) => {
+        if (i + availableSlot >= 3) return;
+        
+        selectedFiles[i + availableSlot] = file;
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = () => {
+          previewImages[i + availableSlot].src = reader.result;
+        };
+      });
+    });
+  }
 }
 
 if (updateTourForm) {

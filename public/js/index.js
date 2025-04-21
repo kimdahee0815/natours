@@ -372,41 +372,50 @@ if(createTourForm){
 
   if (guideSearch) {
     const guidesSelect = document.getElementById('guides');
-    const guideOptions = Array.from(guidesSelect.options);
-    let scrollPosition = 0;
-    let isSelecting = false;
+  const guideOptions = Array.from(guidesSelect.options);
+  let scrollPosition = 0;
+  let isSelecting = false;
 
-    // Store scroll position and handle selection
-    guidesSelect.addEventListener('mousedown', function(e) {
-        scrollPosition = this.scrollTop;
-        e.preventDefault();
-        
-        const option = e.target;
-        if (option.tagName === 'OPTION') {
-            isSelecting = true;
-            const wasSelected = option.selected;
-            
-            requestAnimationFrame(() => {
-                option.selected = !wasSelected;
-                option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
-                option.style.color = !wasSelected ? '#fff' : '';
-                this.scrollTop = scrollPosition;
-                isSelecting = false;
-            });
-        }
-    });
+  // Store scroll position and handle selection
+  guidesSelect.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    
+    const option = e.target;
+    if (option.tagName === 'OPTION') {
+      const wasSelected = option.selected;
+      isSelecting = true;
+      scrollPosition = this.scrollTop;
 
-    // Maintain scroll position
-    guidesSelect.addEventListener('scroll', function(e) {
-        if (!isSelecting) {
-            scrollPosition = this.scrollTop;
-        }
-    });
-
-    // Keep scroll position on blur
-    guidesSelect.addEventListener('blur', function() {
+      // Use requestAnimationFrame for smoother updates
+      requestAnimationFrame(() => {
+        option.selected = !wasSelected;
+        option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+        option.style.color = !wasSelected ? '#fff' : '';
         this.scrollTop = scrollPosition;
-    });
+        isSelecting = false;
+      });
+    }
+  });
+
+  // Prevent default selection behavior
+  guidesSelect.addEventListener('change', function(e) {
+    e.preventDefault();
+  });
+
+  // Maintain scroll position during scrolling
+  guidesSelect.addEventListener('scroll', function() {
+    if (!isSelecting) {
+      scrollPosition = this.scrollTop;
+    }
+  });
+
+  // Keep scroll position on blur
+  guidesSelect.addEventListener('blur', function() {
+    this.scrollTop = scrollPosition;
+  });
+
+  // Add CSS to prevent scroll bounce
+  guidesSelect.style.overscrollBehavior = 'none';
 
     guideSearch.addEventListener('input', function(e) {
         const searchTerm = e.target.value.toLowerCase().trim();
@@ -733,14 +742,15 @@ if (guideSearch) {
 
   // Store scroll position and handle selection
   guidesSelect.addEventListener('mousedown', function(e) {
-    scrollPosition = this.scrollTop;
     e.preventDefault();
     
     const option = e.target;
     if (option.tagName === 'OPTION') {
-      isSelecting = true;
       const wasSelected = option.selected;
-      
+      isSelecting = true;
+      scrollPosition = this.scrollTop;
+
+      // Use requestAnimationFrame for smoother updates
       requestAnimationFrame(() => {
         option.selected = !wasSelected;
         option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
@@ -751,7 +761,12 @@ if (guideSearch) {
     }
   });
 
-  // Maintain scroll position while scrolling
+  // Prevent default selection behavior
+  guidesSelect.addEventListener('change', function(e) {
+    e.preventDefault();
+  });
+
+  // Maintain scroll position during scrolling
   guidesSelect.addEventListener('scroll', function() {
     if (!isSelecting) {
       scrollPosition = this.scrollTop;
@@ -760,10 +775,11 @@ if (guideSearch) {
 
   // Keep scroll position on blur
   guidesSelect.addEventListener('blur', function() {
-    setTimeout(() => {
-      this.scrollTop = scrollPosition;
-    }, 0);
+    this.scrollTop = scrollPosition;
   });
+
+  // Add CSS to prevent scroll bounce
+  guidesSelect.style.overscrollBehavior = 'none';
 
   // Guide search functionality 
   guideSearch.addEventListener('input', function(e) {

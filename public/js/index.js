@@ -886,7 +886,7 @@ if(updateTourForm){
     if (selectedCoverFile) {
       form.append('imageCover', selectedCoverFile);
     }
-    selectedFiles.forEach(file => {
+    imagesInput.forEach(file => {
       if (file) {
         form.append('images', file);
       }
@@ -917,7 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if(createTourForm){
+  if(createTourForm || updateTourForm){
     let selectedCoverFile = null;
 
     coverPreview.style.cursor = 'pointer';
@@ -990,36 +990,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     });
   }
-
-  if (updateTourForm){
-    let selectedCoverFile = null;
-    let selectedFiles = new Array(3).fill(null);
-  
-    // Cover image handling
-    if (coverPreview) {
-      coverPreview.style.cursor = 'pointer';
-      coverPreview.title = 'Click to remove';
-      
-      coverPreview.addEventListener('click', () => {
-        coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
-        selectedCoverFile = null;
-        imageCoverInput.value = '';
-      });
-  
-      imageCoverInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-  
-        selectedCoverFile = file;
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-  
-        reader.onload = () => {
-          coverPreview.src = reader.result;
-        };
-      });
-    }
-  
     // Tour images handling
     if (previewImages) {
       previewImages.forEach((preview, index) => {

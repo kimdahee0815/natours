@@ -636,7 +636,178 @@ if(createTourForm){
 }
 
 if (updateTourForm) {
-  
+  let selectedCoverFile = null;
+  let selectedFiles = new Array(3).fill(null);
+
+  // Cover image handling
+  if (coverPreview) {
+    coverPreview.style.cursor = 'pointer';
+    coverPreview.title = 'Click to remove';
+    
+    coverPreview.addEventListener('click', () => {
+      coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+      selectedCoverFile = null;
+      imageCoverInput.value = '';
+    });
+
+    imageCoverInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      selectedCoverFile = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        coverPreview.src = reader.result;
+      };
+    });
+  }
+
+  // Tour images handling
+  if (previewImages) {
+    previewImages.forEach((preview, index) => {
+      preview.style.cursor = 'pointer';
+      preview.title = 'Click to remove';
+      
+      preview.addEventListener('click', () => {
+        preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+        selectedFiles[index] = null;
+        
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => {
+          if (file) dt.items.add(file);
+        });
+        imagesInput.files = dt.files;
+      });
+    });
+
+    imagesInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+      const availableSlot = selectedFiles.findIndex(file => file === null);
+      
+      if (availableSlot === -1) {
+        showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
+        return;
+      }
+      
+      files.forEach((file, i) => {
+        if (i + availableSlot >= 3) return;
+        
+        selectedFiles[i + availableSlot] = file;
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = () => {
+          previewImages[i + availableSlot].src = reader.result;
+        };
+      });
+    });
+  }
+
+  // Form submission handler
+  updateTourForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const tourId = updateTourBtn.dataset.tourId;
+    const form = new FormData();
+
+    // Basic tour info
+    form.append('name', document.getElementById('name').value);
+    form.append('duration', document.getElementById('duration').value);
+    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
+    form.append('difficulty', document.getElementById('difficulty').value);
+    form.append('price', document.getElementById('price').value);
+    form.append('summary', document.getElementById('summary').value);
+    form.append('description', document.getElementById('description').value);
+
+    // Start location
+    const startLocationAddress = document.getElementById('address').value;
+    const startLocation = {
+      type: 'Point',
+      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
+      address: startLocationAddress,
+      description: document.getElementById('description-loc').value
+    };
+    form.append('startLocation', JSON.stringify(startLocation));
+
+    // Tour locations
+    const inputLocations = [];
+    document.querySelectorAll('.form__location-inputs').forEach(loc => {
+      inputLocations.push({
+        type: 'Point',
+        coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
+        address: loc.querySelector('.location-address').value,
+        description: loc.querySelector('.location-description').value,
+        day: parseInt(loc.querySelector('.location-day').value)
+      });
+    });
+    form.append('locations', JSON.stringify(inputLocations));
+
+    // Dates
+    const startDates = [];
+    document.querySelectorAll('.tour-date').forEach(date => {
+      if (date.value) startDates.push(date.value);
+    });
+    form.append('startDates', JSON.stringify(startDates));
+
+    // Images
+    if (selectedCoverFile) {
+      form.append('imageCover', selectedCoverFile);
+    }
+    selectedFiles.forEach(file => {
+      if (file) form.append('images', file);
+    });
+
+    // Guides
+    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
+      .map(option => option.value);
+    form.append('guides', JSON.stringify(selectedGuides));
+
+    try {
+      document.querySelector('.btn--update-tour').textContent = 'Updating...';
+      await updateTour(tourId, form);
+    } catch (err) {
+      showAlert('error', err.message);
+    } finally {
+      document.querySelector('.btn--update-tour').textContent = 'Update Tour';
+    }
+  });
+
+  // Add coordinates calculation on blur for start location
+  const startLocationInput = document.getElementById('address');
+  const startCoordinatesInput = document.getElementById('coordinates');
+
+  startLocationInput.addEventListener('blur', async function() {
+    if (this.value) {
+      try {
+        const coordinates = await getCoordinates(this.value);
+        if (coordinates) {
+          startCoordinatesInput.value = coordinates;
+        }
+      } catch (err) {
+        console.error('Error getting coordinates:', err);
+      }
+    }
+  });
+
+  // Add coordinates calculation for tour locations
+  document.addEventListener('blur', async function(e) {
+    if (e.target.classList.contains('location-address')) {
+      const locationDiv = e.target.closest('.form__location-inputs');
+      const coordinatesInput = locationDiv.querySelector('.location-coordinates');
+      
+      if (e.target.value) {
+        try {
+          const coordinates = await getCoordinates(e.target.value);
+          if (coordinates) {
+            coordinatesInput.value = coordinates;
+          }
+        } catch (err) {
+          console.error('Error getting coordinates:', err);
+        }
+      }
+    }
+  }, true);
 }
 
   if(chart){

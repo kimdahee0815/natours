@@ -48,6 +48,11 @@ block content
           .form__group
             label.form__label Tour Locations
             #locations-container
+                #form__location-inputs
+                    input#location-address.form__input(type='text', placeholder='Address')
+                    input#location-description.form__input(type='text', placeholder='Description')
+                    input#location-day.form__input(type='number', placeholder='Day of visit(number)')
+                    button.btn.btn--small.btn--green.middle#add-location(type='button') Add Location
                 each location in tour.locations
                     .form__location-inputs
                         input.form__input.location-address(type='text', value=`${location.address}`, required)
@@ -55,11 +60,6 @@ block content
                         input.form__input.location-description(type='text', value=`${location.description}`, required)
                         input.form__input.location-day(type='number', value=`${location.day}`, required)
                         button.btn.btn--small.btn--red.btn--remove-location(type='button') Remove
-                #form__location-inputs
-                    input#location-address.form__input(type='text', placeholder='Address')
-                    input#location-description.form__input(type='text', placeholder='Description')
-                    input#location-day.form__input(type='number', placeholder='Day of visit(number)')
-                    button.btn.btn--small.btn--green.middle#add-location(type='button') Add Location
 
           .form__group
             label.form__label Start Dates

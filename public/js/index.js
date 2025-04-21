@@ -640,54 +640,48 @@ if (updateTourForm) {
 const locationsContainer = document.getElementById('locations-container');
 
 addLocationBtn.addEventListener('click', async () => {
-  const lastLocation = document.querySelector('#form__location-inputs');
-  
-  const lastValues = {
-    address: lastLocation.querySelector('#location-address').value || '',
-    description: lastLocation.querySelector('#location-description').value || '',
-    day: lastLocation.querySelector('#location-day').value || ''
-  };
+  const lastValues = {};
 
-  if (lastLocation) {
-    if (!lastValues.address || !lastValues.description || !lastValues.day) {
-      showAlert('error', 'Please fill in all fields for the current location before adding a new one!');
-      return;
-    }
-  }
+    if (lastLocation) {
+      const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
+      const coordinates = await getCoordinates(address);
+      const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
+      const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
+      
+      lastValues = {
+        address,
+        coordinates,
+        description,
+        day,
+      };
 
-  const locationDiv = document.createElement('div');
-  locationDiv.className = 'form__location-inputs';
-  
-  locationDiv.innerHTML = `
-    <input class="form__input location-address" type="text" placeholder="Address" required>
-    <input class="form__input location-coordinates" type="text" placeholder="Coordinates (lat,lng)" required readonly>
-    <input class="form__input location-description" type="text" placeholder="Description" required>
-    <input class="form__input location-day" type="number" placeholder="Day of visit" required>
-    <button class="btn btn--small btn--red btn--remove-location" type="button">Remove</button>
-  `;
-  
-  locationsContainer.appendChild(locationDiv);
-
-  // Add coordinates calculation
-  const addressInput = locationDiv.querySelector('.location-address');
-  const coordinatesInput = locationDiv.querySelector('.location-coordinates');
-  
-  addressInput.addEventListener('blur', async () => {
-    if (addressInput.value) {
-      try {
-        const coordinates = await getCoordinates(addressInput.value);
-        if (coordinates) {
-          coordinatesInput.value = coordinates;
-        }
-      } catch (err) {
-        console.error('Error getting coordinates:', err);
+      if (!address || !coordinates || !description || !day) {
+        showAlert('error', 'Please fill in all fields for the current location and input correct location before adding a new one!');
+        return;
       }
     }
-  });
 
-  // Add remove button handler
-  const removeBtn = locationDiv.querySelector('.btn--remove-location');
-  removeBtn.addEventListener('click', () => locationDiv.remove());
+    const locationDiv = document.createElement('div');
+    locationDiv.className = 'form__location-inputs';
+    
+    locationDiv.innerHTML = `
+        <input class="form__input location-address" type="text" value="${lastValues.address}" placeholder="Address" required>
+        <input class="form__input location-coordinates" type="text" value="${lastValues.coordinates}" placeholder="Coordinates (lat,lng)" required>
+        <input class="form__input location-description" type="text" value="${lastValues.description}" placeholder="Description" required>
+        <input class="form__input location-day" type="number" value="${lastValues.day}" placeholder="Day of visit" required>
+        <button class="btn btn--small btn--red btn--remove-location" type="button">Remove</button>
+    `;
+    locationsContainer.appendChild(locationDiv);
+
+    const removeBtn = locationDiv.querySelector('.btn--remove-location');
+    removeBtn.addEventListener('click', () => {
+        locationDiv.remove();
+    });
+
+    lastLocation.querySelector('#location-address').value = '';
+    lastLocation.querySelector('#location-description').value = '';
+    lastLocation.querySelector('#location-day').value = '';
+
 });
 
 // Add date functionality
@@ -696,27 +690,27 @@ const datesContainer = document.getElementById('dates-container');
 
 addDateBtn.addEventListener('click', () => {
   const lastDate = document.querySelector('#tour-date');
-  
+    
   if (lastDate && !lastDate.value) {
-    showAlert('error', 'Please select a date first');
+    showAlert('error', 'Please select a date for the current entry before adding a new one!');
     return;
   }
 
   const dateDiv = document.createElement('div');
   dateDiv.className = 'form__date-inputs';
+  const lastDateValue = lastDate ? lastDate.value : '';
   
   dateDiv.innerHTML = `
-    <input class="form__input tour-date" type="datetime-local" required>
-    <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
+      <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
+      <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
   `;
-  
   datesContainer.appendChild(dateDiv);
 
-  // Add remove button handler
   const removeBtn = dateDiv.querySelector('.btn--remove-date');
-  removeBtn.addEventListener('click', () => dateDiv.remove());
+  removeBtn.addEventListener('click', () => {
+      dateDiv.remove();
+  });
 
-  // Clear the input date field
   if (lastDate) {
     lastDate.value = '';
   }
@@ -757,8 +751,8 @@ if (guideSearch) {
       }
   });
 
-  // Maintain scroll position while scrolling
-  guidesSelect.addEventListener('scroll', function() {
+  // Maintain scroll position
+  guidesSelect.addEventListener('scroll', function(e) {
       if (!isSelecting) {
           scrollPosition = this.scrollTop;
       }
@@ -769,14 +763,13 @@ if (guideSearch) {
       this.scrollTop = scrollPosition;
   });
 
-  // Guide search functionality
   guideSearch.addEventListener('input', function(e) {
       const searchTerm = e.target.value.toLowerCase().trim();
       
       guideOptions.forEach(option => {
           if (!searchTerm) {
-              option.style.display = '';
-              return;
+            option.style.display = '';
+            return;
           }
           const guideName = option.getAttribute('data-name');
           const guideRole = option.getAttribute('data-role');

@@ -1013,9 +1013,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
-  }
 
-  if(chart){
+  if (chart){
     const { userId } = chart.dataset;
     drawChart(userId);
   }

@@ -20,6 +20,7 @@ import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
 import { createTours } from './createTours';
+import { updateTour } from './updateTour';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -57,6 +58,8 @@ const coverPreview = document.getElementById('coverPreview');
 const imagesInput = document.getElementById('images');
 const previewContainer = document.getElementById('imagePreviewContainer');
 const previewImages = document.querySelectorAll('.tour-image-preview');
+const updateTourForm = document.querySelector('.form--update-tour');
+const updateTourBtn = document.querySelector('.btn--update-tour')
 
 //Delegation
 if (mapBox) {
@@ -629,6 +632,132 @@ if(createTourForm){
 
     await createTours(form);   
     document.querySelector('.btn--create-tour').textContent = 'Create Tour';
+  });
+}
+
+if (updateTourForm) {
+  let selectedFiles = new Array(3).fill(null);
+  let selectedCoverFile = null;
+
+  // Cover image preview and removal
+  coverPreview.style.cursor = 'pointer';
+  coverPreview.title = 'Click to remove';
+  
+  coverPreview.addEventListener('click', () => {
+    coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+    selectedCoverFile = null;
+    imageCoverInput.value = '';
+  });
+
+  imageCoverInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedCoverFile = file;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      coverPreview.src = reader.result;
+    };
+  });
+
+  // Tour images preview and removal
+  previewImages.forEach((preview, index) => {
+    preview.style.cursor = 'pointer';
+    preview.title = 'Click to remove';
+    
+    preview.addEventListener('click', () => {
+      preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+      selectedFiles[index] = null;
+      
+      const dt = new DataTransfer();
+      selectedFiles.forEach(file => {
+        if (file) dt.items.add(file);
+      });
+      imagesInput.files = dt.files;
+    });
+  });
+
+  imagesInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    const availableSlot = selectedFiles.findIndex(file => file === null);
+    
+    if (availableSlot === -1) {
+      showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
+      return;
+    }
+    
+    files.forEach((file, i) => {
+      if (i + availableSlot >= 3) return;
+      
+      selectedFiles[i + availableSlot] = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      
+      reader.onload = () => {
+        previewImages[i + availableSlot].src = reader.result;
+      };
+    });
+  });
+
+  updateTourForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Form data validation and submission
+    const form = new FormData();
+    document.querySelector('.btn--update-tour').textContent = 'Updating...';
+    const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
+
+    // Basic tour info
+    form.append('name', document.getElementById('name').value);
+    form.append('duration', document.getElementById('duration').value);
+    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
+    form.append('difficulty', document.getElementById('difficulty').value);
+    form.append('price', document.getElementById('price').value);
+    form.append('summary', document.getElementById('summary').value);
+    form.append('description', document.getElementById('description').value);
+
+    // Start location
+    const startLocation = {
+      type: 'Point',
+      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
+      address: document.getElementById('address').value,
+      description: document.getElementById('description-loc').value
+    };
+    form.append('startLocation', JSON.stringify(startLocation));
+
+    // Tour locations
+    const locations = Array.from(document.querySelectorAll('.form__location-inputs')).map(loc => ({
+      type: 'Point',
+      coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
+      address: loc.querySelector('.location-address').value,
+      description: loc.querySelector('.location-description').value,
+      day: parseInt(loc.querySelector('.location-day').value)
+    }));
+    form.append('locations', JSON.stringify(locations));
+
+    // Dates
+    const startDates = Array.from(document.querySelectorAll('.tour-date'))
+      .map(date => date.value)
+      .filter(date => date);
+    form.append('startDates', JSON.stringify(startDates));
+
+    // Images
+    if (selectedCoverFile) {
+      form.append('imageCover', selectedCoverFile);
+    }
+    selectedFiles.forEach(file => {
+      if (file) form.append('images', file);
+    });
+
+    // Guides
+    const guides = Array.from(document.getElementById('guides').selectedOptions)
+      .map(option => option.value);
+    form.append('guides', JSON.stringify(guides));
+
+    await updateTour(tourId, form); 
+    document.querySelector('.btn--update-tour').textContent = 'Update Tour';  
   });
 }
 

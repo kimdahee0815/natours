@@ -292,6 +292,21 @@ exports.getCreateTourForm = catchAsync(async (req, res) => {
     guides,
   });
 });
+
+exports.getUpdateTourForm = catchAsync(async (req, res) => {
+  const tour = await Tour.findById(req.params.id);
+  const guides = await User.find({ role: { $in: ['guide', 'lead-guide'] } });
+
+  if (!tour) {
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
+  res.status(200).render('updateTour', {
+    title: 'Update Tour',
+    tour,
+    guides,
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

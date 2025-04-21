@@ -635,6 +635,7 @@ if(createTourForm){
   });
 }
 
+console.log(updateTourForm);
 if(updateTourForm){
   const addLocationBtn = document.getElementById('add-location');
   const locationsContainer = document.getElementById('locations-container');
@@ -885,7 +886,7 @@ if(updateTourForm){
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if(uploadBtn) {
     uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -900,14 +901,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if(createTourForm || updateTourForm){
+  if (createTourForm || updateTourForm) {
     let selectedCoverFile = null;
     let selectedFiles = new Array(3).fill(null);
-
+  
     if (coverPreview) {
       coverPreview.style.cursor = 'pointer';
       coverPreview.title = 'Click to remove';
-    
+  
+      // Initialize selectedCoverFile for update form
+      if (updateTourForm && coverPreview.src) {
+        const response = await fetch(coverPreview.src);
+        const blob = await response.blob();
+        selectedCoverFile = new File([blob], 'cover.jpg', { type: 'image/jpeg' });
+      }
+      
       coverPreview.addEventListener('click', () => {
         coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
         selectedCoverFile = null;
@@ -927,48 +935,19 @@ document.addEventListener('DOMContentLoaded', () => {
         };
       });
     }
-
-    if (previewImages) {
-      previewImages.forEach((preview, index) => {
-        preview.style.cursor = 'pointer';
-        preview.title = 'Click to remove';
-        
-        preview.addEventListener('click', () => {
-          preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
-          selectedFiles[index] = null;
-          
-          const dt = new DataTransfer();
-          selectedFiles.forEach(file => {
-            if (file) dt.items.add(file);
-          });
-          imagesInput.files = dt.files;
-        });
-      });
   
-      imagesInput.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files);
-        const availableSlot = selectedFiles.findIndex(file => file === null);
-        
-        if (availableSlot === -1) {
-          showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
-          return;
-        }
-        
-        files.forEach((file, i) => {
-          if (i + availableSlot >= 3) return;
-          
-          selectedFiles[i + availableSlot] = file;
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          
-          reader.onload = () => {
-            previewImages[i + availableSlot].src = reader.result;
-          };
-        });
-      });
-    }
-
     if (previewImages) {
+      // Initialize selectedFiles for update form
+      if (updateTourForm) {
+        previewImages.forEach(async (preview, index) => {
+          if (preview.src && !preview.src.includes('default.jpg')) {
+            const response = await fetch(preview.src);
+            const blob = await response.blob();
+            selectedFiles[index] = new File([blob], `tour-image-${index + 1}.jpg`, { type: 'image/jpeg' });
+          }
+        });
+      }
+  
       previewImages.forEach((preview, index) => {
         preview.style.cursor = 'pointer';
         preview.title = 'Click to remove';

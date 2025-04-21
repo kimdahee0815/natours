@@ -1552,7 +1552,7 @@ td{
   padding: 1.4rem 3rem;
 }
 
-.create-tour-form {
+.create-tour-form, .update-tour-form {
   max-width: 120rem;
   margin: 0 auto;
   padding: 5rem;

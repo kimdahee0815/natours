@@ -647,11 +647,11 @@ if(createTourForm){
 if (updateTourForm) {
   
   const addLocationBtn = document.getElementById('add-location');
-const locationsContainer = document.getElementById('locations-container');
+  const locationsContainer = document.getElementById('locations-container');
 
-addLocationBtn.addEventListener('click', async () => {
-  const lastLocation = document.querySelector('#form__location-inputs');
-  const lastValues = {};
+  addLocationBtn.addEventListener('click', async () => {
+    const lastLocation = document.querySelector('#form__location-inputs');
+    const lastValues = {};
 
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
@@ -693,122 +693,122 @@ addLocationBtn.addEventListener('click', async () => {
     lastLocation.querySelector('#location-description').value = '';
     lastLocation.querySelector('#location-day').value = '';
 
-});
+  });
 
-// Add date functionality
-const addDateBtn = document.getElementById('add-date');
-const datesContainer = document.getElementById('dates-container');
+  // Add date functionality
+  const addDateBtn = document.getElementById('add-date');
+  const datesContainer = document.getElementById('dates-container');
 
-addDateBtn.addEventListener('click', () => {
-  const lastDate = document.querySelector('#tour-date');
+  addDateBtn.addEventListener('click', () => {
+    const lastDate = document.querySelector('#tour-date');
     
-  if (lastDate && !lastDate.value) {
-    showAlert('error', 'Please select a date for the current entry before adding a new one!');
-    return;
-  }
+    if (lastDate && !lastDate.value) {
+      showAlert('error', 'Please select a date for the current entry before adding a new one!');
+      return;
+    }
 
-  const dateDiv = document.createElement('div');
-  dateDiv.className = 'form__date-inputs';
-  const lastDateValue = lastDate ? lastDate.value : '';
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'form__date-inputs';
+    const lastDateValue = lastDate ? lastDate.value : '';
   
-  dateDiv.innerHTML = `
+    dateDiv.innerHTML = `
       <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
       <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
-  `;
-  datesContainer.appendChild(dateDiv);
+    `;
+    datesContainer.appendChild(dateDiv);
 
-  const removeBtn = dateDiv.querySelector('.btn--remove-date');
-  removeBtn.addEventListener('click', () => {
+    const removeBtn = dateDiv.querySelector('.btn--remove-date');
+    removeBtn.addEventListener('click', () => {
       dateDiv.remove();
-  });
+    });
 
-  if (lastDate) {
-    lastDate.value = '';
-  }
-});
-
-// Add handlers for existing remove buttons
-document.querySelectorAll('.btn--remove-location').forEach(btn => {
-  btn.addEventListener('click', () => btn.closest('.form__location-inputs').remove());
-});
-
-document.querySelectorAll('.btn--remove-date').forEach(btn => {
-  btn.addEventListener('click', () => btn.closest('.form__date-inputs').remove());
-});
-
-if (guideSearch) {
-  const guidesSelect = document.getElementById('guides');
-  const guideOptions = Array.from(guidesSelect.options);
-  let scrollPosition = 0;
-  let isSelecting = false;
-
-  // Store scroll position and handle selection
-  guidesSelect.addEventListener('mousedown', function(e) {
-    e.preventDefault();
-    
-    const option = e.target;
-    if (option.tagName === 'OPTION') {
-      const wasSelected = option.selected;
-      isSelecting = true;
-      scrollPosition = this.scrollTop;
-
-      // Use requestAnimationFrame for smoother updates
-      requestAnimationFrame(() => {
-        option.selected = !wasSelected;
-        option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
-        option.style.color = !wasSelected ? '#fff' : '';
-        this.scrollTop = scrollPosition;
-        isSelecting = false;
-      });
+    if (lastDate) {
+      lastDate.value = '';
     }
   });
 
-  // Prevent default selection behavior
-  guidesSelect.addEventListener('change', function(e) {
-    e.preventDefault();
+  // Add handlers for existing remove buttons
+  document.querySelectorAll('.btn--remove-location').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.form__location-inputs').remove());
   });
 
-  // Maintain scroll position during scrolling
-  guidesSelect.addEventListener('scroll', function() {
-    if (!isSelecting) {
-      scrollPosition = this.scrollTop;
-    }
+  document.querySelectorAll('.btn--remove-date').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.form__date-inputs').remove());
   });
 
-  // Keep scroll position on blur
-  guidesSelect.addEventListener('blur', function() {
-    this.scrollTop = scrollPosition;
-  });
+  if (guideSearch) {
+    const guidesSelect = document.getElementById('guides');
+    const guideOptions = Array.from(guidesSelect.options);
+    let scrollPosition = 0;
+    let isSelecting = false;
 
-  // Add CSS to prevent scroll bounce
-  guidesSelect.style.overscrollBehavior = 'none';
-
-  // Guide search functionality 
-  guideSearch.addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase().trim();
+    // Store scroll position and handle selection
+    guidesSelect.addEventListener('mousedown', function(e) {
+      e.preventDefault();
     
-    guideOptions.forEach(option => {
-      if (!searchTerm) {
-        option.style.display = '';
-        return;
+      const option = e.target;
+      if (option.tagName === 'OPTION') {
+        const wasSelected = option.selected;
+        isSelecting = true;
+        scrollPosition = this.scrollTop;
+
+        // Use requestAnimationFrame for smoother updates
+        requestAnimationFrame(() => {
+          option.selected = !wasSelected;
+          option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+          option.style.color = !wasSelected ? '#fff' : '';
+          this.scrollTop = scrollPosition;
+          isSelecting = false;
+        });
       }
-      const guideName = option.getAttribute('data-name');
-      const guideRole = option.getAttribute('data-role');
-      const matchesSearch = guideName.includes(searchTerm) || 
+    });
+
+    // Prevent default selection behavior
+    guidesSelect.addEventListener('change', function(e) {
+      e.preventDefault();
+    });
+
+    // Maintain scroll position during scrolling
+    guidesSelect.addEventListener('scroll', function() {
+      if (!isSelecting) {
+        scrollPosition = this.scrollTop;
+      }
+    });
+
+    // Keep scroll position on blur
+    guidesSelect.addEventListener('blur', function() {
+      this.scrollTop = scrollPosition;
+    });
+
+    // Add CSS to prevent scroll bounce
+    guidesSelect.style.overscrollBehavior = 'none';
+
+    // Guide search functionality 
+    guideSearch.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase().trim();
+    
+      guideOptions.forEach(option => {
+        if (!searchTerm) {
+          option.style.display = '';
+          return;
+        }
+        const guideName = option.getAttribute('data-name');
+        const guideRole = option.getAttribute('data-role');
+        const matchesSearch = guideName.includes(searchTerm) || 
                           guideRole.includes(searchTerm);
       
-      option.style.display = matchesSearch ? '' : 'none';
+        option.style.display = matchesSearch ? '' : 'none';
+      });
     });
-  });
 
-  // Set initial styles for selected options
-  guideOptions.forEach(option => {
-    if (option.selected) {
-      option.style.backgroundColor = '#55c57a';
-      option.style.color = '#fff';
-    }
-  });
-}
+    // Set initial styles for selected options
+    guideOptions.forEach(option => {
+      if (option.selected) {
+        option.style.backgroundColor = '#55c57a';
+        option.style.color = '#fff';
+      }
+    });
+  }
 
   let selectedCoverFile = null;
   let selectedFiles = new Array(3).fill(null);
@@ -883,7 +883,9 @@ if (guideSearch) {
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
-    const tourId = updateTourBtn.dataset.tourId;
+    const { tourId } = updateTourBtn.dataset;
+    console.log('Tour ID:', tourId);
+    console.log('Form submission started');
     const form = new FormData();
 
     // Basic tour info
@@ -895,6 +897,7 @@ if (guideSearch) {
     form.append('summary', document.getElementById('summary').value);
     form.append('description', document.getElementById('description').value);
 
+    console.log('Basic tour info:', formData);
     // Start location
     const startLocationAddress = document.getElementById('address').value;
     const startLocation = {
@@ -903,6 +906,7 @@ if (guideSearch) {
       address: startLocationAddress,
       description: document.getElementById('description-loc').value
     };
+    console.log('Start location:', startLocation);
     form.append('startLocation', JSON.stringify(startLocation));
 
     // Tour locations
@@ -927,18 +931,26 @@ if (guideSearch) {
 
     // Images
     if (selectedCoverFile) {
+      console.log('Cover image selected:', selectedCoverFile.name);
       form.append('imageCover', selectedCoverFile);
     }
     selectedFiles.forEach(file => {
-      if (file) form.append('images', file);
+      if (file) {
+        console.log(`Tour image ${index + 1} selected:`, file.name);
+        form.append('images', file);
+      }
     });
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
       .map(option => option.value);
+    console.log('Selected guides:', selectedGuides);
     form.append('guides', JSON.stringify(selectedGuides));
 
-    console.log('Submitting update form with data:', Object.fromEntries(form));
+    console.log('Form data entries:');
+      for (let [key, value] of form.entries()) {
+        console.log(`${key}:`, value);
+      }
     await updateTour(tourId, form);
     document.querySelector('.btn--update-tour').textContent = 'Update Tour';
   });

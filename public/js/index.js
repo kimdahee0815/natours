@@ -20,6 +20,7 @@ import { deleteManageTour } from './deleteManageTour';
 import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
 import { createTours } from './createTours';
+import { updateTour } from './updateTour';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -57,6 +58,8 @@ const coverPreview = document.getElementById('coverPreview');
 const imagesInput = document.getElementById('images');
 const previewContainer = document.getElementById('imagePreviewContainer');
 const previewImages = document.querySelectorAll('.tour-image-preview');
+const updateTourForm = document.querySelector('.form--update-tour');
+const updateTourBtn = document.querySelector('.btn--update-tour')
 
 //Delegation
 if (mapBox) {

@@ -257,6 +257,7 @@ if(deleteBookingBtn){
   });
 }
 
+console.log(updateTourForm)
 if(updateTourForm){
   // Form submission handler
 updateTourForm.addEventListener('submit', async (e) => {

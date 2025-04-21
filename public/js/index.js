@@ -882,6 +882,7 @@ if (guideSearch) {
   // Form submission handler
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const tourId = updateTourBtn.dataset.tourId;
     const form = new FormData();
 
@@ -937,15 +938,8 @@ if (guideSearch) {
       .map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
-    try {
-      document.querySelector('.btn--update-tour').textContent = 'Updating...';
-      console.log('aaa');
-      await updateTour(tourId, form);
-    } catch (err) {
-      showAlert('error', err.message);
-    } finally {
-      document.querySelector('.btn--update-tour').textContent = 'Update Tour';
-    }
+    await updateTour(tourId, form);
+    document.querySelector('.btn--update-tour').textContent = 'Update Tour';
   });
 
   // Add coordinates calculation on blur for start location

@@ -817,25 +817,6 @@ if(updateTourForm){
     }
   });
 
-  // Add coordinates calculation for tour locations
-  document.addEventListener('blur', async function(e) {
-    if (e.target.classList.contains('location-address')) {
-      const locationDiv = e.target.closest('.form__location-inputs');
-      const coordinatesInput = locationDiv.querySelector('.location-coordinates');
-      
-      if (e.target.value) {
-        try {
-          const coordinates = await getCoordinates(e.target.value);
-          if (coordinates) {
-            coordinatesInput.value = coordinates;
-          }
-        } catch (err) {
-          console.error('Error getting coordinates:', err);
-        }
-      }
-    }
-  }, true);
-
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     console.log(e.target)
@@ -853,10 +834,11 @@ if(updateTourForm){
     form.append('description', document.getElementById('description').value);
   
     // Start location
+    const coordinatesStr = await getCoordinates(startLocationAddress);
     const startLocationAddress = document.getElementById('address').value;
     const startLocation = {
       type: 'Point',
-      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
+      coordinates: coordinatesStr.split(',').map(Number),
       address: startLocationAddress,
       description: document.getElementById('description-loc').value
     };
@@ -887,7 +869,7 @@ if(updateTourForm){
     if (selectedCoverFile) {
       form.append('imageCover', selectedCoverFile);
     }
-    imagesInput.forEach(file => {
+    Array.from(images).forEach(file => {
       if (file) {
         form.append('images', file);
       }

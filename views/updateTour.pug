@@ -64,14 +64,14 @@ block content
           .form__group
             label.form__label Start Dates
             #dates-container
+                .form__date-inputs
+                    input.form__input#tour-date(type='datetime-local')
+                    button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
                 each date in tour.startDates
                     .form__date-inputs
                         input.form__input.tour-date(type='datetime-local', value=date.toISOString().slice(0, 16), required)
                         button.btn.btn--small.btn--red.btn--remove-date(type='button') Remove
-                .form__date-inputs
-                    input.form__input#tour-date(type='datetime-local')
-                    button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
-          
+                        
           .form__group
               label.form__label Tour Guides
                   .guides-selection

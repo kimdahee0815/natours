@@ -2,6 +2,7 @@
 // const fs = require('fs');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const multer = require('multer');
+const slugify = require('slugify');
 const { v4: uuidv4 } = require('uuid');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const sharp = require('sharp');
@@ -202,7 +203,8 @@ exports.createTour = catchAsync(async (req, res, next) => {
   );
   req.body.guides = JSON.parse(req.body.guides);
   req.body.startLocation = JSON.parse(req.body.startLocation);
-  const tourTobeCreated = await Tour.save(req.body);
+  req.body.slug = slugify(req.body.name, { lower: true });
+  const tourTobeCreated = await Tour.create(req.body);
 
   if (!tourTobeCreated) {
     return next(new AppError('Error Creating Tour!', 400));

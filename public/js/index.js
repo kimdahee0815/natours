@@ -592,7 +592,6 @@ if(createTourForm){
     form.append('description', description);
     
     const coordinatesStr = await getCoordinates(startLocationAddress);
-    console.log(coordinatesStr);
     const startLocation = {
       type: 'Point',
       coordinates: coordinatesStr.split(',').map(Number),
@@ -621,8 +620,10 @@ if(createTourForm){
 
     
     form.append('imageCover', imageCover);
-    Array.from(images).forEach(img => form.append('images', img));
-    
+    Array.from(images).forEach(file => {
+      if (file) form.append('images', file);
+    });
+
     selectedGuides = selectedGuides.map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
@@ -710,6 +711,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             imagesInput.files = dt.files;
         });
+
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => {
+            if (file) dt.items.add(file);
+        });
+        imagesInput.files = dt.files;
     });
     });
   }

@@ -938,7 +938,7 @@ if (guideSearch) {
       .map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
-    console.log(form)
+    console.log('Submitting update form with data:', Object.fromEntries(form));
     await updateTour(tourId, form);
     document.querySelector('.btn--update-tour').textContent = 'Update Tour';
   });

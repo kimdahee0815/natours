@@ -1,96 +1,101 @@
-extends base 
+extends base
 
 block content
   main.main
-    .create-tour-form
+    .update-tour-form
       .user-view__form-container
+        h2.heading-secondary.ma-bt-md Update Tour
         form.form.form--update-tour
-          h2.heading-secondary.ma-bt-md Update Tour
           .form__group
-            label.form__label Tour Name
-            input#name.form__input(type='text', value=`${tour.name}`, required, minlength='10', maxlength='40')
+            label.form__label(for='name') Tour Name
+            input#name.form__input(type='text', , value=`${tour.name}`, required, minlength='10', maxlength='40', placeholder='Enter tour name')
           
           .form__group
-            label.form__label Duration (days)
-            input#duration.form__input(type='number', value=`${tour.duration}`, required, min='1')
+            label.form__label(for='duration') Duration (days)
+            input#duration.form__input(type='number', value=`${tour.duration}`, required, min='1', placeholder='Duration')
           
           .form__group
-            label.form__label Maximum Group Size
-            input#maxGroupSize.form__input(type='number', value=`${tour.maxGroupSize}`, required, min='1')
+            label.form__label(for='maxGroupSize') Max Group Size
+            input#maxGroupSize.form__input(type='number', value=`${tour.maxGroupSize}`, required, min='1', placeholder='Max group size')
           
           .form__group
-            label.form__label Difficulty
+            label.form__label(for='difficulty') Difficulty
             select#difficulty.form__input(required)
+              option(value='') Select difficulty
               option(value='easy' selected=tour.difficulty === 'easy') Easy
               option(value='medium' selected=tour.difficulty === 'medium') Medium
               option(value='difficult' selected=tour.difficulty === 'difficult') Difficult
           
           .form__group
-            label.form__label Price
-            input#price.form__input(type='number', value=`${tour.price}`, required, min='1')
+            label.form__label(for='price') Price
+            input#price.form__input(type='number', value=`${tour.price}`, required, min='1', placeholder='Price')
           
           .form__group
-            label.form__label Summary
+            label.form__label(for='summary') Summary
             textarea#summary.form__input(required)= tour.summary
           
           .form__group
-            label.form__label Description
-            textarea#description.form__input(required)= tour.description
+            label.form__label(for='description') Description
+            textarea#description.form__input(required, rows='5')= tour.description
           
           .form__group
             label.form__label Start Location
             .form__start-location-inputs
-              input#address.form__input(type='text', value=`${tour.startLocation.address}`, placeholder='Address', required)
-              input#coordinates.form__input(type='text', value=`${tour.startLocation.coordinates}`, placeholder='Coordinates (lat,lng)', required, readonly)
-              input#description-loc.form__input(type='text', value=`${tour.startLocation.description}`, placeholder='Description', required)
-          
+              input#address.form__input(type='text', value=`${tour.startLocation.address}`, required)
+              input#coordinates.form__input(type='text', value=`${tour.startLocation.coordinates}`, required, readonly)
+              input#description-loc.form__input(type='text', value=`${tour.startLocation.description}`, required)
+
           .form__group
             label.form__label Tour Locations
             #locations-container
-              each location in tour.locations
-                .form__location-inputs
-                  input.form__input.location-address(type='text', value=`${location.address}`, placeholder='Address', required)
-                  input.form__input.location-coordinates(type='text', value=`${location.coordinates}`, placeholder='Coordinates (lat,lng)', required)
-                  input.form__input.location-description(type='text', value=`${location.description}`, placeholder='Description', required)
-                  input.form__input.location-day(type='number', value=`${location.day}`, placeholder='Day of visit', required)
-                  button.btn.btn--small.btn--red.btn--remove-location(type='button') Remove
-            button.btn.btn--small.btn--green#add-location(type='button') Add Location
-          
+                each location in tour.locations
+                    .form__location-inputs
+                        input.form__input.location-address(type='text', value=`${location.address}`, required)
+                        input.form__input.location-coordinates(type='text', value=`${location.coordinates}`, required, readonly)
+                        input.form__input.location-description(type='text', value=`${location.description}`, required)
+                        input.form__input.location-day(type='number', value=`${location.day}`, required)
+                        button.btn.btn--small.btn--red.btn--remove-location(type='button') Remove
+                #form__location-inputs
+                    input#location-address.form__input(type='text', placeholder='Address')
+                    input#location-description.form__input(type='text', placeholder='Description')
+                    input#location-day.form__input(type='number', placeholder='Day of visit(number)')
+                    button.btn.btn--small.btn--green.middle#add-location(type='button') Add Location
+
           .form__group
             label.form__label Start Dates
             #dates-container
-              each date in tour.startDates
+                each date in tour.startDates
+                    .form__date-inputs
+                        input.form__input.tour-date(type='datetime-local', value=date.toISOString().slice(0, 16), required)
+                        button.btn.btn--small.btn--red.btn--remove-date(type='button') Remove
                 .form__date-inputs
-                  input.form__input.tour-date(type='datetime-local', value=date.toISOString().slice(0, 16), required)
-                  button.btn.btn--small.btn--red.btn--remove-date(type='button') Remove
-            button.btn.btn--small.btn--green#add-date(type='button') Add Date
+                    input.form__input#tour-date(type='datetime-local')
+                    button.btn.btn--small.btn--green.middle#add-date(type='button') Add Date
           
           .form__group
-            label.form__label Tour Guides
-            .guides-selection
-              .guides-search
-                input#guide-search.form__input(type='text', placeholder='Search guides...')
-              select#guides.form__input(name='guides[]', multiple, size='4')
-                each guide in guides
-                  option(value=guide.id, data-role=guide.role, data-name=guide.name.toLowerCase(), selected=tour.guides.some(g => g.id === guide.id))= `${guide.name} (${guide.role})`
+              label.form__label Tour Guides
+              .guides-selection
+                  .guides-search
+                      input#guide-search.form__input(type='text', placeholder='Search guides...')
+                  select#guides.form__input(name='guides[]', multiple, size='4')
+                      each guide in guides
+                          option(value=guide.id, data-role=guide.role, data-name=guide.name.toLowerCase())= `${guide.name} (${guide.role})`
           
           .form__group
-            label.form__label Cover Image
-            .form__photo-upload
-              img#coverPreview.form__user-photo(src=tour.imageCover)
-              input#imageCover.form__upload(type='file', accept='image/*')
-              label.btn.btn--small.btn--green(for='imageCover') Choose cover image
-          
-          .form__group
-            label.form__label Tour Images
-            .form__photo-upload.form__photo-upload--multiple
-              .preview-container#imagePreviewContainer
-                each img, i in tour.images
-                  img.form__user-photo.tour-image-preview(src=img)
-                - for (let i = tour.images.length; i < 3; i++)
-                  img.form__user-photo.tour-image-preview(src=`https://dahee-natours-project.s3.amazonaws.com/tours/tour${i+1}.jpg`)
-              input#images.form__upload(type='file', accept='image/*', multiple)
-              label.btn.btn--small.btn--green(for='images') Choose tour images
+              label.form__label Cover Image
+              .form__photo-upload
+                  img#coverPreview.form__user-photo(src=`${tour.imageCover}`)
+                  input#imageCover.form__upload(type='file', accept='image/*', required)
+                  label.btn.btn--small.btn--green(for='imageCover') Choose cover image
 
+          .form__group
+              label.form__label Tour Images (Up to 3)
+              .form__photo-upload.form__photo-upload--multiple
+                  .preview-container#imagePreviewContainer
+                      each image in tour.images
+                          img.form__user-photo.tour-image-preview(src=`${image}`)
+                  input#images.form__upload(type='file', accept='image/*', multiple)
+                  label.btn.btn--small.btn--green(for='images') Choose tour images
+          
           .form__group.right
-            button.btn.btn--small.btn--green.btn--update-tour(type='submit', data-tour-id=tour._id.toString()) Update Tour
+            button.btn.btn--green.btn--update-tour.middle(data-tour-id=tour.id.toString()) Update Tour

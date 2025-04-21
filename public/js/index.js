@@ -649,6 +649,7 @@ if (updateTourForm) {
 const locationsContainer = document.getElementById('locations-container');
 
 addLocationBtn.addEventListener('click', async () => {
+  const lastLocation = document.querySelector('#form__location-inputs');
   const lastValues = {};
 
     if (lastLocation) {

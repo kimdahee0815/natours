@@ -902,78 +902,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if(createTourForm || updateTourForm){
     let selectedCoverFile = null;
-
-    coverPreview.style.cursor = 'pointer';
-    coverPreview.title = 'Click to remove';
-  
-    coverPreview.addEventListener('click', () => {
-      coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
-      selectedCoverFile = null;
-      imageCoverInput.value = '';
-    });
-
-    imageCoverInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-  
-      selectedCoverFile = file;
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
-        coverPreview.src = reader.result;
-      };
-    });
-
     let selectedFiles = new Array(3).fill(null);
 
-    imagesInput.addEventListener('change', (e) => {
-      const files = Array.from(e.target.files);
-      const availableSlot = selectedFiles.findIndex(file => file === null);
-
-      if (availableSlot === -1) {
-        showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
-        return;
-      }
-      
-      // Update previews with selected images
-      files.forEach((file, i) => {
-        if (i + availableSlot >= 3) return; 
-            
-        selectedFiles[i + availableSlot] = file;
+    if (coverPreview) {
+      coverPreview.style.cursor = 'pointer';
+      coverPreview.title = 'Click to remove';
+    
+      coverPreview.addEventListener('click', () => {
+        coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+        selectedCoverFile = null;
+        imageCoverInput.value = '';
+      });
+  
+      imageCoverInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+    
+        selectedCoverFile = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        
+    
         reader.onload = () => {
-            previewImages[i + availableSlot].src = reader.result;
+          coverPreview.src = reader.result;
         };
       });
+    }
 
-      previewImages.forEach((preview, index) => {
-        preview.style.cursor = 'pointer';
-        preview.title = 'Click to remove';
-        
-        preview.addEventListener('click', (e) => {
-            preview.src = `https://dahee-natours-project.s3.amazonaws.com/tours/tour${index + 1}.jpg`;
-            selectedFiles[index] = null;
-            
-            // Update the actual file input
-            const dt = new DataTransfer();
-            selectedFiles.forEach(file => {
-                if (file) dt.items.add(file);
-            });
-            imagesInput.files = dt.files;
-        });
-
-        const dt = new DataTransfer();
-        selectedFiles.forEach(file => {
-            if (file) dt.items.add(file);
-        });
-        imagesInput.files = dt.files;
-    });
-    });
-  }
-    // Tour images handling
     if (previewImages) {
       previewImages.forEach((preview, index) => {
         preview.style.cursor = 'pointer';
@@ -1013,6 +967,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
+
+    if (previewImages) {
+      previewImages.forEach((preview, index) => {
+        preview.style.cursor = 'pointer';
+        preview.title = 'Click to remove';
+        
+        preview.addEventListener('click', () => {
+          preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+          selectedFiles[index] = null;
+          
+          const dt = new DataTransfer();
+          selectedFiles.forEach(file => {
+            if (file) dt.items.add(file);
+          });
+          imagesInput.files = dt.files;
+        });
+      });
+  
+      imagesInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        const availableSlot = selectedFiles.findIndex(file => file === null);
+        
+        if (availableSlot === -1) {
+          showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
+          return;
+        }
+        
+        files.forEach((file, i) => {
+          if (i + availableSlot >= 3) return;
+          
+          selectedFiles[i + availableSlot] = file;
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          
+          reader.onload = () => {
+            previewImages[i + availableSlot].src = reader.result;
+          };
+        });
+      });
+    }
+  }
 
   if (chart){
     const { userId } = chart.dataset;

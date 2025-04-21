@@ -9,6 +9,7 @@ export const updateTour = async (tourId, form) => {
       url: `/api/v1/tours/${tourId}`,
       data: form
     });
+    console.log(res)
 
     if (res.data.status === 'success') {
         showAlert('success', 'Updated the tour Successfully!');

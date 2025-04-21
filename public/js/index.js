@@ -645,7 +645,7 @@ if(createTourForm){
 }
 
 if (updateTourForm) {
-  document.querySelector('.btn--update-tour').textContent = 'Updating...';
+  
   const addLocationBtn = document.getElementById('add-location');
 const locationsContainer = document.getElementById('locations-container');
 
@@ -938,7 +938,7 @@ if (guideSearch) {
     form.append('guides', JSON.stringify(selectedGuides));
 
     try {
-      
+      document.querySelector('.btn--update-tour').textContent = 'Updating...';
       await updateTour(tourId, form);
     } catch (err) {
       showAlert('error', err.message);

@@ -906,78 +906,78 @@ if(updateTourForm){
   }, true);
 
   updateTourForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  document.querySelector('.btn--update-tour').textContent = 'Updating...';
-  const { tourId } = updateTourBtn.dataset;
-  console.log('Tour ID:', tourId);
-  console.log('Form submission started');
-  const form = new FormData();
-
-  // Basic tour info
-  form.append('name', document.getElementById('name').value);
-  form.append('duration', document.getElementById('duration').value);
-  form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
-  form.append('difficulty', document.getElementById('difficulty').value);
-  form.append('price', document.getElementById('price').value);
-  form.append('summary', document.getElementById('summary').value);
-  form.append('description', document.getElementById('description').value);
-
-  // Start location
-  const startLocationAddress = document.getElementById('address').value;
-  const startLocation = {
-    type: 'Point',
-    coordinates: document.getElementById('coordinates').value.split(',').map(Number),
-    address: startLocationAddress,
-    description: document.getElementById('description-loc').value
-  };
-  console.log('Start location:', startLocation);
-  form.append('startLocation', JSON.stringify(startLocation));
-
-  // Tour locations
-  const inputLocations = [];
-  document.querySelectorAll('.form__location-inputs').forEach(loc => {
-    inputLocations.push({
+    e.preventDefault();
+    document.querySelector('.btn--update-tour').textContent = 'Updating...';
+    const { tourId } = updateTourBtn.dataset;
+    console.log('Tour ID:', tourId);
+    console.log('Form submission started');
+    const form = new FormData();
+  
+    // Basic tour info
+    form.append('name', document.getElementById('name').value);
+    form.append('duration', document.getElementById('duration').value);
+    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
+    form.append('difficulty', document.getElementById('difficulty').value);
+    form.append('price', document.getElementById('price').value);
+    form.append('summary', document.getElementById('summary').value);
+    form.append('description', document.getElementById('description').value);
+  
+    // Start location
+    const startLocationAddress = document.getElementById('address').value;
+    const startLocation = {
       type: 'Point',
-      coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
-      address: loc.querySelector('.location-address').value,
-      description: loc.querySelector('.location-description').value,
-      day: parseInt(loc.querySelector('.location-day').value)
+      coordinates: document.getElementById('coordinates').value.split(',').map(Number),
+      address: startLocationAddress,
+      description: document.getElementById('description-loc').value
+    };
+    console.log('Start location:', startLocation);
+    form.append('startLocation', JSON.stringify(startLocation));
+  
+    // Tour locations
+    const inputLocations = [];
+    document.querySelectorAll('.form__location-inputs').forEach(loc => {
+      inputLocations.push({
+        type: 'Point',
+        coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
+        address: loc.querySelector('.location-address').value,
+        description: loc.querySelector('.location-description').value,
+        day: parseInt(loc.querySelector('.location-day').value)
+      });
     });
-  });
-  form.append('locations', JSON.stringify(inputLocations));
-
-  // Dates
-  const startDates = [];
-  document.querySelectorAll('.tour-date').forEach(date => {
-    if (date.value) startDates.push(date.value);
-  });
-  form.append('startDates', JSON.stringify(startDates));
-
-  // Images
-  if (selectedCoverFile) {
-    console.log('Cover image selected:', selectedCoverFile.name);
-    form.append('imageCover', selectedCoverFile);
-  }
-  selectedFiles.forEach(file => {
-    if (file) {
-      console.log(`Tour image ${index + 1} selected:`, file.name);
-      form.append('images', file);
+    form.append('locations', JSON.stringify(inputLocations));
+  
+    // Dates
+    const startDates = [];
+    document.querySelectorAll('.tour-date').forEach(date => {
+      if (date.value) startDates.push(date.value);
+    });
+    form.append('startDates', JSON.stringify(startDates));
+  
+    // Images
+    if (selectedCoverFile) {
+      console.log('Cover image selected:', selectedCoverFile.name);
+      form.append('imageCover', selectedCoverFile);
     }
+    selectedFiles.forEach(file => {
+      if (file) {
+        console.log(`Tour image ${index + 1} selected:`, file.name);
+        form.append('images', file);
+      }
+    });
+  
+    // Guides
+    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
+      .map(option => option.value);
+    console.log('Selected guides:', selectedGuides);
+    form.append('guides', JSON.stringify(selectedGuides));
+  
+    console.log('Form data entries:');
+      for (let [key, value] of form.entries()) {
+        console.log(`${key}:`, value);
+      }
+    await updateTour(tourId, form);
+    document.querySelector('.btn--update-tour').textContent = 'Update Tour';
   });
-
-  // Guides
-  const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
-    .map(option => option.value);
-  console.log('Selected guides:', selectedGuides);
-  form.append('guides', JSON.stringify(selectedGuides));
-
-  console.log('Form data entries:');
-    for (let [key, value] of form.entries()) {
-      console.log(`${key}:`, value);
-    }
-  await updateTour(tourId, form);
-  document.querySelector('.btn--update-tour').textContent = 'Update Tour';
-});
 }
 
 document.addEventListener('DOMContentLoaded', () => {

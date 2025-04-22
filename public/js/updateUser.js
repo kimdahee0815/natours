@@ -11,7 +11,7 @@ export const updateUser = async (userId, data) => {
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'User updated successfully!');
+      showAlert('success', 'Updated user successfully!');
       location.assign('/manage-users');
     }
   } catch (err) {

@@ -635,7 +635,9 @@ if(createTourForm){
   });
 }
 
-console.log(updateTourForm);
+let selectedCoverFile = null;
+let selectedFiles = new Array(3).fill(null);
+
 if(updateTourForm){
   const addLocationBtn = document.getElementById('add-location');
   const locationsContainer = document.getElementById('locations-container');
@@ -902,9 +904,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (createTourForm || updateTourForm) {
-    let selectedCoverFile = null;
-    let selectedFiles = new Array(3).fill(null);
-  
     if (coverPreview) {
       coverPreview.style.cursor = 'pointer';
       coverPreview.title = 'Click to remove';

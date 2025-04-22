@@ -826,7 +826,7 @@ if(updateTourForm){
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
     const form = new FormData();
-    console.log(tourId);
+
     // Basic tour info
     const formData = {
         name: document.getElementById('name').value,
@@ -838,7 +838,6 @@ if(updateTourForm){
         description: document.getElementById('description').value
     };
 
-    // Append basic info
     Object.entries(formData).forEach(([key, value]) => {
         form.append(key, value);
     });
@@ -874,47 +873,38 @@ if(updateTourForm){
     });
     form.append('startDates', JSON.stringify(startDates));
 
-    // Handle images - Modified section
-    console.log(selectedCoverFile)
-    console.log(previewImages)
+    // Handle images
     const coverImageUrl = coverPreview.src;
     const isDefaultCover = coverImageUrl.includes('default.jpg');
     const hasSelectedCover = !!selectedCoverFile;
 
+    // Validate and append cover image
+    if (isDefaultCover && !hasSelectedCover) {
+        showAlert('error', 'You must upload a cover image');
+        return;
+    }
+
+    if (hasSelectedCover) {
+        form.append('imageCover', selectedCoverFile);
+    }
+
+    // Handle tour images
     const existingImages = Array.from(previewImages);
     const totalImages = existingImages.filter(img => !img.src.includes('default.jpg')).length;
 
-    // Validate total images
     if (totalImages !== 3) {
-        showAlert('error', `You must have 3 images for tour.`);
+        showAlert('error', 'You must have exactly 3 images for tour');
         return;
     }
 
-    // Append images to form
-    if (hasSelectedCover) {
-        form.append('imageCover', selectedCoverFile);
-    }
-
-    selectedFiles.forEach(file => {
-        if (file) form.append('images', file);
-    });
-
-    if (isDefaultCover && !hasSelectedCover) {
-        showAlert('error', 'You must upload a new cover image.');
-        return;
-    }
-
-    if (hasSelectedCover) {
-        form.append('imageCover', selectedCoverFile);
-      }
-
+    // Append tour images
     selectedFiles.forEach(file => {
         if (file) form.append('images', file);
     });
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
-        .map(option => option.value);
+            .map(option => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
     await updateTour(tourId, form);

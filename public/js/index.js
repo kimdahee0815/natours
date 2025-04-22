@@ -899,7 +899,10 @@ if(updateTourForm){
 
     // Append tour images
     imagesInput.files.forEach(file => {
-        if (file) form.append('images', file);
+        if (file) {
+          console.log(file)
+          form.append('images', file);
+        }
     });
 
     // Guides

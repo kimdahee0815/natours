@@ -307,6 +307,19 @@ exports.getUpdateTourForm = catchAsync(async (req, res) => {
     guides,
   });
 });
+
+exports.getUpdateUserForm = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).render('updateUser', {
+    title: `Update ${user.name}`,
+    user,
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

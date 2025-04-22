@@ -29,6 +29,6 @@ mixin userCard(user)
               | Reviews ✅ — 
               span= `${user.reviews.length} review${user.reviews.length === 1? '' : 's'} ✒️`
         .card__footer__user__btns
-            a.btn.btn--green.btn--small--user--two--sides.update-manage-user(href=`/users/${user._id}`) Update User
+            a.btn.btn--green.btn--small--user--two--sides.update-manage-user(href=`/update-user/${user._id}`) Update User
             a.btn.btn--red.btn--small--user--two--sides.delete-manage-user(data-user-id=`${user._id}`) Delete User
         

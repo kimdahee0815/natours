@@ -19,6 +19,7 @@ const {
   updateUserReviews,
   getMyBilling,
   getUpdateTourForm,
+  getUpdateUserForm,
 } = require('../controllers/viewsController');
 const {
   protect,
@@ -77,4 +78,8 @@ router
 router
   .route('/update-tour/:id')
   .get(protect, restrictTo('admin', 'lead-guide'), getUpdateTourForm);
+router
+  .route('/update-user/:id')
+  .get(protect, restrictTo('admin'), getUpdateUserForm);
+
 module.exports = router;

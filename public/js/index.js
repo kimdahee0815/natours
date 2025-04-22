@@ -21,6 +21,7 @@ import { deleteManageBooking } from './deleteManageBooking';
 import { drawChart } from './chart';
 import { createTours } from './createTours';
 import { updateTour } from './updateTour';
+import { updateUser } from './updateUser';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -56,10 +57,9 @@ const guideSearch = document.getElementById('guide-search');
 const imageCoverInput = document.getElementById('imageCover');
 const coverPreview = document.getElementById('coverPreview');
 const imagesInput = document.getElementById('images');
-const previewContainer = document.getElementById('imagePreviewContainer');
 const previewImages = document.querySelectorAll('.tour-image-preview');
 const updateTourForm = document.querySelector('.form--update-tour');
-const updateTourBtn = document.querySelector('.btn--update-tour')
+const updateUserForm = document.querySelector('.form--update-user');
 
 //Delegation
 if (mapBox) {
@@ -913,6 +913,46 @@ if(updateTourForm){
 
     await updateTour(tourId, form);
     document.querySelector('.btn--update-tour').textContent = 'Update Tour';
+  });
+}
+
+if (updateUserForm) {
+  updateUserForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    document.querySelector('.btn--update-user').textContent = 'Updating...';
+    
+    const userId = document.querySelector('.btn--update-user').dataset.userId;
+    const form = new FormData();
+
+    // Basic user info
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('role', document.getElementById('role').value);
+
+    // Photo
+    const photoFile = document.getElementById('photo').files[0];
+    if (photoFile) {
+      form.append('photo', photoFile);
+    }
+
+    await updateUser(userId, form);
+    document.querySelector('.btn--update-user').textContent = 'Update User';
+  });
+
+  // Photo preview
+  const photoInput = document.getElementById('photo');
+  const previewPhoto = document.getElementById('preview-photo');
+
+  photoInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      previewPhoto.src = reader.result;
+    };
   });
 }
 

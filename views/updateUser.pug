@@ -1,0 +1,32 @@
+extends base
+
+block content
+  main.main
+    .update-user-form
+      .user-view__form-container
+        h2.heading-secondary.ma-bt-md Update User
+        form.form.form--update-user
+          .form__group
+            label.form__label(for='name') Name
+            input#name.form__input(type='text', value=`${user.name}`, required)
+          
+          .form__group
+            label.form__label(for='email') Email
+            input#email.form__input(type='email', value=`${user.email}`, required)
+          
+          .form__group
+            label.form__label Role
+            select#role.form__input(required)
+              option(value='user' selected=user.role === 'user') User
+              option(value='guide' selected=user.role === 'guide') Guide
+              option(value='lead-guide' selected=user.role === 'lead-guide') Lead Guide
+              option(value='admin' selected=user.role === 'admin') Admin
+          
+          .form__group
+            .form__photo-upload
+              img#preview-photo.form__user-photo(src=user.photo)
+              input#photo.form__upload(type='file', accept='image/*')
+              label.btn.btn--small.btn--green(for='photo') Choose photo
+          
+          .form__group.right
+            button.btn.btn--green.btn--update-user.middle(data-user-id=user.id.toString()) Update User

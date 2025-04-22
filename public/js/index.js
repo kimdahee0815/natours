@@ -875,26 +875,39 @@ if(updateTourForm){
 
     // Handle images - Modified section
     const coverImageUrl = coverPreview.src;
-    if (selectedCoverFile || !coverImageUrl.includes('default.jpg')) {
-        if (selectedCoverFile) {
-            form.append('imageCover', selectedCoverFile);
-        }
-        
-        // Handle tour images
-        const existingImages = Array.from(previewImages)
-            .filter(img => !img.src.includes('default.jpg')).length;
-        const newImages = selectedFiles.filter(file => file !== null).length;
+    const isDefaultCover = coverImageUrl.includes('default.jpg');
+    const hasSelectedCover = !!selectedCoverFile;
 
-        if (existingImages + newImages === 0) {
-            showAlert('error', 'Please provide at least one tour image');
-            return;
-        }
+    const existingImages = Array.from(previewImages);
+    const imageCount = existingImages.length;
+    const defaultImageCount = existingImages.filter(img => img.src.includes('default.jpg')).length;
+    const hasSelectedImages = selectedFiles.some(file => file !== null);
 
-        // Only append new/changed images
-        selectedFiles.forEach(file => {
-            if (file) form.append('images', file);
-        });
+    if (imageCount !== 3) {
+        showAlert('error', 'You must upload exactly 3 images.');
+        return;
+    } 
+
+
+    if (isDefaultCover && !hasSelectedCover) {
+        showAlert('error', 'You must upload a new cover image.');
+        return;
     }
+
+
+    if (defaultImageCount > 0 && !hasSelectedImages) {
+        showAlert('error', 'Please replace all default images.');
+        return;
+    }
+
+
+    if (hasSelectedCover) {
+        form.append('imageCover', selectedCoverFile);
+      }
+
+    selectedFiles.forEach(file => {
+        if (file) form.append('images', file);
+    });
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)

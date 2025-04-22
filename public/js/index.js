@@ -881,6 +881,7 @@ if(updateTourForm){
     // Validate and append cover image
     if (isDefaultCover && !hasSelectedCover) {
         showAlert('error', 'You must upload a cover image');
+        document.querySelector('.btn--update-tour').textContent = 'Update Tour';
         return;
     }
 
@@ -894,13 +895,13 @@ if(updateTourForm){
 
     if (totalImages !== 3) {
         showAlert('error', 'You must have exactly 3 images for tour');
+        document.querySelector('.btn--update-tour').textContent = 'Update Tour';
         return;
     }
 
     // Append tour images
     selectedFiles.forEach(file => {
       if (file) {
-          console.log('Appending file:', file.name);
           form.append('images', file);
       }
   });

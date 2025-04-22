@@ -216,69 +216,35 @@ exports.createTour = catchAsync(async (req, res, next) => {
   });
 });
 
-// const tours = JSON.parse(
-//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
-// );
+exports.updateTour = catchAsync(async (req, res, next) => {
+  req.body.locations = JSON.parse(req.body.locations);
+  req.body.startDates = JSON.parse(req.body.startDates).map(
+    (dateStr) => new Date(dateStr),
+  );
+  req.body.guides = JSON.parse(req.body.guides);
+  req.body.startLocation = JSON.parse(req.body.startLocation);
+  req.body.slug = slugify(req.body.name, { lower: true });
+  const tourTobeUpdated = await Tour.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
 
-// exports.checkId = (req, res, next, val) => {
-//   console.log(`Tour id is : ${val}`);
-//   if (val * 1 > tours.length) {
-//     return res.status(404).json({
-//       status: 'fail',
-//       message: 'Invalid ID',
-//     });
-//   }
-//   next();
-// };
+  if (!tourTobeUpdated) {
+    return next(new AppError('Error Updating Tour!', 400));
+  }
 
-//create a checkbody middleware
-//check if body contains the name and price property
-// exports.checkReqBody = (req, res, next) => {
-//   console.log(req.body);
-//   const body = req.body;
-//   if (!body?.name || !body?.price) {
-//     return res.status(400).json({
-//       status: 'fail',
-//       message:
-//         'Invalid Request. You are trying to create tour without name and price',
-//     });
-//   }
-//   next();
-// };
+  res.status(200).json({
+    status: 'success',
+    data: tourTobeUpdated,
+  });
+});
 
 exports.getAllTours = factory.getAll(Tour);
 exports.getTour = factory.getOne(Tour, { path: 'reviews' });
-exports.updateTour = factory.updateOne(Tour);
-
-// const newId = tours[tours.length - 1].id + 1;
-// const newTour = Object.assign({ id: newId }, req.body);
-
-// tours.push(newTour);
-// fs.writeFile(
-//   `${__dirname}/dev-data/data/tours-simple.json`,
-//   JSON.stringify(tours),
-//   (err) => {
-//     res.status(201).json({
-//       status: 'success',
-//       data: {
-//         tour: newTour,
-//       },
-//     });
-//   },
-// );
-
-// exports.deleteTour = catchAsync(async (req, res, next) => {
-//   const tour = await Tour.findByIdAndDelete(req.params.id);
-
-//   if (!tour) {
-//     return next(new AppError('No Tour Found with that ID!', 404));
-//   }
-
-//   res.status(204).json({
-//     status: 'success',
-//     data: null,
-//   });
-// });
 
 exports.getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
@@ -354,3 +320,63 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
     data: plan,
   });
 });
+
+// const tours = JSON.parse(
+//   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
+// );
+
+// exports.checkId = (req, res, next, val) => {
+//   console.log(`Tour id is : ${val}`);
+//   if (val * 1 > tours.length) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Invalid ID',
+//     });
+//   }
+//   next();
+// };
+
+//create a checkbody middleware
+//check if body contains the name and price property
+// exports.checkReqBody = (req, res, next) => {
+//   console.log(req.body);
+//   const body = req.body;
+//   if (!body?.name || !body?.price) {
+//     return res.status(400).json({
+//       status: 'fail',
+//       message:
+//         'Invalid Request. You are trying to create tour without name and price',
+//     });
+//   }
+//   next();
+// };
+
+// const newId = tours[tours.length - 1].id + 1;
+// const newTour = Object.assign({ id: newId }, req.body);
+
+// tours.push(newTour);
+// fs.writeFile(
+//   `${__dirname}/dev-data/data/tours-simple.json`,
+//   JSON.stringify(tours),
+//   (err) => {
+//     res.status(201).json({
+//       status: 'success',
+//       data: {
+//         tour: newTour,
+//       },
+//     });
+//   },
+// );
+
+// exports.deleteTour = catchAsync(async (req, res, next) => {
+//   const tour = await Tour.findByIdAndDelete(req.params.id);
+
+//   if (!tour) {
+//     return next(new AppError('No Tour Found with that ID!', 404));
+//   }
+
+//   res.status(204).json({
+//     status: 'success',
+//     data: null,
+//   });
+// });

@@ -904,15 +904,6 @@ if(updateTourForm){
         return;
     }
 
-
-    if (defaultImageCount > 0 && !hasSelectedImages) {
-        showAlert('error', 'Please replace all default images.');
-        console.log('Please replace all default images.')
-        
-        return;
-    }
-
-
     if (hasSelectedCover) {
         form.append('imageCover', selectedCoverFile);
       }

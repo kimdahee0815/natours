@@ -22,6 +22,7 @@ import { drawChart } from './chart';
 import { createTours } from './createTours';
 import { updateTour } from './updateTour';
 import { updateUser } from './updateUser';
+import { updateBooking } from './updateBooking';
 // DOM Elements
 
 const mapBox = document.getElementById('map');
@@ -62,6 +63,7 @@ const updateTourForm = document.querySelector('.form--update-tour');
 const updateUserForm = document.querySelector('.form--update-user');
 const photoInput = document.getElementById('photo');
 const previewPhoto = document.getElementById('preview-photo');
+const updateBookingForm = document.querySelector('.form--update-booking');
 
 //Delegation
 if (mapBox) {
@@ -956,6 +958,24 @@ if (updateUserForm) {
       };
     });
   }
+}
+
+if (updateBookingForm) {
+  updateBookingForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    document.querySelector('.btn--update-booking').textContent = 'Updating...';
+    
+    const bookingId = document.querySelector('.btn--update-booking').dataset.bookingId;
+    const formData = {
+      user: document.getElementById('user').value,
+      tour: document.getElementById('tour').value,
+      price: document.getElementById('price').value,
+      paid: document.getElementById('paid').value === 'true'
+    };
+
+    await updateBooking(bookingId, formData);
+    document.querySelector('.btn--update-booking').textContent = 'Update Booking';
+  });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

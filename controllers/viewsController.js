@@ -320,6 +320,23 @@ exports.getUpdateUserForm = catchAsync(async (req, res, next) => {
     user,
   });
 });
+
+exports.getUpdateBookingForm = catchAsync(async (req, res, next) => {
+  const booking = await Booking.findById(req.params.id);
+  const users = await User.find();
+  const tours = await Tour.find();
+
+  if (!booking) {
+    return next(new AppError('No booking found with that ID', 404));
+  }
+
+  res.status(200).render('updateBooking', {
+    title: `Update Booking`,
+    booking,
+    users,
+    tours,
+  });
+});
 // exports.updateUserData = catchAsync(async (req, res, next) => {
 //   const updatedUser = await User.findByIdAndUpdate(
 //     req.user.id,

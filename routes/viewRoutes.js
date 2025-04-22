@@ -20,6 +20,7 @@ const {
   getMyBilling,
   getUpdateTourForm,
   getUpdateUserForm,
+  getUpdateBookingForm,
 } = require('../controllers/viewsController');
 const {
   protect,
@@ -81,5 +82,10 @@ router
 router
   .route('/update-user/:id')
   .get(protect, restrictTo('admin'), getUpdateUserForm);
-
+router.get(
+  '/update-booking/:id',
+  protect,
+  restrictTo('admin', 'lead-guide'),
+  getUpdateBookingForm,
+);
 module.exports = router;

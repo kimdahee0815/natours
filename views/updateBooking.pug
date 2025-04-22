@@ -1,0 +1,32 @@
+extends base
+
+block content
+  main.main
+    .update-booking-form
+      .user-view__form-container
+        h2.heading-secondary.ma-bt-md Update Booking
+        form.form.form--update-booking
+          .form__group
+            label.form__label(for='user') User
+            select#user.form__input(required)
+              each user in users
+                option(value=user.id selected=booking.user.id === user.id)= user.name
+          
+          .form__group
+            label.form__label(for='tour') Tour
+            select#tour.form__input(required)
+              each tour in tours
+                option(value=tour.id selected=booking.tour.id === tour.id)= tour.name
+
+          .form__group
+            label.form__label(for='price') Price
+            input#price.form__input(type='number', value=`${booking.price}`, required, min='0')
+          
+          .form__group
+            label.form__label(for='paid') Payment Status
+            select#paid.form__input(required)
+              option(value='true' selected=booking.paid) Paid
+              option(value='false' selected=!booking.paid) Unpaid
+          
+          .form__group.right
+            button.btn.btn--green.btn--update-booking.middle(data-booking-id=booking.id.toString()) Update Booking

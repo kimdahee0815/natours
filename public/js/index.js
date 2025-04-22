@@ -60,6 +60,8 @@ const imagesInput = document.getElementById('images');
 const previewImages = document.querySelectorAll('.tour-image-preview');
 const updateTourForm = document.querySelector('.form--update-tour');
 const updateUserForm = document.querySelector('.form--update-user');
+const photoInput = document.getElementById('photo');
+const previewPhoto = document.getElementById('preview-photo');
 
 //Delegation
 if (mapBox) {
@@ -939,21 +941,21 @@ if (updateUserForm) {
     document.querySelector('.btn--update-user').textContent = 'Update User';
   });
 
-  // Photo preview
-  const photoInput = document.getElementById('photo');
-  const previewPhoto = document.getElementById('preview-photo');
+  if (photoInput && previewPhoto) {
+    photoInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
 
-  photoInput.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (!file) return;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      previewPhoto.src = reader.result;
-    };
-  });
+      reader.onload = () => {
+        if (previewPhoto) {
+          previewPhoto.src = reader.result;
+        }
+      };
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

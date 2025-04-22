@@ -177,6 +177,43 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateUser = catchAsync(async (req, res, next) => {
+  // Handle file upload
+  if (req.file) {
+    const processedImage = await sharp(req.file.buffer)
+      .resize(500, 500)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toBuffer();
+
+    try {
+      const url = await uploadToS3(
+        processedImage,
+        `users/${req.params.id}-${Date.now()}.jpeg`,
+        'image/jpeg',
+      );
+      req.body.photo = url;
+    } catch (err) {
+      return next(new AppError('Error uploading image to S3', 400));
+    }
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedUser) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser,
+    },
+  });
+});
+
 exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);
-exports.updateUser = factory.updateOne(User);

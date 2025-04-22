@@ -835,8 +835,8 @@ if(updateTourForm){
     form.append('description', document.getElementById('description').value);
   
     // Start location
-    const coordinatesStr = await getCoordinates(startLocationAddress);
     const startLocationAddress = document.getElementById('address').value;
+    const coordinatesStr = await getCoordinates(startLocationAddress); 
     const startLocation = {
       type: 'Point',
       coordinates: coordinatesStr.split(',').map(Number),

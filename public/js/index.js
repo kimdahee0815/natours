@@ -820,6 +820,110 @@ if(updateTourForm){
     }
   });
 
+  
+  updateTourForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--update-tour').textContent = 'Updating...';
+    const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
+    const form = new FormData();
+    console.log(tourId);
+    // Basic tour info
+    const formData = {
+        name: document.getElementById('name').value,
+        duration: document.getElementById('duration').value,
+        maxGroupSize: document.getElementById('maxGroupSize').value,
+        difficulty: document.getElementById('difficulty').value,
+        price: document.getElementById('price').value,
+        summary: document.getElementById('summary').value,
+        description: document.getElementById('description').value
+    };
+
+    // Append basic info
+    Object.entries(formData).forEach(([key, value]) => {
+        form.append(key, value);
+    });
+
+    // Start location
+    const startLocationAddress = document.getElementById('address').value;
+    const coordinatesStr = await getCoordinates(startLocationAddress);
+    const startLocation = {
+        type: 'Point',
+        coordinates: coordinatesStr.split(',').map(Number),
+        address: startLocationAddress,
+        description: document.getElementById('description-loc').value
+    };
+    form.append('startLocation', JSON.stringify(startLocation));
+
+    // Tour locations
+    const inputLocations = [];
+    document.querySelectorAll('.form__location-inputs').forEach(loc => {
+        inputLocations.push({
+            type: 'Point',
+            coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
+            address: loc.querySelector('.location-address').value,
+            description: loc.querySelector('.location-description').value,
+            day: parseInt(loc.querySelector('.location-day').value)
+        });
+    });
+    form.append('locations', JSON.stringify(inputLocations));
+
+    // Dates
+    const startDates = [];
+    document.querySelectorAll('.tour-date').forEach(date => {
+        if (date.value) startDates.push(date.value);
+    });
+    form.append('startDates', JSON.stringify(startDates));
+
+    // Handle images - Modified section
+    console.log(selectedCoverFile)
+    console.log(previewImages)
+    const coverImageUrl = coverPreview.src;
+    const isDefaultCover = coverImageUrl.includes('default.jpg');
+    const hasSelectedCover = !!selectedCoverFile;
+
+    const existingImages = Array.from(previewImages);
+    const imageCount = existingImages.length;
+    const defaultImageCount = existingImages.filter(img => img.src.includes('default.jpg')).length;
+    const hasSelectedImages = selectedFiles.some(file => file !== null);
+
+    if (imageCount !== 3) {
+        showAlert('error', 'You must upload exactly 3 images.');
+        console.log('You must upload exactly 3 images.')
+        return;
+    } 
+
+
+    if (isDefaultCover && !hasSelectedCover) {
+        showAlert('error', 'You must upload a new cover image.');
+        console.log('ou must upload a new cover image.s')
+        return;
+    }
+
+
+    if (defaultImageCount > 0 && !hasSelectedImages) {
+        showAlert('error', 'Please replace all default images.');
+        console.log('Please replace all default images.')
+        
+        return;
+    }
+
+
+    if (hasSelectedCover) {
+        form.append('imageCover', selectedCoverFile);
+      }
+
+    selectedFiles.forEach(file => {
+        if (file) form.append('images', file);
+    });
+
+    // Guides
+    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
+        .map(option => option.value);
+    form.append('guides', JSON.stringify(selectedGuides));
+
+    await updateTour(tourId, form);
+    document.querySelector('.btn--update-tour').textContent = 'Update Tour';
+  });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -922,109 +1026,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if(updateTourForm){
-    updateTourForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      document.querySelector('.btn--update-tour').textContent = 'Updating...';
-      const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
-      const form = new FormData();
-      console.log(tourId);
-      // Basic tour info
-      const formData = {
-          name: document.getElementById('name').value,
-          duration: document.getElementById('duration').value,
-          maxGroupSize: document.getElementById('maxGroupSize').value,
-          difficulty: document.getElementById('difficulty').value,
-          price: document.getElementById('price').value,
-          summary: document.getElementById('summary').value,
-          description: document.getElementById('description').value
-      };
+
+    const imageCoverInput = document.getElementById('imageCover');
+    const coverPreview = document.getElementById('coverPreview');
   
-      // Append basic info
-      Object.entries(formData).forEach(([key, value]) => {
-          form.append(key, value);
-      });
-  
-      // Start location
-      const startLocationAddress = document.getElementById('address').value;
-      const coordinatesStr = await getCoordinates(startLocationAddress);
-      const startLocation = {
-          type: 'Point',
-          coordinates: coordinatesStr.split(',').map(Number),
-          address: startLocationAddress,
-          description: document.getElementById('description-loc').value
-      };
-      form.append('startLocation', JSON.stringify(startLocation));
-  
-      // Tour locations
-      const inputLocations = [];
-      document.querySelectorAll('.form__location-inputs').forEach(loc => {
-          inputLocations.push({
-              type: 'Point',
-              coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
-              address: loc.querySelector('.location-address').value,
-              description: loc.querySelector('.location-description').value,
-              day: parseInt(loc.querySelector('.location-day').value)
-          });
-      });
-      form.append('locations', JSON.stringify(inputLocations));
-  
-      // Dates
-      const startDates = [];
-      document.querySelectorAll('.tour-date').forEach(date => {
-          if (date.value) startDates.push(date.value);
-      });
-      form.append('startDates', JSON.stringify(startDates));
-  
-      // Handle images - Modified section
-      console.log(selectedCoverFile)
-      console.log(previewImages)
-      const coverImageUrl = coverPreview.src;
-      const isDefaultCover = coverImageUrl.includes('default.jpg');
-      const hasSelectedCover = !!selectedCoverFile;
-  
-      const existingImages = Array.from(previewImages);
-      const imageCount = existingImages.length;
-      const defaultImageCount = existingImages.filter(img => img.src.includes('default.jpg')).length;
-      const hasSelectedImages = selectedFiles.some(file => file !== null);
-  
-      if (imageCount !== 3) {
-          showAlert('error', 'You must upload exactly 3 images.');
-          console.log('You must upload exactly 3 images.')
-          return;
-      } 
-  
-  
-      if (isDefaultCover && !hasSelectedCover) {
-          showAlert('error', 'You must upload a new cover image.');
-          console.log('ou must upload a new cover image.s')
-          return;
-      }
-  
-  
-      if (defaultImageCount > 0 && !hasSelectedImages) {
-          showAlert('error', 'Please replace all default images.');
-          console.log('Please replace all default images.')
-          
-          return;
-      }
-  
-  
-      if (hasSelectedCover) {
-          form.append('imageCover', selectedCoverFile);
-        }
-  
-      selectedFiles.forEach(file => {
-          if (file) form.append('images', file);
-      });
-  
-      // Guides
-      const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
-          .map(option => option.value);
-      form.append('guides', JSON.stringify(selectedGuides));
-  
-      await updateTour(tourId, form);
-      document.querySelector('.btn--update-tour').textContent = 'Update Tour';
-    });
+    if (coverPreview && coverPreview.src) { 
+      imageCoverInput.removeAttribute('required');
+    }
+    
   }
 
   if (chart){

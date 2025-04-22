@@ -825,15 +825,23 @@ if(updateTourForm){
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const { tourId } = updateTourBtn.dataset;
     const form = new FormData();
-
+    console.log('Tour ID:', tourId);
     // Basic tour info
-    form.append('name', document.getElementById('name').value);
-    form.append('duration', document.getElementById('duration').value);
-    form.append('maxGroupSize', document.getElementById('maxGroupSize').value);
-    form.append('difficulty', document.getElementById('difficulty').value);
-    form.append('price', document.getElementById('price').value);
-    form.append('summary', document.getElementById('summary').value);
-    form.append('description', document.getElementById('description').value);
+    const formData = {
+      name: document.getElementById('name').value,
+      duration: document.getElementById('duration').value,
+      maxGroupSize: document.getElementById('maxGroupSize').value,
+      difficulty: document.getElementById('difficulty').value,
+      price: document.getElementById('price').value,
+      summary: document.getElementById('summary').value,
+      description: document.getElementById('description').value
+  };
+  console.log('Basic tour info:', formData);
+
+  // Append basic info
+  Object.entries(formData).forEach(([key, value]) => {
+      form.append(key, value);
+  });
 
     // Start location
     const startLocationAddress = document.getElementById('address').value;
@@ -844,6 +852,7 @@ if(updateTourForm){
         address: startLocationAddress,
         description: document.getElementById('description-loc').value
     };
+    console.log('Start location:', startLocation);
     form.append('startLocation', JSON.stringify(startLocation));
 
     // Tour locations
@@ -857,6 +866,7 @@ if(updateTourForm){
             day: parseInt(loc.querySelector('.location-day').value)
         });
     });
+    console.log('Tour locations:', inputLocations);
     form.append('locations', JSON.stringify(inputLocations));
 
     // Dates
@@ -864,9 +874,11 @@ if(updateTourForm){
     document.querySelectorAll('.tour-date').forEach(date => {
         if (date.value) startDates.push(date.value);
     });
+    console.log('Start dates:', startDates);
     form.append('startDates', JSON.stringify(startDates));
 
     // Handle cover image
+    console.log('Selected cover file:', selectedCoverFile);
     if (selectedCoverFile) {
         form.append('imageCover', selectedCoverFile);
     }
@@ -881,14 +893,19 @@ if(updateTourForm){
         return;
     }
 
+    console.log('Selected tour images:', selectedFiles);
     // Only append new/changed images
     selectedFiles.forEach(file => {
-        if (file) form.append('images', file);
+        if (file) {
+          console.log(`Adding tour image ${index + 1}:`, file.name);
+          form.append('images', file);
+        }
     });
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
         .map(option => option.value);
+    console.log('Selected guides:', selectedGuides);
     form.append('guides', JSON.stringify(selectedGuides));
 
     await updateTour(tourId, form);

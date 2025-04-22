@@ -825,7 +825,7 @@ if(updateTourForm){
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
     const form = new FormData();
-
+    console.log(tourId);
     // Basic tour info
     const formData = {
         name: document.getElementById('name').value,
@@ -874,6 +874,8 @@ if(updateTourForm){
     form.append('startDates', JSON.stringify(startDates));
 
     // Handle images - Modified section
+    console.log(selectedCoverFile)
+    console.log(previewImages)
     const coverImageUrl = coverPreview.src;
     const isDefaultCover = coverImageUrl.includes('default.jpg');
     const hasSelectedCover = !!selectedCoverFile;
@@ -885,18 +887,22 @@ if(updateTourForm){
 
     if (imageCount !== 3) {
         showAlert('error', 'You must upload exactly 3 images.');
+        console.log('You must upload exactly 3 images.')
         return;
     } 
 
 
     if (isDefaultCover && !hasSelectedCover) {
         showAlert('error', 'You must upload a new cover image.');
+        console.log('ou must upload a new cover image.s')
         return;
     }
 
 
     if (defaultImageCount > 0 && !hasSelectedImages) {
         showAlert('error', 'Please replace all default images.');
+        console.log('Please replace all default images.')
+        
         return;
     }
 

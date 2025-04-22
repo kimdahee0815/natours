@@ -867,6 +867,17 @@ if(updateTourForm){
     });
     form.append('startDates', JSON.stringify(startDates));
   
+    const coverImageUrl = coverPreview.src;
+    const existingCover = !coverImageUrl.includes('default.jpg');
+    
+    // Only append imageCover if it's changed or exists
+    if (selectedCoverFile) {
+        form.append('imageCover', selectedCoverFile);
+    } else if (!existingCover) {
+        showAlert('error', 'Please provide a cover image');
+        return;
+    }
+
     // Images
     const existingImages = Array.from(previewImages)
     .filter(img => !img.src.includes('default.jpg')).length;
@@ -875,11 +886,6 @@ if(updateTourForm){
     if (existingImages + newImages === 0) {
       showAlert('error', 'Please provide tour images');
       return;
-    }
-
-    // Append images if they exist
-    if (selectedCoverFile) {
-      form.append('imageCover', selectedCoverFile);
     }
   
     selectedFiles.forEach(file => {

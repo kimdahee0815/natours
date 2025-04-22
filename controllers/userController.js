@@ -178,7 +178,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  if (req.file) {
+  if (req.file.filename) {
     req.body.photo = req.file.filename;
   }
   console.log(req.file.filename);

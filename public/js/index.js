@@ -897,7 +897,6 @@ if(updateTourForm){
     // Only append new/changed images
     selectedFiles.forEach(file => {
         if (file) {
-          console.log(`Adding tour image ${index + 1}:`, file.name);
           form.append('images', file);
         }
     });

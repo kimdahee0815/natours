@@ -823,25 +823,24 @@ if(updateTourForm){
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
-    const { tourId } = updateTourBtn.dataset;
+    const tourId = document.querySelector('.btn--update-tour').dataset.tourId;
     const form = new FormData();
-    console.log('Tour ID:', tourId);
+
     // Basic tour info
     const formData = {
-      name: document.getElementById('name').value,
-      duration: document.getElementById('duration').value,
-      maxGroupSize: document.getElementById('maxGroupSize').value,
-      difficulty: document.getElementById('difficulty').value,
-      price: document.getElementById('price').value,
-      summary: document.getElementById('summary').value,
-      description: document.getElementById('description').value
-  };
-  console.log('Basic tour info:', formData);
+        name: document.getElementById('name').value,
+        duration: document.getElementById('duration').value,
+        maxGroupSize: document.getElementById('maxGroupSize').value,
+        difficulty: document.getElementById('difficulty').value,
+        price: document.getElementById('price').value,
+        summary: document.getElementById('summary').value,
+        description: document.getElementById('description').value
+    };
 
-  // Append basic info
-  Object.entries(formData).forEach(([key, value]) => {
-      form.append(key, value);
-  });
+    // Append basic info
+    Object.entries(formData).forEach(([key, value]) => {
+        form.append(key, value);
+    });
 
     // Start location
     const startLocationAddress = document.getElementById('address').value;
@@ -852,7 +851,6 @@ if(updateTourForm){
         address: startLocationAddress,
         description: document.getElementById('description-loc').value
     };
-    console.log('Start location:', startLocation);
     form.append('startLocation', JSON.stringify(startLocation));
 
     // Tour locations
@@ -866,7 +864,6 @@ if(updateTourForm){
             day: parseInt(loc.querySelector('.location-day').value)
         });
     });
-    console.log('Tour locations:', inputLocations);
     form.append('locations', JSON.stringify(inputLocations));
 
     // Dates
@@ -874,37 +871,34 @@ if(updateTourForm){
     document.querySelectorAll('.tour-date').forEach(date => {
         if (date.value) startDates.push(date.value);
     });
-    console.log('Start dates:', startDates);
     form.append('startDates', JSON.stringify(startDates));
 
-    // Handle cover image
-    console.log('Selected cover file:', selectedCoverFile);
-    if (selectedCoverFile) {
-        form.append('imageCover', selectedCoverFile);
-    }
-
-    // Handle tour images
-    const existingImages = Array.from(previewImages)
-        .filter(img => !img.src.includes('default.jpg')).length;
-    const newImages = selectedFiles.filter(file => file !== null).length;
-
-    if (existingImages + newImages === 0) {
-        showAlert('error', 'Please provide at least one tour image');
-        return;
-    }
-
-    console.log('Selected tour images:', selectedFiles);
-    // Only append new/changed images
-    selectedFiles.forEach(file => {
-        if (file) {
-          form.append('images', file);
+    // Handle images - Modified section
+    const coverImageUrl = coverPreview.src;
+    if (selectedCoverFile || !coverImageUrl.includes('default.jpg')) {
+        if (selectedCoverFile) {
+            form.append('imageCover', selectedCoverFile);
         }
-    });
+        
+        // Handle tour images
+        const existingImages = Array.from(previewImages)
+            .filter(img => !img.src.includes('default.jpg')).length;
+        const newImages = selectedFiles.filter(file => file !== null).length;
+
+        if (existingImages + newImages === 0) {
+            showAlert('error', 'Please provide at least one tour image');
+            return;
+        }
+
+        // Only append new/changed images
+        selectedFiles.forEach(file => {
+            if (file) form.append('images', file);
+        });
+    }
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
         .map(option => option.value);
-    console.log('Selected guides:', selectedGuides);
     form.append('guides', JSON.stringify(selectedGuides));
 
     await updateTour(tourId, form);

@@ -882,20 +882,25 @@ if(updateTourForm){
     const hasSelectedCover = !!selectedCoverFile;
 
     const existingImages = Array.from(previewImages);
-    const imageCount = existingImages.length;
-    const defaultImageCount = existingImages.filter(img => img.src.includes('default.jpg')).length;
-    const hasSelectedImages = selectedFiles.some(file => file !== null);
+    const totalImages = existingImages.filter(img => !img.src.includes('default.jpg')).length;
 
-    if (imageCount !== 3) {
-        showAlert('error', 'You must upload exactly 3 images.');
-        console.log('You must upload exactly 3 images.')
+    // Validate total images
+    if (totalImages !== 3) {
+        showAlert('error', `You must have 3 images for tour.`);
         return;
-    } 
+    }
 
+    // Append images to form
+    if (hasSelectedCover) {
+        form.append('imageCover', selectedCoverFile);
+    }
+
+    selectedFiles.forEach(file => {
+        if (file) form.append('images', file);
+    });
 
     if (isDefaultCover && !hasSelectedCover) {
         showAlert('error', 'You must upload a new cover image.');
-        console.log('ou must upload a new cover image.s')
         return;
     }
 

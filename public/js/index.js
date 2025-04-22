@@ -897,8 +897,13 @@ if(updateTourForm){
         return;
     }
 
+    const dt = new DataTransfer();
+    selectedFiles.forEach(file => {
+      if (file) dt.items.add(file);
+    });
+    const sendingFiles = dt.files;
     // Append tour images
-    existingImages.forEach(file => {
+    sendingFiles.forEach(file => {
         if (file) {
           console.log(file)
           form.append('images', file);

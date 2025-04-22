@@ -48,7 +48,13 @@ router.route('/').get(getAllUsers).post(createUser);
 router
   .route('/:id')
   .get(getUser)
-  .patch(uploadUserPhoto, resizeUserPhoto, updateUser)
+  .patch(
+    protect,
+    restrictTo('admin'),
+    uploadUserPhoto,
+    resizeUserPhoto,
+    updateUser,
+  )
   .delete(deleteUser);
 
 module.exports = router;

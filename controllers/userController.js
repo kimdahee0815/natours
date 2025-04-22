@@ -178,11 +178,15 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  if (req.file.filename) {
-    req.body.photo = req.file.filename;
+  // Create a copy of req.body to avoid modifying the original
+  const updateData = { ...req.body };
+
+  // Handle photo update if a new file was uploaded
+  if (req.file) {
+    updateData.photo = req.file.filename;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, {
     new: true,
     runValidators: true,
   });

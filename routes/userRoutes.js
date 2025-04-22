@@ -45,6 +45,10 @@ router.post('/deleteMe', deleteMe);
 router.use(restrictTo('admin'));
 
 router.route('/').get(getAllUsers).post(createUser);
-router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+router
+  .route('/:id')
+  .get(getUser)
+  .patch(uploadUserPhoto, resizeUserPhoto, updateUser)
+  .delete(deleteUser);
 
 module.exports = router;

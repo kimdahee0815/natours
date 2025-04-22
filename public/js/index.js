@@ -959,7 +959,7 @@ if (updateUserForm) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if(uploadBtn) {
+  if(!updateUserForm && uploadBtn) {
     uploadBtn.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (!file) return;

@@ -822,7 +822,6 @@ if(updateTourForm){
 
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log(e.target)
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
     const { tourId } = updateTourBtn.dataset;
     const form = new FormData();
@@ -869,13 +868,22 @@ if(updateTourForm){
     form.append('startDates', JSON.stringify(startDates));
   
     // Images
+    const existingImages = Array.from(previewImages)
+    .filter(img => !img.src.includes('default.jpg')).length;
+    const newImages = selectedFiles.filter(file => file !== null).length;
+
+    if (existingImages + newImages === 0) {
+      showAlert('error', 'Please provide tour images');
+      return;
+    }
+
+    // Append images if they exist
     if (selectedCoverFile) {
       form.append('imageCover', selectedCoverFile);
     }
-    Array.from(images).forEach(file => {
-      if (file) {
-        form.append('images', file);
-      }
+  
+    selectedFiles.forEach(file => {
+      if (file) form.append('images', file);
     });
   
     // Guides

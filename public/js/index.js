@@ -897,18 +897,13 @@ if(updateTourForm){
         return;
     }
 
-    const dt = new DataTransfer();
-    selectedFiles.forEach(file => {
-      if (file) dt.items.add(file);
-    });
-    const sendingFiles = dt.files;
     // Append tour images
-    sendingFiles.forEach(file => {
-        if (file) {
-          console.log(file)
+    selectedFiles.forEach(file => {
+      if (file) {
+          console.log('Appending file:', file.name);
           form.append('images', file);
-        }
-    });
+      }
+  });
 
     // Guides
     const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)

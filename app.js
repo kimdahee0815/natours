@@ -62,6 +62,7 @@ const cspOptions = {
     ],
     'style-src': [
       "'self'",
+      "'unsafe-inline'",
       'https://dahee-natours-project.s3.amazonaws.com/',
       'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'http://localhost:3000',

@@ -31,9 +31,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${tour.name} Tour`,
             description: tour.summary,
-            images: [
-              `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/tours/${tour.imageCover}`,
-            ],
+            images: [`${tour.imageCover}`],
           },
         },
       },

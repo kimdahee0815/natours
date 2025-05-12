@@ -299,11 +299,14 @@ const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 10);
 
+let selectedCoverFile = null;
+let selectedFiles = new Array(3).fill(null);
+
 if(createTourForm){
   addLocationBtn.addEventListener('click', async () => {
     const lastLocation = document.querySelector('#form__location-inputs');
 
-    const lastValues = {};
+    let lastValues = {};
 
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
@@ -552,7 +555,7 @@ if(createTourForm){
     const images = document.getElementById('images').files;
     const locations = document.querySelectorAll('.form__location-inputs');
     const dates = document.querySelectorAll('.tour-date');
-    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions);
+    let selectedGuides = Array.from(document.getElementById('guides').selectedOptions);
 
     if (!name || !duration || !maxGroupSize || !difficulty || !price || !summary || 
       !description || !startLocationAddress || !startLocationDescription || !imageCover) {
@@ -627,7 +630,7 @@ if(createTourForm){
 
     
     form.append('imageCover', imageCover);
-    Array.from(images).forEach(file => {
+    selectedFiles.forEach(file => {
       if (file) form.append('images', file);
     });
 
@@ -639,16 +642,13 @@ if(createTourForm){
   });
 }
 
-let selectedCoverFile = null;
-let selectedFiles = new Array(3).fill(null);
-
 if(updateTourForm){
   const addLocationBtn = document.getElementById('add-location');
   const locationsContainer = document.getElementById('locations-container');
 
   addLocationBtn.addEventListener('click', async () => {
     const lastLocation = document.querySelector('#form__location-inputs');
-    const lastValues = {};
+    let lastValues = {};
 
     if (lastLocation) {
       const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;

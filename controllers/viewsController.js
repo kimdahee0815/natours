@@ -144,7 +144,6 @@ exports.getUserAccount = (req, res) => {
 
 exports.getManageBookings = async (req, res) => {
   const bookings = await Booking.find({});
-
   if (!bookings) {
     next(new AppError('There are no bookings. ', 400));
   }

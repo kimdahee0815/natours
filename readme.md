@@ -49,6 +49,6 @@ Natours is a dynamic and eco-friendly tour booking platform that allows users to
 
 ## 🖼 Preview
 
-![Preview](./Natours-gif2.gif)
+![Preview](./natours-gif2.gif)
 
 ---

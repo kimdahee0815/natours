@@ -52,7 +52,6 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
       },
     },
   ]);
-  // console.log(stats);
 
   if (stats.length > 0) {
     await Tour.findByIdAndUpdate(tourId, {
@@ -69,16 +68,11 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
 // same user can't write multipe reviews to one tour!
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
-reviewSchema.pre(/^findOneAnd/, async function (next) {
-  this.review = await this.findOne();
-  // console.log(this.review);
-  next();
-});
-
-reviewSchema.post(/^findOneAnd/, async function () {
+// eslint-disable-next-line prefer-arrow-callback
+reviewSchema.post(/^findOneAnd/, async function (doc) {
   // await this.findOne(); doesn't work here, because query has already been executed
-  if (this.review) {
-    await this.review.constructor.calcAverageRatings(this.review.tour);
+  if (doc) {
+    await doc.constructor.calcAverageRatings(doc.tour._id);
   }
 });
 

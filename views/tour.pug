@@ -107,7 +107,7 @@ block content
                             - for (let i = 5; i >= 1; i--)
                                 svg.reviews__star(class=`star-${i} ${review && review.rating >= i ? 'reviews__star--active' : 'reviews__star--inactive'}` data-rating=i)
                                     use(xlink:href='/img/icons.svg#icon-star')
-                            input#rating.form__input(type='hidden', name='rating', required, value=review ? review.rating : '')
+                                    input#rating.form__input(type='hidden', name='rating', required, value=`${review && review.rating ? review.rating : ''}`)
                     .form__group.middle
                         button.btn.btn--green.btn--update-review(data-review-id=`${review._id}`) Update Review
 

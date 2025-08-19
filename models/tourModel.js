@@ -98,7 +98,7 @@ const tourSchema = new mongoose.Schema(
       },
     ],
     guides: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-    // reviews: [{ type: mongoose.Schema.ObjectId, ref: 'Review' }],
+    reviews: [{ type: mongoose.Schema.ObjectId, ref: 'Review' }],
   },
   {
     toJSON: { virtuals: true },

@@ -1,4 +1,5 @@
 /* eslint-disable */
+import '@babel/polyfill';
 import axios from 'axios';
 import { showAlert, hideAlert } from './alerts';
 
@@ -14,9 +15,9 @@ export const login = async (email, password) => {
     });
 
     if (res.data.status === 'success') {
-      if(res.data.data.activeUser === true) {
+      if (res.data.data.activeUser === true) {
         showAlert('success', 'Your account has been activated again!');
-      }else{
+      } else {
         showAlert('success', 'Logged In Successfully!');
       }
 

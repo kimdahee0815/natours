@@ -11,8 +11,8 @@ import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
 import { deleteUser } from './deleteUser';
 import { deleteBooking } from './deleteBooking';
-import { createReview }  from './createReview';
-import { updateReview }  from './updateReview';
+import { createReview } from './createReview';
+import { updateReview } from './updateReview';
 import { deleteReview } from './deleteReview';
 import { deleteManageReview } from './deleteManageReview';
 import { deleteManageUser } from './deleteManageUser';
@@ -29,13 +29,17 @@ const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
 const passwordResetForm = document.querySelector('.form--password-reset');
-const resetNewPasswordForm = document.querySelector('.form--reset-new-password');
+const resetNewPasswordForm = document.querySelector(
+  '.form--reset-new-password',
+);
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
 const deleteBookingBtn = document.getElementById('delete-booking');
-const deleteManageBookingBtns = document.querySelectorAll('.delete-manage-booking');
+const deleteManageBookingBtns = document.querySelectorAll(
+  '.delete-manage-booking',
+);
 const userDeleteForm = document.querySelector('.form-user-delete');
 const uploadBtn = document.getElementById('photo');
 const previewImg = document.getElementById('previewImg');
@@ -44,9 +48,11 @@ const createReviewBtn = document.querySelector('.btn--create-review');
 const updateReviewForm = document.querySelector('.form-review-update');
 const updateReviewBtn = document.querySelector('.btn--update-review');
 const deleteReviewBtn = document.getElementById('delete-review');
-const deleteManageReviewBtns = document.querySelectorAll('.delete-manage-review')
+const deleteManageReviewBtns = document.querySelectorAll(
+  '.delete-manage-review',
+);
 const deleteManageTourBtns = document.querySelectorAll('.delete-tour');
-const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user')
+const deleteManageUserBtns = document.querySelectorAll('.delete-manage-user');
 const chart = document.getElementById('chartdiv');
 const ratingInput = document.querySelector('.rating-input');
 const createTourForm = document.querySelector('.form--create-tour');
@@ -84,14 +90,16 @@ if (loginForm) {
   });
 }
 
-if(passwordResetForm) {
-  passwordResetForm.addEventListener('submit',  async (e) => {
+if (passwordResetForm) {
+  passwordResetForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    document.querySelector('.btn--password-reset').textContent = 'Processing...';
+    document.querySelector('.btn--password-reset').textContent =
+      'Processing...';
     const email = document.getElementById('email').value;
 
     await forgotPassword(email);
-    document.querySelector('.btn--password-reset').textContent = 'Reset Password';
+    document.querySelector('.btn--password-reset').textContent =
+      'Reset Password';
   });
 }
 
@@ -99,14 +107,16 @@ if (resetNewPasswordForm) {
   resetNewPasswordForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    document.querySelector('.btn--reset-new-password').textContent = 'Processing...';
+    document.querySelector('.btn--reset-new-password').textContent =
+      'Processing...';
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
     const pathSegments = window.location.pathname.split('/');
     const token = pathSegments[pathSegments.length - 1];
 
     await resetPassword(token, password, passwordConfirm);
-    document.querySelector('.btn--reset-new-password').textContent = 'Reset Password';
+    document.querySelector('.btn--reset-new-password').textContent =
+      'Reset Password';
   });
 }
 
@@ -121,7 +131,6 @@ if (signupForm) {
     const role = document.getElementById('role').value;
     await signup(name, email, password, passwordConfirm, role);
     document.querySelector('.btn--signup').textContent = 'Sign Up';
-
   });
 }
 
@@ -162,18 +171,21 @@ if (userPasswordForm) {
   });
 }
 
-if(userDeleteForm) {
+if (userDeleteForm) {
   userDeleteForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--delete-account').textContent = 'Deleting...';
-    const currentPassword = document.getElementById('delete-current-password').value;
-    
+    const currentPassword = document.getElementById(
+      'delete-current-password',
+    ).value;
+
     await deleteUser(currentPassword);
-    document.querySelector('.btn--delete-account').textContent = 'Delete Account';
+    document.querySelector('.btn--delete-account').textContent =
+      'Delete Account';
   });
 }
 
-if(createReviewForm){
+if (createReviewForm) {
   createReviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const { tourId } = createReviewBtn.dataset;
@@ -189,30 +201,36 @@ if(createReviewForm){
     await createReview(review, rating, tourId);
     createReviewForm.reset();
     window.review = null;
-  
+
     document.querySelector('.btn--create-review').textContent = 'Create Review';
-  
+
     const stars = document.querySelectorAll('.reviews__star');
-    stars.forEach(s => {
+    stars.forEach((s) => {
       s.classList.remove('reviews__star--active');
       s.classList.add('reviews__star--inactive');
     });
   });
 }
 
-if(updateReviewForm){
+if (updateReviewForm) {
+  console.log('aaa')
   updateReviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-review').textContent = 'Updating...';
+    console.log('aaa');
     const review = document.getElementById('review').value;
     const rating = document.getElementById('rating').value;
+
     const { reviewId } = updateReviewBtn.dataset;
+
+    // if (!rating) {
+    //   rating = review.rating;
+    // }
 
     await updateReview(review, rating, reviewId);
     window.review = { rating, review };
     document.querySelector('.btn--update-review').textContent = 'Update Review';
-  }
-  );
+  });
 }
 
 if (bookBtn) {
@@ -225,8 +243,8 @@ if (bookBtn) {
   });
 }
 
-if(deleteReviewBtn){
-  deleteReviewBtn.addEventListener('click',async (e) => {
+if (deleteReviewBtn) {
+  deleteReviewBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Deleting...';
     const { reviewId } = e.target.dataset;
 
@@ -235,7 +253,7 @@ if(deleteReviewBtn){
   });
 }
 
-deleteManageReviewBtns.forEach(btn => {
+deleteManageReviewBtns.forEach((btn) => {
   btn.addEventListener('click', async function (e) {
     const clickedButton = e.currentTarget;
     clickedButton.textContent = 'Deleting...';
@@ -246,7 +264,7 @@ deleteManageReviewBtns.forEach(btn => {
   });
 });
 
-if(deleteBookingBtn){
+if (deleteBookingBtn) {
   deleteBookingBtn.addEventListener('click', async (e) => {
     e.target.textContent = 'Deleting...';
     const { bookId } = e.target.dataset;
@@ -255,13 +273,13 @@ if(deleteBookingBtn){
     e.target.classList.remove('btn--red');
     e.target.classList.add('btn--green');
     e.target.id = 'book-tour';
-    e.target.dataset.tourId = e.target.dataset.bookId; 
+    e.target.dataset.tourId = e.target.dataset.bookId;
     delete e.target.dataset.bookId;
     e.target.textContent = 'Book tour now!';
   });
 }
 
-deleteManageTourBtns.forEach(btn => {
+deleteManageTourBtns.forEach((btn) => {
   btn.addEventListener('click', async function (e) {
     const clickedButton = e.currentTarget;
     clickedButton.textContent = 'Deleting...';
@@ -272,7 +290,7 @@ deleteManageTourBtns.forEach(btn => {
   });
 });
 
-deleteManageBookingBtns.forEach(btn => {
+deleteManageBookingBtns.forEach((btn) => {
   btn.addEventListener('click', async function (e) {
     const clickedButton = e.currentTarget;
     clickedButton.textContent = 'Deleting...';
@@ -283,7 +301,7 @@ deleteManageBookingBtns.forEach(btn => {
   });
 });
 
-deleteManageUserBtns.forEach(btn => {
+deleteManageUserBtns.forEach((btn) => {
   btn.addEventListener('click', async function (e) {
     const clickedButton = e.currentTarget;
     clickedButton.textContent = 'Deleting...';
@@ -294,7 +312,6 @@ deleteManageUserBtns.forEach(btn => {
   });
 });
 
-
 const alertMessage = document.querySelector('body').dataset.alert;
 
 if (alertMessage) showAlert('success', alertMessage, 10);
@@ -302,18 +319,24 @@ if (alertMessage) showAlert('success', alertMessage, 10);
 let selectedCoverFile = null;
 let selectedFiles = new Array(3).fill(null);
 
-if(createTourForm){
+if (createTourForm) {
   addLocationBtn.addEventListener('click', async () => {
     const lastLocation = document.querySelector('#form__location-inputs');
 
     let lastValues = {};
 
     if (lastLocation) {
-      const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
+      const address = lastLocation.querySelector('#location-address')
+        ? lastLocation.querySelector('#location-address').value
+        : undefined;
       const coordinates = await getCoordinates(address);
-      const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
-      const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
-      
+      const description = lastLocation.querySelector('#location-description')
+        ? lastLocation.querySelector('#location-description').value
+        : undefined;
+      const day = lastLocation.querySelector('#location-day')
+        ? lastLocation.querySelector('#location-day').value
+        : undefined;
+
       lastValues = {
         address,
         coordinates,
@@ -322,14 +345,17 @@ if(createTourForm){
       };
 
       if (!address || !coordinates || !description || !day) {
-        showAlert('error', 'Please fill in all fields for the current location and input correct location before adding a new one!');
+        showAlert(
+          'error',
+          'Please fill in all fields for the current location and input correct location before adding a new one!',
+        );
         return;
       }
     }
 
     const locationDiv = document.createElement('div');
     locationDiv.className = 'form__location-inputs';
-    
+
     locationDiv.innerHTML = `
         <input class="form__input location-address" type="text" value="${lastValues.address}" placeholder="Address" required>
         <input class="form__input location-coordinates" type="text" value="${lastValues.coordinates}" placeholder="Coordinates (lat,lng)" required>
@@ -341,7 +367,7 @@ if(createTourForm){
 
     const removeBtn = locationDiv.querySelector('.btn--remove-location');
     removeBtn.addEventListener('click', () => {
-        locationDiv.remove();
+      locationDiv.remove();
     });
 
     lastLocation.querySelector('#location-address').value = '';
@@ -351,16 +377,19 @@ if(createTourForm){
 
   addDateBtn.addEventListener('click', () => {
     const lastDate = document.querySelector('#tour-date');
-    
+
     if (lastDate && !lastDate.value) {
-      showAlert('error', 'Please select a date for the current entry before adding a new one!');
+      showAlert(
+        'error',
+        'Please select a date for the current entry before adding a new one!',
+      );
       return;
     }
 
     const dateDiv = document.createElement('div');
     dateDiv.className = 'form__date-inputs';
     const lastDateValue = lastDate ? lastDate.value : '';
-    
+
     dateDiv.innerHTML = `
         <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
         <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
@@ -369,7 +398,7 @@ if(createTourForm){
 
     const removeBtn = dateDiv.querySelector('.btn--remove-date');
     removeBtn.addEventListener('click', () => {
-        dateDiv.remove();
+      dateDiv.remove();
     });
 
     if (lastDate) {
@@ -384,71 +413,71 @@ if(createTourForm){
     let isSelecting = false;
 
     // Store scroll position and handle selection
-    guidesSelect.addEventListener('mousedown', function(e) {
-        scrollPosition = this.scrollTop;
-        e.preventDefault();
-        
-        const option = e.target;
-        if (option.tagName === 'OPTION') {
-            isSelecting = true;
-            const wasSelected = option.selected;
-            
-            requestAnimationFrame(() => {
-                option.selected = !wasSelected;
-                option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
-                option.style.color = !wasSelected ? '#fff' : '';
-                this.scrollTop = scrollPosition;
-                isSelecting = false;
-            });
-        }
+    guidesSelect.addEventListener('mousedown', function (e) {
+      scrollPosition = this.scrollTop;
+      e.preventDefault();
+
+      const option = e.target;
+      if (option.tagName === 'OPTION') {
+        isSelecting = true;
+        const wasSelected = option.selected;
+
+        requestAnimationFrame(() => {
+          option.selected = !wasSelected;
+          option.style.backgroundColor = !wasSelected ? '#55c57a' : '';
+          option.style.color = !wasSelected ? '#fff' : '';
+          this.scrollTop = scrollPosition;
+          isSelecting = false;
+        });
+      }
     });
 
     // Maintain scroll position
-    guidesSelect.addEventListener('scroll', function(e) {
-        if (!isSelecting) {
-            scrollPosition = this.scrollTop;
-        }
+    guidesSelect.addEventListener('scroll', function (e) {
+      if (!isSelecting) {
+        scrollPosition = this.scrollTop;
+      }
     });
 
     // Keep scroll position on blur
-    guidesSelect.addEventListener('blur', function() {
-        this.scrollTop = scrollPosition;
+    guidesSelect.addEventListener('blur', function () {
+      this.scrollTop = scrollPosition;
     });
 
-    guideSearch.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase().trim();
-        
-        guideOptions.forEach(option => {
-            if (!searchTerm) {
-              option.style.display = '';
-              return;
-            }
-            const guideName = option.getAttribute('data-name');
-            const guideRole = option.getAttribute('data-role');
-            const matchesSearch = guideName.includes(searchTerm) || 
-                                guideRole.includes(searchTerm);
-            
-            option.style.display = matchesSearch ? '' : 'none';
-        });
+    guideSearch.addEventListener('input', function (e) {
+      const searchTerm = e.target.value.toLowerCase().trim();
+
+      guideOptions.forEach((option) => {
+        if (!searchTerm) {
+          option.style.display = '';
+          return;
+        }
+        const guideName = option.getAttribute('data-name');
+        const guideRole = option.getAttribute('data-role');
+        const matchesSearch =
+          guideName.includes(searchTerm) || guideRole.includes(searchTerm);
+
+        option.style.display = matchesSearch ? '' : 'none';
+      });
     });
 
     const startLocationInput = document.getElementById('address');
     const startCoordinatesInput = document.getElementById('coordinates');
 
-    startLocationInput.addEventListener('blur', async function(e) {
+    startLocationInput.addEventListener('blur', async function (e) {
       const address = this.value;
-          if (address) {
-              try {
-                  const coordinates = await getCoordinates(address);
-                  if (coordinates) {
-                      startCoordinatesInput.value = coordinates;
-                  }
-              } catch (err) {
-                  console.error('Error getting coordinates:', err);
-              }
+      if (address) {
+        try {
+          const coordinates = await getCoordinates(address);
+          if (coordinates) {
+            startCoordinatesInput.value = coordinates;
           }
-  });
-}
+        } catch (err) {
+          console.error('Error getting coordinates:', err);
+        }
+      }
+    });
+  }
 
   createTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -463,85 +492,85 @@ if(createTourForm){
       description: document.getElementById('description'),
       startLocationAddress: document.getElementById('address'),
       startLocationDescription: document.getElementById('description-loc'),
-      imageCover: document.getElementById('imageCover')
-  };
+      imageCover: document.getElementById('imageCover'),
+    };
 
-  // Validation checks with focus
-  if (!formFields.name.value) {
+    // Validation checks with focus
+    if (!formFields.name.value) {
       showAlert('error', 'Please enter a tour name');
       formFields.name.focus();
       return;
-  }
-
-  if (formFields.name.value.length < 10) {
-    showAlert('error', 'Tour name must have at least 10 characters');
-    formFields.name.focus();
-    return;
     }
 
-  if (formFields.name.value.length > 40) {
-    showAlert('error', 'Tour name must have less than 40 characters');
-    formFields.name.focus();
-    return;
-  }
+    if (formFields.name.value.length < 10) {
+      showAlert('error', 'Tour name must have at least 10 characters');
+      formFields.name.focus();
+      return;
+    }
 
-  if (!formFields.duration.value || formFields.duration.value < 1) {
+    if (formFields.name.value.length > 40) {
+      showAlert('error', 'Tour name must have less than 40 characters');
+      formFields.name.focus();
+      return;
+    }
+
+    if (!formFields.duration.value || formFields.duration.value < 1) {
       showAlert('error', 'Duration must be at least 1 day');
       formFields.duration.focus();
       return;
-  }
+    }
 
-  if (!formFields.maxGroupSize.value || formFields.maxGroupSize.value < 1) {
+    if (!formFields.maxGroupSize.value || formFields.maxGroupSize.value < 1) {
       showAlert('error', 'Group size must be at least 1 person');
       formFields.maxGroupSize.focus();
       return;
-  }
+    }
 
-  if (!formFields.difficulty.value) {
+    if (!formFields.difficulty.value) {
       showAlert('error', 'Please select a difficulty level');
       formFields.difficulty.focus();
       return;
-  }
+    }
 
-  if (!formFields.price.value || formFields.price.value < 1) {
+    if (!formFields.price.value || formFields.price.value < 1) {
       showAlert('error', 'Price must be greater than 0');
       formFields.price.focus();
       return;
-  }
+    }
 
-  if (!formFields.summary.value) {
+    if (!formFields.summary.value) {
       showAlert('error', 'Please enter a tour summary');
       formFields.summary.focus();
       return;
-  }
+    }
 
-  if (!formFields.description.value) {
+    if (!formFields.description.value) {
       showAlert('error', 'Please enter a tour description');
       formFields.description.focus();
       return;
-  }
+    }
 
-  if (!formFields.startLocationAddress.value) {
+    if (!formFields.startLocationAddress.value) {
       showAlert('error', 'Please enter a start location address');
       formFields.startLocationAddress.focus();
       return;
-  }
+    }
 
-  if (!formFields.startLocationDescription.value) {
+    if (!formFields.startLocationDescription.value) {
       showAlert('error', 'Please enter a start location description');
       formFields.startLocationDescription.focus();
       return;
-  }
+    }
 
-  if (!formFields.imageCover.files[0]) {
+    if (!formFields.imageCover.files[0]) {
       showAlert('error', 'Please select a cover image');
       formFields.imageCover.focus();
       return;
-  }
-  
+    }
+
     document.querySelector('.btn--create-tour').textContent = 'Creating...';
     const form = new FormData();
-    
+
     const name = document.getElementById('name').value;
     const duration = document.getElementById('duration').value;
     const maxGroupSize = document.getElementById('maxGroupSize').value;
@@ -550,48 +579,61 @@ if(createTourForm){
     const summary = document.getElementById('summary').value;
     const description = document.getElementById('description').value;
     const startLocationAddress = document.getElementById('address').value;
-    const startLocationDescription = document.getElementById('description-loc').value;
+    const startLocationDescription =
+      document.getElementById('description-loc').value;
     const imageCover = document.getElementById('imageCover').files[0];
     const images = document.getElementById('images').files;
     const locations = document.querySelectorAll('.form__location-inputs');
     const dates = document.querySelectorAll('.tour-date');
-    let selectedGuides = Array.from(document.getElementById('guides').selectedOptions);
+    let selectedGuides = Array.from(
+      document.getElementById('guides').selectedOptions,
+    );
 
-    if (!name || !duration || !maxGroupSize || !difficulty || !price || !summary || 
-      !description || !startLocationAddress || !startLocationDescription || !imageCover) {
+    if (
+      !name ||
+      !duration ||
+      !maxGroupSize ||
+      !difficulty ||
+      !price ||
+      !summary ||
+      !description ||
+      !startLocationAddress ||
+      !startLocationDescription ||
+      !imageCover
+    ) {
       showAlert('error', 'Please fill in all required fields');
       return;
-  }
+    }
 
-  if (duration < 1) {
-    showAlert('error', 'Duration must be at least 1 day');
-    return;
-  }
+    if (duration < 1) {
+      showAlert('error', 'Duration must be at least 1 day');
+      return;
+    }
 
-  if (maxGroupSize < 1) {
-    showAlert('error', 'Group size must be at least 1 person');
-    return;
-  }
+    if (maxGroupSize < 1) {
+      showAlert('error', 'Group size must be at least 1 person');
+      return;
+    }
 
-  if (price < 1) {
-    showAlert('error', 'Price must be greater than 0');
-    return;
-  }
+    if (price < 1) {
+      showAlert('error', 'Price must be greater than 0');
+      return;
+    }
 
-  if (locations.length === 0) {
+    if (locations.length === 0) {
       showAlert('error', 'Please add at least one tour location');
       return;
-  }
+    }
 
-  if (dates.length === 0) {
+    if (dates.length === 0) {
       showAlert('error', 'Please add at least one tour date');
       return;
-  }
+    }
 
-  if (selectedGuides.length === 0) {
+    if (selectedGuides.length === 0) {
       showAlert('error', 'Please select at least one guide');
       return;
-  }
+    }
 
     form.append('name', name);
     form.append('duration', duration);
@@ -600,49 +642,51 @@ if(createTourForm){
     form.append('price', price);
     form.append('summary', summary);
     form.append('description', description);
-    
+
     const coordinatesStr = await getCoordinates(startLocationAddress);
     const startLocation = {
       type: 'Point',
       coordinates: coordinatesStr.split(',').map(Number),
       address: startLocationAddress,
-      description: startLocationDescription
+      description: startLocationDescription,
     };
     form.append('startLocation', JSON.stringify(startLocation));
 
     const inputLocations = [];
-    document.querySelectorAll('.form__location-inputs').forEach(loc => {
+    document.querySelectorAll('.form__location-inputs').forEach((loc) => {
       inputLocations.push({
-            type: 'Point',
-            coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
-            address: loc.querySelector('.location-address').value,
-            description: loc.querySelector('.location-description').value,
-            day: loc.querySelector('.location-day').value
-        });
+        type: 'Point',
+        coordinates: loc
+          .querySelector('.location-coordinates')
+          .value.split(',')
+          .map(Number),
+        address: loc.querySelector('.location-address').value,
+        description: loc.querySelector('.location-description').value,
+        day: loc.querySelector('.location-day').value,
+      });
     });
     form.append('locations', JSON.stringify(inputLocations));
 
     const startDates = [];
-    document.querySelectorAll('.tour-date').forEach(date => {
-        startDates.push(date.value);
+    document.querySelectorAll('.tour-date').forEach((date) => {
+      startDates.push(date.value);
     });
     form.append('startDates', JSON.stringify(startDates));
 
-    
     form.append('imageCover', imageCover);
-    selectedFiles.forEach(file => {
+    selectedFiles.forEach((file) => {
       if (file) form.append('images', file);
     });
 
-    selectedGuides = selectedGuides.map(option => option.value);
+    selectedGuides = selectedGuides.map((option) => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
-    await createTours(form);   
+    await createTours(form);
     document.querySelector('.btn--create-tour').textContent = 'Create Tour';
   });
 }
 
-if(updateTourForm){
+if (updateTourForm) {
   const addLocationBtn = document.getElementById('add-location');
   const locationsContainer = document.getElementById('locations-container');
 
@@ -651,11 +695,17 @@ if(updateTourForm){
     let lastValues = {};
 
     if (lastLocation) {
-      const address = lastLocation.querySelector('#location-address')? lastLocation.querySelector('#location-address').value : undefined;
+      const address = lastLocation.querySelector('#location-address')
+        ? lastLocation.querySelector('#location-address').value
+        : undefined;
       const coordinates = await getCoordinates(address);
-      const description = lastLocation.querySelector('#location-description')? lastLocation.querySelector('#location-description').value : undefined;
-      const day = lastLocation.querySelector('#location-day')? lastLocation.querySelector('#location-day').value : undefined;
-      
+      const description = lastLocation.querySelector('#location-description')
+        ? lastLocation.querySelector('#location-description').value
+        : undefined;
+      const day = lastLocation.querySelector('#location-day')
+        ? lastLocation.querySelector('#location-day').value
+        : undefined;
+
       lastValues = {
         address,
         coordinates,
@@ -664,14 +714,17 @@ if(updateTourForm){
       };
 
       if (!address || !coordinates || !description || !day) {
-        showAlert('error', 'Please fill in all fields for the current location and input correct location before adding a new one!');
+        showAlert(
+          'error',
+          'Please fill in all fields for the current location and input correct location before adding a new one!',
+        );
         return;
       }
     }
 
     const locationDiv = document.createElement('div');
     locationDiv.className = 'form__location-inputs';
-    
+
     locationDiv.innerHTML = `
         <input class="form__input location-address" type="text" value="${lastValues.address}" placeholder="Address" required>
         <input class="form__input location-coordinates" type="text" value="${lastValues.coordinates}" placeholder="Coordinates (lat,lng)" required>
@@ -683,13 +736,12 @@ if(updateTourForm){
 
     const removeBtn = locationDiv.querySelector('.btn--remove-location');
     removeBtn.addEventListener('click', () => {
-        locationDiv.remove();
+      locationDiv.remove();
     });
 
     lastLocation.querySelector('#location-address').value = '';
     lastLocation.querySelector('#location-description').value = '';
     lastLocation.querySelector('#location-day').value = '';
-
   });
 
   // Add date functionality
@@ -698,16 +750,19 @@ if(updateTourForm){
 
   addDateBtn.addEventListener('click', () => {
     const lastDate = document.querySelector('#tour-date');
-    
+
     if (lastDate && !lastDate.value) {
-      showAlert('error', 'Please select a date for the current entry before adding a new one!');
+      showAlert(
+        'error',
+        'Please select a date for the current entry before adding a new one!',
+      );
       return;
     }
 
     const dateDiv = document.createElement('div');
     dateDiv.className = 'form__date-inputs';
     const lastDateValue = lastDate ? lastDate.value : '';
-  
+
     dateDiv.innerHTML = `
       <input class="form__input tour-date" type="datetime-local" value="${lastDateValue}" required>
       <button class="btn btn--small btn--red btn--remove-date" type="button">Remove</button>
@@ -725,12 +780,16 @@ if(updateTourForm){
   });
 
   // Add handlers for existing remove buttons
-  document.querySelectorAll('.btn--remove-location').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.form__location-inputs').remove());
+  document.querySelectorAll('.btn--remove-location').forEach((btn) => {
+    btn.addEventListener('click', () =>
+      btn.closest('.form__location-inputs').remove(),
+    );
   });
 
-  document.querySelectorAll('.btn--remove-date').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.form__date-inputs').remove());
+  document.querySelectorAll('.btn--remove-date').forEach((btn) => {
+    btn.addEventListener('click', () =>
+      btn.closest('.form__date-inputs').remove(),
+    );
   });
 
   if (guideSearch) {
@@ -740,9 +799,9 @@ if(updateTourForm){
     let isSelecting = false;
 
     // Store scroll position and handle selection
-    guidesSelect.addEventListener('mousedown', function(e) {
+    guidesSelect.addEventListener('mousedown', function (e) {
       e.preventDefault();
-    
+
       const option = e.target;
       if (option.tagName === 'OPTION') {
         const wasSelected = option.selected;
@@ -761,45 +820,45 @@ if(updateTourForm){
     });
 
     // Prevent default selection behavior
-    guidesSelect.addEventListener('change', function(e) {
+    guidesSelect.addEventListener('change', function (e) {
       e.preventDefault();
     });
 
     // Maintain scroll position during scrolling
-    guidesSelect.addEventListener('scroll', function() {
+    guidesSelect.addEventListener('scroll', function () {
       if (!isSelecting) {
         scrollPosition = this.scrollTop;
       }
     });
 
     // Keep scroll position on blur
-    guidesSelect.addEventListener('blur', function() {
+    guidesSelect.addEventListener('blur', function () {
       this.scrollTop = scrollPosition;
     });
 
     // Add CSS to prevent scroll bounce
     guidesSelect.style.overscrollBehavior = 'none';
 
-    // Guide search functionality 
-    guideSearch.addEventListener('input', function(e) {
+    // Guide search functionality
+    guideSearch.addEventListener('input', function (e) {
       const searchTerm = e.target.value.toLowerCase().trim();
-    
-      guideOptions.forEach(option => {
+
+      guideOptions.forEach((option) => {
         if (!searchTerm) {
           option.style.display = '';
           return;
         }
         const guideName = option.getAttribute('data-name');
         const guideRole = option.getAttribute('data-role');
-        const matchesSearch = guideName.includes(searchTerm) || 
-                          guideRole.includes(searchTerm);
-      
+        const matchesSearch =
+          guideName.includes(searchTerm) || guideRole.includes(searchTerm);
+
         option.style.display = matchesSearch ? '' : 'none';
       });
     });
 
     // Set initial styles for selected options
-    guideOptions.forEach(option => {
+    guideOptions.forEach((option) => {
       if (option.selected) {
         option.style.backgroundColor = '#55c57a';
         option.style.color = '#fff';
@@ -811,7 +870,7 @@ if(updateTourForm){
   const startLocationInput = document.getElementById('address');
   const startCoordinatesInput = document.getElementById('coordinates');
 
-  startLocationInput.addEventListener('blur', async function() {
+  startLocationInput.addEventListener('blur', async function () {
     if (this.value) {
       try {
         const coordinates = await getCoordinates(this.value);
@@ -824,7 +883,6 @@ if(updateTourForm){
     }
   });
 
-  
   updateTourForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-tour').textContent = 'Updating...';
@@ -833,47 +891,50 @@ if(updateTourForm){
 
     // Basic tour info
     const formData = {
-        name: document.getElementById('name').value,
-        duration: document.getElementById('duration').value,
-        maxGroupSize: document.getElementById('maxGroupSize').value,
-        difficulty: document.getElementById('difficulty').value,
-        price: document.getElementById('price').value,
-        summary: document.getElementById('summary').value,
-        description: document.getElementById('description').value
+      name: document.getElementById('name').value,
+      duration: document.getElementById('duration').value,
+      maxGroupSize: document.getElementById('maxGroupSize').value,
+      difficulty: document.getElementById('difficulty').value,
+      price: document.getElementById('price').value,
+      summary: document.getElementById('summary').value,
+      description: document.getElementById('description').value,
     };
 
     Object.entries(formData).forEach(([key, value]) => {
-        form.append(key, value);
+      form.append(key, value);
     });
 
     // Start location
     const startLocationAddress = document.getElementById('address').value;
     const coordinatesStr = await getCoordinates(startLocationAddress);
     const startLocation = {
-        type: 'Point',
-        coordinates: coordinatesStr.split(',').map(Number),
-        address: startLocationAddress,
-        description: document.getElementById('description-loc').value
+      type: 'Point',
+      coordinates: coordinatesStr.split(',').map(Number),
+      address: startLocationAddress,
+      description: document.getElementById('description-loc').value,
     };
     form.append('startLocation', JSON.stringify(startLocation));
 
     // Tour locations
     const inputLocations = [];
-    document.querySelectorAll('.form__location-inputs').forEach(loc => {
-        inputLocations.push({
-            type: 'Point',
-            coordinates: loc.querySelector('.location-coordinates').value.split(',').map(Number),
-            address: loc.querySelector('.location-address').value,
-            description: loc.querySelector('.location-description').value,
-            day: parseInt(loc.querySelector('.location-day').value)
-        });
+    document.querySelectorAll('.form__location-inputs').forEach((loc) => {
+      inputLocations.push({
+        type: 'Point',
+        coordinates: loc
+          .querySelector('.location-coordinates')
+          .value.split(',')
+          .map(Number),
+        address: loc.querySelector('.location-address').value,
+        description: loc.querySelector('.location-description').value,
+        day: parseInt(loc.querySelector('.location-day').value),
+      });
     });
     form.append('locations', JSON.stringify(inputLocations));
 
     // Dates
     const startDates = [];
-    document.querySelectorAll('.tour-date').forEach(date => {
-        if (date.value) startDates.push(date.value);
+    document.querySelectorAll('.tour-date').forEach((date) => {
+      if (date.value) startDates.push(date.value);
     });
     form.append('startDates', JSON.stringify(startDates));
 
@@ -884,35 +945,38 @@ if(updateTourForm){
 
     // Validate and append cover image
     if (isDefaultCover && !hasSelectedCover) {
-        showAlert('error', 'You must upload a cover image');
-        document.querySelector('.btn--update-tour').textContent = 'Update Tour';
-        return;
+      showAlert('error', 'You must upload a cover image');
+      document.querySelector('.btn--update-tour').textContent = 'Update Tour';
+      return;
     }
 
     if (hasSelectedCover) {
-        form.append('imageCover', selectedCoverFile);
+      form.append('imageCover', selectedCoverFile);
     }
 
     // Handle tour images
     const existingImages = Array.from(previewImages);
-    const totalImages = existingImages.filter(img => !img.src.includes('default.jpg')).length;
+    const totalImages = existingImages.filter(
+      (img) => !img.src.includes('default.jpg'),
+    ).length;
 
     if (totalImages !== 3) {
-        showAlert('error', 'You must have exactly 3 images for tour');
-        document.querySelector('.btn--update-tour').textContent = 'Update Tour';
-        return;
+      showAlert('error', 'You must have exactly 3 images for tour');
+      document.querySelector('.btn--update-tour').textContent = 'Update Tour';
+      return;
     }
 
     // Append tour images
-    selectedFiles.forEach(file => {
+    selectedFiles.forEach((file) => {
       if (file) {
-          form.append('images', file);
+        form.append('images', file);
       }
-  });
+    });
 
     // Guides
-    const selectedGuides = Array.from(document.getElementById('guides').selectedOptions)
-            .map(option => option.value);
+    const selectedGuides = Array.from(
+      document.getElementById('guides').selectedOptions,
+    ).map((option) => option.value);
     form.append('guides', JSON.stringify(selectedGuides));
 
     await updateTour(tourId, form);
@@ -921,10 +985,10 @@ if(updateTourForm){
 }
 
 if (updateUserForm) {
-  updateUserForm.addEventListener('submit', async e => {
+  updateUserForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-user').textContent = 'Updating...';
-    
+
     const userId = document.querySelector('.btn--update-user').dataset.userId;
     const form = new FormData();
 
@@ -944,7 +1008,7 @@ if (updateUserForm) {
   });
 
   if (photoInput && previewPhoto) {
-    photoInput.addEventListener('change', e => {
+    photoInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
 
@@ -961,35 +1025,37 @@ if (updateUserForm) {
 }
 
 if (updateBookingForm) {
-  updateBookingForm.addEventListener('submit', async e => {
+  updateBookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.querySelector('.btn--update-booking').textContent = 'Updating...';
-    
-    const bookingId = document.querySelector('.btn--update-booking').dataset.bookingId;
+
+    const bookingId = document.querySelector('.btn--update-booking').dataset
+      .bookingId;
     const formData = {
       user: document.getElementById('user').value,
       tour: document.getElementById('tour').value,
       price: document.getElementById('price').value,
-      paid: document.getElementById('paid').value === 'true'
+      paid: document.getElementById('paid').value === 'true',
     };
 
     await updateBooking(bookingId, formData);
-    document.querySelector('.btn--update-booking').textContent = 'Update Booking';
+    document.querySelector('.btn--update-booking').textContent =
+      'Update Booking';
   });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if(!updateUserForm && uploadBtn) {
+  if (!updateUserForm && uploadBtn) {
     uploadBtn.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+      const file = e.target.files[0];
+      if (!file) return;
 
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
 
-    fileReader.onload = () => {
-      previewImg.src = fileReader.result;
-    };
+      fileReader.onload = () => {
+        previewImg.src = fileReader.result;
+      };
     });
   }
 
@@ -997,34 +1063,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (coverPreview) {
       coverPreview.style.cursor = 'pointer';
       coverPreview.title = 'Click to remove';
-  
+
       // Initialize selectedCoverFile for update form
       if (updateTourForm && coverPreview.src) {
         const response = await fetch(coverPreview.src);
         const blob = await response.blob();
-        selectedCoverFile = new File([blob], 'cover.jpg', { type: 'image/jpeg' });
+        selectedCoverFile = new File([blob], 'cover.jpg', {
+          type: 'image/jpeg',
+        });
       }
-      
+
       coverPreview.addEventListener('click', () => {
-        coverPreview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+        coverPreview.src =
+          'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
         selectedCoverFile = null;
         imageCoverInput.value = '';
       });
-  
+
       imageCoverInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
-    
+
         selectedCoverFile = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);
-    
+
         reader.onload = () => {
           coverPreview.src = reader.result;
         };
       });
     }
-  
+
     if (previewImages) {
       // Initialize selectedFiles for update form
       if (updateTourForm) {
@@ -1032,43 +1101,51 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (preview.src && !preview.src.includes('default.jpg')) {
             const response = await fetch(preview.src);
             const blob = await response.blob();
-            selectedFiles[index] = new File([blob], `tour-image-${index + 1}.jpg`, { type: 'image/jpeg' });
+            selectedFiles[index] = new File(
+              [blob],
+              `tour-image-${index + 1}.jpg`,
+              { type: 'image/jpeg' },
+            );
           }
         });
       }
-  
+
       previewImages.forEach((preview, index) => {
         preview.style.cursor = 'pointer';
         preview.title = 'Click to remove';
-        
+
         preview.addEventListener('click', () => {
-          preview.src = 'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
+          preview.src =
+            'https://dahee-natours-project.s3.amazonaws.com/tours/default.jpg';
           selectedFiles[index] = null;
-          
+
           const dt = new DataTransfer();
-          selectedFiles.forEach(file => {
+          selectedFiles.forEach((file) => {
             if (file) dt.items.add(file);
           });
           imagesInput.files = dt.files;
         });
       });
-  
+
       imagesInput.addEventListener('change', (e) => {
         const files = Array.from(e.target.files);
-        const availableSlot = selectedFiles.findIndex(file => file === null);
-        
+        const availableSlot = selectedFiles.findIndex((file) => file === null);
+
         if (availableSlot === -1) {
-          showAlert('error', 'Maximum 3 images allowed. Remove some images first.');
+          showAlert(
+            'error',
+            'Maximum 3 images allowed. Remove some images first.',
+          );
           return;
         }
-        
+
         files.forEach((file, i) => {
           if (i + availableSlot >= 3) return;
-          
+
           selectedFiles[i + availableSlot] = file;
           const reader = new FileReader();
           reader.readAsDataURL(file);
-          
+
           reader.onload = () => {
             previewImages[i + availableSlot].src = reader.result;
           };
@@ -1077,18 +1154,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  if(updateTourForm){
-
+  if (updateTourForm) {
     const imageCoverInput = document.getElementById('imageCover');
     const coverPreview = document.getElementById('coverPreview');
-  
-    if (coverPreview && coverPreview.src) { 
+
+    if (coverPreview && coverPreview.src) {
       imageCoverInput.removeAttribute('required');
     }
-    
   }
 
-  if (chart){
+  if (chart) {
     const { userId } = chart.dataset;
     drawChart(userId);
   }
@@ -1097,52 +1172,53 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (ratingInput) {
     const stars = ratingInput.querySelectorAll('.reviews__star');
     const ratingHiddenInput = document.getElementById('rating');
-
+    console.log(window.review);
     // Set initial rating if reviewing
     if (window.review) {
-        const initialRating = window.review.rating;
-        ratingHiddenInput.value = initialRating;
-        stars.forEach(s => {
-          if (s.dataset.rating <= initialRating) {
-              s.classList.remove('reviews__star--inactive');
-              s.classList.add('reviews__star--active');
-          }
+      const initialRating = window.review.rating;
+      ratingHiddenInput.value = initialRating;
+      stars.forEach((s) => {
+        if (s.dataset.rating <= initialRating) {
+          s.classList.remove('reviews__star--inactive');
+          s.classList.add('reviews__star--active');
+        }
       });
     }
 
-    stars.forEach(star => {
-        star.addEventListener('click', function(e) {
-            e.preventDefault();
-            const rating = this.dataset.rating;
-            ratingHiddenInput.value = rating;
+    stars.forEach((star) => {
+      star.addEventListener('click', function (e) {
+        console.log(e);
+        e.preventDefault();
+        const rating = this.dataset.rating;
+        ratingHiddenInput.value = rating;
 
-            // Update visual state
-            stars.forEach(s => {
-                if (s.dataset.rating <= rating) {
-                    s.classList.remove('reviews__star--inactive');
-                    s.classList.add('reviews__star--active');
-                } else {
-                    s.classList.remove('reviews__star--active');
-                    s.classList.add('reviews__star--inactive');
-                }
-            });
+        // Update visual state
+        stars.forEach((s) => {
+          if (s.dataset.rating <= rating) {
+            s.classList.remove('reviews__star--inactive');
+            s.classList.add('reviews__star--active');
+          } else {
+            s.classList.remove('reviews__star--active');
+            s.classList.add('reviews__star--inactive');
+          }
         });
+      });
 
-        // Add hover effect
-        star.addEventListener('mouseenter', function() {
-            const rating = this.dataset.rating;
-            stars.forEach(s => {
-                if (s.dataset.rating <= rating) {
-                    s.classList.add('reviews__star--hover');
-                }
-            });
+      // Add hover effect
+      star.addEventListener('mouseenter', function () {
+        const rating = this.dataset.rating;
+        stars.forEach((s) => {
+          if (s.dataset.rating <= rating) {
+            s.classList.add('reviews__star--hover');
+          }
         });
+      });
 
-        star.addEventListener('mouseleave', function() {
-            stars.forEach(s => {
-                s.classList.remove('reviews__star--hover');
-            });
+      star.addEventListener('mouseleave', function () {
+        stars.forEach((s) => {
+          s.classList.remove('reviews__star--hover');
         });
+      });
     });
   }
 });

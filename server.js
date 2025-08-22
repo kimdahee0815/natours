@@ -11,10 +11,10 @@ process.on('uncaughtException', (err) => {
 });
 const app = require('./app');
 
-//const DB = process.env.DB.replace('<PASSWORD>', process.env.DB_PW);
+const DB = process.env.DB.replace('<PASSWORD>', process.env.DB_PW);
 mongoose
-  .connect(process.env.DB_LOCAL, {
-    // .connect(DB, {
+  //   .connect(process.env.DB_LOCAL, {
+  .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
   })

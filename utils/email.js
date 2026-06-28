@@ -5,7 +5,7 @@ const pug = require('pug');
 const { htmlToText } = require('html-to-text');
 // new Email(user, url).sendWelcome();
 const path = require('path');
-const sgMail = require('@sendgrid/mail');
+// const sgMail = require('@sendgrid/mail');
 
 module.exports = class Email {
   constructor(user, url) {
@@ -52,20 +52,21 @@ module.exports = class Email {
       text: htmlToText(html),
     };
     // 3) Create a transport and send email
-    if (process.env.NODE_ENV === 'development') {
-      await this.newTransport().sendMail(mailOptions);
-    } else if (process.env.NODE_ENV === 'production') {
-      // Send email with SendGrid
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      sgMail
-        .send(mailOptions)
-        .then(() => {
-          console.log('Email sent');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    await this.newTransport().sendMail(mailOptions);
+    // } else if (process.env.NODE_ENV === 'production') {
+    // Send email with SendGrid
+    // Sendgrid is paid service nowㅠㅠ
+    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    // sgMail
+    //   .send(mailOptions)
+    //   .then(() => {
+    //     console.log('Email sent');
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+    // }
   }
 
   async sendWelcome() {

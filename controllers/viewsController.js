@@ -196,7 +196,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   //console.log(req.user.id);
   const bookings = await Booking.find({ user: req.user.id });
   if (bookings.length === 0) {
-    res.status(200).render('overview', {
+    return res.status(200).render('overview', {
       title: 'My Tours',
       tours: [],
     });

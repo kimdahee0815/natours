@@ -142,6 +142,8 @@ const cspOptions = {
       'https://dahee-natours-project.s3.amazonaws.com/',
       'https://dahee-natours-project.s3.us-east-1.amazonaws.com',
       'https://helpful-prawn-natours-dh-777b7d7d.koyeb.app/',
+      'https://unpkg.com',
+      'https://cdn.amcharts.com',
     ],
     'form-action': [
       "'self'",
